@@ -1,3 +1,9 @@
+## Ignore final document
+thesis.pdf
+
+## VS code files
+*.code-workspace
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
