@@ -26,6 +26,17 @@
 }
 \usepackage{bookmark}
 
+% theorems
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% title
 \title{
 {Thesis Title}\\
 {\includegraphics[trim=0 0 0 -20cm, width=0.3 \textwidth]{tuc_green.pdf}}
