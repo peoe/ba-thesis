@@ -2,13 +2,54 @@
 {
     "version": "2.0.0",
     "tasks": [
-          {
+        {
             "label": "Run pdflatex",
             "type": "shell",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
+            "command": "pdflatex",
+            "args": [
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "*.tex"
+            ],
+            "dependsOn": [
+                "pdflatex2"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "pdflatex2",
+            "type": "shell",
+            "group": "build",
+            "command": "pdflatex",
+            "args": [
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "*.tex"
+            ],
+            "dependsOn": [
+                "bibtex"
+            ]
+        },
+        {
+            "label": "bibtex",
+            "type": "shell",
+            "group": "build",
+            "command": "bibtex",
+            "args": [
+                "*.aux"
+            ],
+            "dependsOn": [
+                "pdflatex1"
+            ]
+        },
+        {
+            "label": "pdflatex1",
+            "type": "shell",
+            "group": "build",
             "command": "pdflatex",
             "args": [
                 "-interaction=nonstopmode",
@@ -28,7 +69,7 @@
                 "-terse",
                 "*.aux"
             ]
-        }      
+        }
     ],
     "presentation": {
         "reveal": "silent",
