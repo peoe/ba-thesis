@@ -2,7 +2,29 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \setlength{\marginparwidth}{2cm}
+
+% make the chapter headings look nice
+\usepackage{titlesec}
+\titleformat{\chapter}[hang] 
+{\normalfont\huge\bfseries}{\thechapter}{0.25em}{} 
+
+% inline todo
 \usepackage{todonotes}
+\newcommand{\todoinline}[1]{\todo[inline]{#1}}
+
+% pdf inclusion
+\usepackage{pdfpages}
+
+% proper pdf linking
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=red,
+	citecolor=green,    
+    urlcolor=blue,
+    pdftitle={Thesis}					%%% TODO: change this line after writing!
+}
+\usepackage{bookmark}
 
 \title{
 {Thesis Title}\\
@@ -12,10 +34,25 @@
 \date{2021}
 
 \begin{document}
+
+% bibstyle
+\bibliographystyle{alpha}
+
 \maketitle
 
+\pdfbookmark{\contentsname}{Contents}
 \tableofcontents
 
 \newpage
 \include{chapters/ch1.tex}
+\include{chapters/ch2.tex}
+\include{chapters/ch3.tex}
+
+\phantomsection{}
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{literature}
+
+%%% TODO: remove before final printing
+%\includepdf[pages=-]{declaration.pdf}
+
 \end{document}
