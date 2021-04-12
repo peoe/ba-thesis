@@ -15,6 +15,9 @@
 % pdf inclusion
 \usepackage{pdfpages}
 
+% nice indicator function
+\usepackage{bbm}
+
 % proper pdf linking
 \usepackage{hyperref}
 \hypersetup{
@@ -32,9 +35,19 @@
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+
+% easy math commands
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\NinN}{\ensuremath{n \in \N}}
+\newcommand{\X}{\ensuremath{\mathcal{X}}}
+\newcommand{\indic}[2][]{\ensuremath{\mathbbm{1}_{#2}#1}}
+\newcommand{\M}[1]{\ensuremath{\mathcal{M}(#1)}}
+\newcommand{\PM}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\TP}[2]{\ensuremath{\Pi(#1, #2)}}
+\newcommand{\push}[2][T]{\ensuremath{#1_\# #2}}
 
 % title
 \title{
