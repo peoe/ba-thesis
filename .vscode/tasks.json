@@ -13,7 +13,7 @@
             "args": [
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "*.tex"
+                "thesis.tex"
             ],
             "dependsOn": [
                 "pdflatex2"
@@ -28,7 +28,7 @@
             "args": [
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "*.tex"
+                "thesis.tex"
             ],
             "dependsOn": [
                 "bibtex"
@@ -40,7 +40,7 @@
             "group": "build",
             "command": "bibtex",
             "args": [
-                "*.aux"
+                "thesis.aux"
             ],
             "dependsOn": [
                 "pdflatex1"
@@ -54,7 +54,7 @@
             "args": [
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "*.tex"
+                "thesis.tex"
             ]
         },
         {
