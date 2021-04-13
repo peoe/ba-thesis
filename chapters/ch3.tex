@@ -9,7 +9,7 @@ For this purpose we consider a \textit{cost function} $c(x, y)$, which will give
 
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure} of our original measure. We will later see, that a more general approach to this transport is beneficial in solving for an optimal solution. For now however, we will constrain ourselves to the earlier approach.
 
-\begin{definition}[Push-Forward]
+\begin{definition}[Push-Forward]\label{PushForward}
 	Given a measure $\mu \in \M{X}$ and a measurable map $T: X \rightarrow Y$, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
 	\[ \push{\mu}(y) := \mu(T^{-1} (y)). \]
 \end{definition}
@@ -21,8 +21,32 @@ to hold. Formally, this means that all elements of the underlying $\sigma$-algeb
 
 Another useful step to take is to norm the overall mass. This can be acheived by considering only probability measures on $X$ and $Y$.
 
-We can now formulate the Monge Problem in terms of a cost function and the push-forward.
+We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern version of the provlem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
 
-\begin{definition}[Monge Problem]
-	Let $\mu \in \PM{X}, \nu \in \PM{Y}$, and $c: X \times Y \rightarrow \RZero$ be a cost function.
+\begin{definition}[Monge Problem]\label{MongeProb}
+	Let $\mu \in \PM{X}, \nu \in \PM{Y}$, and $c: X \times Y \rightarrow \RZero \cup \infty$ be a cost function. Then we define the \textbf{Monge Problem} as
+	\begin{equation}
+		\inf \left\{ \int\limits_X c(x, T(x))~d\mu(x) : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}.
+	\end{equation}
+	From here on, we will be using the abbreviation (MP) as the name of the Monge Problem, and $\inf \text{(MP)}$ will denote the attained infimum.
 \end{definition}
+
+\begin{definition}[Optimal Transport Map]\label{OTM}
+	A function $T~\in~\MF{X, Y}$ is called an \textbf{optimal transport map}, if it satisfies
+	\[ \int\limits_X c(x, T(x))~d \mu(x) = \inf \text{(MP)}. \]
+\end{definition}
+
+This problem in general is not easy to solve. For this, we can provide a few reasons:
+
+Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. This can be seen, as $\forall y \in Y: T^{-1}(y) = x_0$ is a requirement for $\push{\mu} = \nu$. In order for $\mu$ to be transported to $\nu$ the transport would require to perform \textit{mass splitting}, which the transport map $T$ does not permit.
+
+Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. For this we consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. As
+\[ \int_0^{2 \pi} \sin^2(nx)~dx = \frac{4 \pi n - \sin(4\pi n)}{4n} = \pi < \infty, \]
+we get ${(T_n)}_{\NinN} \in \ELL{2}[0, 2 \pi]$. Since for $1 = \frac{1}{p} + \frac{1}{q}$ we have $(\ELL{p})' = \ELL{q}$
+
+\todoinline{Continue example cf.~\cite{San2015} just after formula 1.1 or Ex. 1}
+
+Test citation:~\cite{Kan1942}
+Test citation:~\cite{Pey2019}
+
+\section{Kantorovich Relaxation}
