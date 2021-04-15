@@ -10,7 +10,7 @@ For this purpose we consider a \textit{cost function} $c(x, y)$, which will give
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure} of our original measure. We will later see, that a more general approach to this transport is beneficial in solving for an optimal solution. For now however, we will constrain ourselves to the earlier approach.
 
 \begin{definition}[Push-Forward]\label{PushForward}
-	Given a measure $\mu \in \M{X}$ and a measurable map $T: X \rightarrow Y$, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
+	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
 	\[ \push{\mu}(y) := \mu(T^{-1} (y)). \]
 \end{definition}
 
@@ -24,7 +24,7 @@ Another useful step to take is to norm the overall mass. This can be acheived by
 We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern version of the provlem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
 
 \begin{definition}[Monge Problem]\label{MongeProb}
-	Let $\mu \in \PM{X}, \nu \in \PM{Y}$, and $c: X \times Y \rightarrow \RZero \cup \infty$ be a cost function. Then we define the \textbf{Monge Problem} as
+	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and our target measure, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
 	\begin{equation}
 		\inf \left\{ \int\limits_X c(x, T(x))~d\mu(x) : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}.
 	\end{equation}
@@ -36,17 +36,34 @@ We can now formulate the Monge Problem in terms of a cost function and the push-
 	\[ \int\limits_X c(x, T(x))~d \mu(x) = \inf \text{(MP)}. \]
 \end{definition}
 
-This problem in general is not easy to solve. For this, we can provide a few reasons:
+This problem in general is not easy to solve. In order to point out the difiiculites we may face, we require the notions of the \textit{dual space}, \textit{weak convergence} and the \textit{support} of a function.
 
-Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. This can be seen, as $\forall y \in Y: T^{-1}(y) = x_0$ is a requirement for $\push{\mu} = \nu$. In order for $\mu$ to be transported to $\nu$ the transport would require to perform \textit{mass splitting}, which the transport map $T$ does not permit.
+\todoinline{References for Fischer-Riesz (\ref{Rie-Fis}), dual spaces (\ref{DuaSpa}) and weak convergence (\ref{WeakCon})}
+
+\begin{definition}[Dual Space]\label{DuaSpa}
+	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
+\end{definition}
+
+\begin{definition}[Weak Convergence]\label{WeakCon}
+	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
+	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
+	holds. In this case, we write \weak[]{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
+\end{definition}
+
+\todoinline{Support definition!}
+
+We can now consider the following two points to illustrate the hardships in dealing with (MP):
+
+Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. This can be seen, as $\forall y \in Y: T^{-1}(y) = x_0$ is a requirement for $\push{\mu} = \nu$. In order for $\mu$ to be transported to $\nu$ the transport would require to perform \textit{mass splitting}, which the transport map $T$ does not permit in its traditional definition.
 
 Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. For this we consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. As
 \[ \int_0^{2 \pi} \sin^2(nx)~dx = \frac{4 \pi n - \sin(4\pi n)}{4n} = \pi < \infty, \]
-we get ${(T_n)}_{\NinN} \in \ELL{2}[0, 2 \pi]$. Since for $1 = \frac{1}{p} + \frac{1}{q}$ we have $(\ELL{p})' = \ELL{q}$
+we get ${(T_n)}_{\NinN} \in \ELL{2}[0, 2 \pi]$. Combining $(\ELL{2}[0, 2 \pi])' = \ELL{2}[0, 2 \pi]$, $\forall p \in (1, \infty) : \ELL{p}[0, 2\pi] \subseteq \ELL{1}[0, 2\pi]$ and the Riesz-Fischer theorem~(\ref{Rie-Fis}) results in
+\[ \forall \varphi \in \ELL{2}[0, 2\pi]~\exists f \in \ELL{2}[0, 2\pi]: \varphi(T_n) = \inner{f}{T_n} = \int\limits_0^{2\pi} f(x) \sin(nx)~dx. \]
+We now employ the Riemann-Lebesgue theorem~(\ref{Rie-Leb}) to see that
+\[ \lim\limits_{\Ninf} \varphi(T_n) = \lim\limits_{\Ninf} \inner{f}{T_n} = \lim\limits_{\Ninf} \int\limits_0^{2\pi} f(x) \sin(nx)~dx = 0, \]
+i.e. $T_n$ converges weakly to $0$ as \Ninf.
 
-\todoinline{Continue example cf.~\cite{San2015} just after formula 1.1 or Ex. 1}
-
-Test citation:~\cite{Kan1942}
-Test citation:~\cite{Pey2019}
+With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := \sqrt{T^2}$ are almost surely $0$ with respect to the Lebesgue measure, as $\lim \inner{T_n}{T_n} = 0$ for \Ninf. Hence our target measure may only be discrete, as otherwise $\leb{\supp{T}} \neq 0 \Leftrightarrow T \neq 0~\lambda\text{-a.s.} \Leftrightarrow T^2 \neq 0~\lambda\text{-a.s.}$. As such, our starting measure may also only be discrete, which is a contradiction to the use of the Lebesgue measure in $\ELL{2}[0, 2\pi]$.
 
 \section{Kantorovich Relaxation}
