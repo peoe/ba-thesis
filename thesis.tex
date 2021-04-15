@@ -8,12 +8,12 @@
 \titleformat{\chapter}[hang] 
 {\normalfont\huge\bfseries}{\thechapter}{0.25em}{} 
 
+% pdf inclusion
+\usepackage{pdfpages}
+
 % inline todo
 \usepackage{todonotes}
 \newcommand{\todoinline}[1]{\todo[inline]{#1}}
-
-% pdf inclusion
-\usepackage{pdfpages}
 
 % nice indicator function and mathbb/mathfrak
 \usepackage{bbm}
@@ -21,6 +21,16 @@
 
 % text in math mode
 \usepackage{amsmath}
+
+% theorems
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 % proper pdf linking
 \usepackage{hyperref}
@@ -33,21 +43,13 @@
 }
 \usepackage{bookmark}
 
-% theorems
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{lemma}[theorem]{Lemma}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
 % easy math commands
 \newcommand{\N}{\ensuremath{\mathbb{N}}}
 \newcommand{\NinN}{\ensuremath{n \in \N}}
+\newcommand{\Ninf}[1][n]{\ensuremath{#1 \rightarrow \infty}}
 \newcommand{\X}{\ensuremath{\mathcal{X}}}
 \newcommand{\ELL}[1]{\ensuremath{\mathcal{L}^{#1}}}
+\newcommand{\K}{\ensuremath{\mathbb{K}}}
 \newcommand{\indic}[2][]{\ensuremath{\mathbbm{1}_{#2}#1}}
 \newcommand{\M}[1]{\ensuremath{\mathcal{M}(#1)}}
 \newcommand{\PM}[1]{\ensuremath{\mathcal{P}(#1)}}
@@ -55,6 +57,12 @@
 \newcommand{\push}[2][T]{\ensuremath{#1_\# #2}}
 \newcommand{\RZero}{\ensuremath{\mathbb{R}_{\ge 0}}}
 \newcommand{\MF}[2]{\ensuremath{\mathfrak{M}(#1, #2)}}
+\newcommand{\inner}[2]{\ensuremath{\langle #1, #2 \rangle}}
+\newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\map}[3][\varphi]{\ensuremath{#1:~#2\rightarrow#3}}
+\newcommand{\weak}[3][n \rightarrow{} \infty]{\ensuremath{#2 \underset{#1}{\rightharpoonup} #3}}
+\newcommand{\leb}[2][]{\ensuremath{\lambda^{#1}(#2)}}
+\newcommand{\supp}[1]{\ensuremath{\text{supp}(#1)}}
 
 % title
 \title{
@@ -78,6 +86,7 @@
 \include{chapters/ch1.tex}
 \include{chapters/ch2.tex}
 \include{chapters/ch3.tex}
+\include{chapters/appendix.tex}
 
 \phantomsection{}
 \addcontentsline{toc}{chapter}{Bibliography}
