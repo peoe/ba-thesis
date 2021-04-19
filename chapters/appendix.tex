@@ -3,15 +3,14 @@
 
 The following theorems and corollaries will not be explicitly proven. We will however provide direct sources which include proofs.
 
-\todoinline{Find a reference! Possibly the same one as \ref{DuaSpa} and \ref{WeakCon}}
-\begin{theorem}[Riesz-Fischer; cf. ]\label{Rie-Fis}
+\begin{theorem}[Riesz-Fr\'{e}chet; adapted from~\cite{Ryn2008}, Theorem 5.2]\label{Rie-Fre}
 	Let $(H, \inner{\cdot}{\cdot})$ be a Hilbert space. Then
 	\[ \forall \varphi \in H'~\exists x \in H: \varphi(x) = \inner{\varphi}{x}. \]
 \end{theorem}
 
 \begin{corollary}
 	In particular for $H = \ELL{2}[a, b], \inner{f}{g} := \int\limits_a^b f(x) \conj{g(x)}~dx$ and $H' = \ELL{2}[a,b]$, with $-\infty < a < b < \infty$, we obtain
-	\[ \forall f \in \ELL{2}[a,b]~\exists g \in \ELL{2}[a,b]: f(g) = \inner{f}{g} = \int\limits_a^b f(x) \conj{g(x)}~dx \]
+	\[ \forall f \in \ELL{2}[a,b]~\exists g \in \ELL{2}[a,b]: f(g) = \inner{f}{g} = \int\limits_a^b f(x) \conj{g(x)}~dx. \]
 \end{corollary}
 
 \begin{theorem}[Riemann-Lebesgue; adapted from~\cite{Plo2018}, Lemma 1.27]\label{Rie-Leb}

@@ -1,32 +1,34 @@
-\chapter{Optimal Transport}
+\chapter{Optimal Transport}\label{OT}
 
 This section will be dealing with the problem of optimal transport and some results regarding the existence and uniqueness of such transports. There are two important paradigms in the theory of optimal transport. The original formulation is the so called Monge Problem. It was later relaxed by Kantorovich to a more general problem which is easier to handle.
 
-\section{The Monge Problem}
+This introductory part will follow~\cite{San2015} Chapter 1 closely in content as well as notation.
+
+\section{The Monge Problem}\label{TheMonProb}
 To motivate the formulation of the Monge problem, we consider a mass modelled by a measure on $X$ to be moved to another mass, again modelled by a measure but on $Y$. One might for example imagine a pile of sand or a certain amount of particles being moved from one location to a different one. This transport will incur costs and the goal of optimal transport is to find a ``way of transporting'' the mass to its target whilst accumulating the smallest cost possible, while making sure that no mass is lost.
 
-For this purpose we consider a \textit{cost function} $c(x, y)$, which will give us the cost of moving a particle from position $x$ to position $y$. Ideally this cost function will be continuous or semi-continuous.
+For this purpose we consider a non-negative \textit{cost function} $c(x, y)$, which will give us the cost of moving a particle from position $x$ to position $y$. Ideally this cost function will be continuous or semi-continuous, though later on we will see that with more constraints we can obtain optimality and uniqueness in a simpler fashion.
 
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure} of our original measure. We will later see, that a more general approach to this transport is beneficial in solving for an optimal solution. For now however, we will constrain ourselves to the earlier approach.
 
 \begin{definition}[Push-Forward]\label{PushForward}
 	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
-	\[ \push{\mu}(y) := \mu(T^{-1} (y)). \]
+	\[ (\push{\mu})(y) := \mu(T^{-1} (y)). \]
 \end{definition}
 
 A very useful consequence of the push-forward is, that we can use it to state the conservation of mass throughout the transport. Imagine we have a starting measure $\mu$ on $X$ and a target measure $\nu$ on $Y$. In order to not lose any mass, it is necessary for
 \[ \push{\mu} = \nu \]
 to hold. Formally, this means that all elements of the underlying $\sigma$-algebra $\mathcal{Y}$ on $Y$ coincide under the measures $\nu$ and \push{\mu}, i.e.
-\[ \forall A \in \mathcal{Y}: \push{\mu}(A) = \nu(A).\]
+\[ \forall A \in \mathcal{Y}: (\push{\mu})(A) = \nu(A).\]
 
 Another useful step to take is to norm the overall mass. This can be acheived by considering only probability measures on $X$ and $Y$.
 
-We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern version of the provlem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
+We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern formulation of the problem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
 
 \begin{definition}[Monge Problem]\label{MongeProb}
-	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and our target measure, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
-	\begin{equation}
-		\inf \left\{ \int\limits_X c(x, T(x))~d\mu(x) : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}.
+	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and target measures, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
+	\begin{equation}\label{MP}
+		\inf \left\{ M(T) := \int\limits_X c(x, T(x))~d\mu(x) : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}.
 	\end{equation}
 	From here on, we will be using the abbreviation (MP) as the name of the Monge Problem, and $\inf \text{(MP)}$ will denote the attained infimum.
 \end{definition}
@@ -38,32 +40,94 @@ We can now formulate the Monge Problem in terms of a cost function and the push-
 
 This problem in general is not easy to solve. In order to point out the difiiculites we may face, we require the notions of the \textit{dual space}, \textit{weak convergence} and the \textit{support} of a function.
 
-\todoinline{References for Fischer-Riesz (\ref{Rie-Fis}), dual spaces (\ref{DuaSpa}) and weak convergence (\ref{WeakCon})}
-
-\begin{definition}[Dual Space]\label{DuaSpa}
+\begin{definition}[Dual Space, cf.~\cite{Ryn2008} Definition 4.28]\label{DuaSpa}
 	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
 \end{definition}
 
-\begin{definition}[Weak Convergence]\label{WeakCon}
+\begin{definition}[Weak Convergence for Dual Spaces, cf.~\cite{Ryn2008} Definition 5.68]\label{WeakCon}
 	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
 	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
 	holds. In this case, we write \weak[]{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
 \end{definition}
 
-\todoinline{Support definition!}
+\begin{definition}[Support, cf.~\cite{San2015} Definition 1.14]\label{Supp}
+	Let $\mu \in \M{X}$ be a measure on a separable metric space $X$. We define the \textbf{support} of $\mu$ as
+	\[ \supp{\mu} := \bigcap \{ A \subseteq X : A \text{ closed and } \mu(X \setminus A) = 0 \}. \]
+\end{definition}
 
 We can now consider the following two points to illustrate the hardships in dealing with (MP):
 
-Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. This can be seen, as $\forall y \in Y: T^{-1}(y) = x_0$ is a requirement for $\push{\mu} = \nu$. In order for $\mu$ to be transported to $\nu$ the transport would require to perform \textit{mass splitting}, which the transport map $T$ does not permit in its traditional definition.
+Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. In order for $T$ to be a transport map in the formulation notation no \textit{mass splitting} mass splitting must occur. With a semidiscrete transport problem, this is simply not possible.
+\todoinline{Add notes on why mass splitting must occur?}
 
 Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. For this we consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. As
 \[ \int_0^{2 \pi} \sin^2(nx)~dx = \frac{4 \pi n - \sin(4\pi n)}{4n} = \pi < \infty, \]
-we get ${(T_n)}_{\NinN} \in \ELL{2}[0, 2 \pi]$. Combining $(\ELL{2}[0, 2 \pi])' = \ELL{2}[0, 2 \pi]$, $\forall p \in (1, \infty) : \ELL{p}[0, 2\pi] \subseteq \ELL{1}[0, 2\pi]$ and the Riesz-Fischer theorem~(\ref{Rie-Fis}) results in
+we get ${(T_n)}_{\NinN} \in \ELL{2}[0, 2 \pi]$. Combining $(\ELL{2}[0, 2 \pi])' = \ELL{2}[0, 2 \pi]$, $\forall p \in (1, \infty) : \ELL{p}[0, 2\pi] \subseteq \ELL{1}[0, 2\pi]$ and the Riesz-Fr\'{e}chet theorem~(\ref{Rie-Fre}) results in
 \[ \forall \varphi \in \ELL{2}[0, 2\pi]~\exists f \in \ELL{2}[0, 2\pi]: \varphi(T_n) = \inner{f}{T_n} = \int\limits_0^{2\pi} f(x) \sin(nx)~dx. \]
 We now employ the Riemann-Lebesgue theorem~(\ref{Rie-Leb}) to see that
 \[ \lim\limits_{\Ninf} \varphi(T_n) = \lim\limits_{\Ninf} \inner{f}{T_n} = \lim\limits_{\Ninf} \int\limits_0^{2\pi} f(x) \sin(nx)~dx = 0, \]
 i.e. $T_n$ converges weakly to $0$ as \Ninf.
 
-With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := \sqrt{T^2}$ are almost surely $0$ with respect to the Lebesgue measure, as $\lim \inner{T_n}{T_n} = 0$ for \Ninf. Hence our target measure may only be discrete, as otherwise $\leb{\supp{T}} \neq 0 \Leftrightarrow T \neq 0~\lambda\text{-a.s.} \Leftrightarrow T^2 \neq 0~\lambda\text{-a.s.}$. As such, our starting measure may also only be discrete, which is a contradiction to the use of the Lebesgue measure in $\ELL{2}[0, 2\pi]$.
+With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := \sqrt{T^2}$ are almost surely $0$ with respect to the Lebesgue measure, as $\lim \inner{T_n}{T_n} = 0$ for \Ninf. Hence our target measure may only be discrete, as otherwise $\leb{\supp{T}} \neq 0 \Leftrightarrow T \neq 0~\lambda\text{-a.s.} \Leftrightarrow T^2 \neq 0~\lambda\text{-a.s.}$. As such, our starting measure may also only be discrete, which is a contradiction to the use of the underlying Lebesgue measure in $\ELL{2}[0, 2\pi]$.
 
-\section{Kantorovich Relaxation}
+Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
+
+\begin{definition}[Atoms, adapted from~\cite{Bog2007} Definition 1.12.7]\label{Atoms}
+	Let $\mu \in \M{X}$ be a measure and \X be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
+	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
+	If $\mu$ has no atoms, we call it \textbf{atomless}.
+\end{definition}
+
+\begin{lemma}[Adapted from~\cite{San2015} Lemma 1.27]\label{1DTransMapExist}
+	Let $\mu, \nu \in \PM{\R}$ be two measures with $\mu$ being atomless. Then, there exists a transport map \map[T]{\R}{\R} such that $\push{\mu} = \nu$.
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!~\cite{San2015} only gives a very short remark\dots}
+\end{proof}
+
+\begin{lemma}[Adapted from~\cite{San2015} Lemma 1.28]\label{BorelExist}
+	There exists an injective Borel-measurable map \map[\sigma_d]{\R^d}{\R} with its image $\text{im}(\sigma_d)$ being a Borel-subset of $\R$ and its inverse map being Borel-measurable as well.
+\end{lemma}
+
+\begin{proof}
+	Cf.~the proof of Lemma 1.28 in~\cite{San2015}.
+\end{proof}
+
+\begin{corollary}[Adapted from~\cite{San2015} Corollary 1.29]\label{NDTransMapExist}
+	Let $\mu, \nu \in \PM{\R^d}$ be two measures with $\mu$ being atomless. Then there exists at least a transport map \map[T]{\R^d}{\R^d} such that $\push{\mu} = \nu$.
+\end{corollary}
+
+\begin{proof}
+	Using $\sigma_d$ from Lemma~\ref{BorelExist} we obtain the measures \push[(\sigma_d)]{\mu} and \push[(\sigma_d)]{\nu} on \R. By Lemma~\ref{1DTransMapExist} there now exists a transport map \map[\tilde{T}]{\R}{\R} which satisfies $\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})} = \push[(\sigma_d)]{\nu}$. Applying the push-forward with the inverse $\sigma_d^{-1}$ we finally obtain
+	\[ \push{\mu} := \push[\sigma_d^{-1}]{(\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})})} = \push[\sigma_d^{-1}]{(\push[(\sigma_d)]{\nu})} = \nu. \]
+\end{proof}
+
+\section{Kantorovich Relaxation}\label{KantRelax}
+In~\cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of restricting the two measures via the push-forward, Kantorovich used so called \textit{transport plans} where the original measures appeared as marginal distributions. This, as~\cite{San2015} puts it,  allowed for a description ofhow many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
+
+\begin{definition}[Transport Plans]\label{TransPlans}
+	Given two measures $\mu \in \PM{X}, \nu \in \PM{Y}$ we define the set of all \textbf{transport plans} from $\mu$ to $\nu$ as
+	\[ \TP{\mu}{\nu} := \big\{ \gamma \in \PM{X \times Y} : \push[(\pi_X)]{\gamma} = \mu, \push[(\pi_Y)]{\gamma} = \nu \big\}, \]
+	where $\pi_X$ and $\pi_Y$ are the canonical projections onto $X$ and $Y$, i.e.
+	\[ \pi_X(x, y) := x, \text{ and } \pi_Y(x, y) := y. \]
+\end{definition}
+
+Using this terminology we may now describe the relaxed Kantorovich Problem.
+
+\begin{definition}[Kantorovich Problem]\label{KanProb}
+	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be two measures and $\map[c]{X \times Y}{\RZero \cup \{\infty\}}$ be a cost function. Then we define the \textbf{Kantorovich Problem} as
+	\begin{equation}\label{KP}
+		\inf \left\{ K(\gamma) := \int\limits_{X \times Y} c(x, y)~d\gamma(x, y) : \gamma \in \TP{\mu}{\nu} \right\}.
+	\end{equation}
+	In analogy to Definition~\ref{OTM} we will be using the abbreviation (KP) to describe the problem itself and denominate the attained infimum as $\inf \text{(KP)}$. We shall further define \textbf{optimal transport plans} as those transport plans $\gamma \in \TP{\mu}{\nu}$ which satisfy
+	\[ \int\limits_{X \times Y} c(x, y)~d\gamma(x, y) = \inf \text{(KP)}. \]
+\end{definition}
+
+One direct benefit of this formulation is, that we are no longer necessarily bound by the disallowed splitting of mass of (MP). We can however recover the (MP) formulation via (KP) if $\gamma = \push[(id, T)]{\mu}$ for $T \in \MF{X}{Y}$ is an optimal transport plan, in which case $T$ would once again be called an optimal transport map.
+\todoinline{Possibly fletch out why this works?}
+
+If given two measures $\mu \in \M{X}, \nu \in \M{Y}$ with $\push{\mu} = \nu$ and a transport map $T \in \MF{X}{Y}$, we can always induce a transport plan from $T$ by defining
+\[ \gamma_T := \push[(id, T)]{\mu}. \]
+
+\todoinline{\cite{San2015} Theorem 1.32 and~\cite{Bog2007} Def. 8.1.1}
