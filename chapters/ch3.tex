@@ -25,6 +25,7 @@ Another useful step to take is to norm the overall mass. This can be acheived by
 
 We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern formulation of the problem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
 
+\todoinline{Should $c$ be restricted to measurable/continuous for clarity?}
 \begin{definition}[Monge Problem]\label{MongeProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and target measures, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
 	\begin{equation}\label{MP}
@@ -73,7 +74,7 @@ With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := 
 Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
 
 \begin{definition}[Atoms, adapted from~\cite{Bog2007} Definition 1.12.7]\label{Atoms}
-	Let $\mu \in \M{X}$ be a measure and \X be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
+	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
 	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
 	If $\mu$ has no atoms, we call it \textbf{atomless}.
 \end{definition}
@@ -83,7 +84,7 @@ Despite these problems of the Monge formulation, we can still provide a couple o
 \end{lemma}
 
 \begin{proof}
-	\todoinline{TODO!~\cite{San2015} only gives a very short remark\dots}
+	\todoinline{TODO:~\cite{San2015} only gives a very short remark\dots}
 \end{proof}
 
 \begin{lemma}[Adapted from~\cite{San2015} Lemma 1.28]\label{BorelExist}
@@ -128,6 +129,51 @@ One direct benefit of this formulation is, that we are no longer necessarily bou
 \todoinline{Possibly fletch out why this works?}
 
 If given two measures $\mu \in \M{X}, \nu \in \M{Y}$ with $\push{\mu} = \nu$ and a transport map $T \in \MF{X}{Y}$, we can always induce a transport plan from $T$ by defining
-\[ \gamma_T := \push[(id, T)]{\mu}. \]
+\begin{equation}\label{IndPlan}
+	\gamma_T := \push[(id, T)]{\mu}.
+\end{equation}
+We are now interested if this already results in a statement which puts (KP) and (MP) in relation. First we define
+\[ J(\gamma) := 
+	\begin{cases}
+		K(\gamma) = M(T), \gamma = \gamma_T \\
+		\infty, \text{ otherwise}
+	\end{cases}. \]
+$J$ immediately allows us to consider both (MP) and (KP) on the same set of admissible objects, that is all transport plans induced by a transport map. As Kantorovich replaced $J$ with $K$ (see Definition~\ref{KanProb}) the question to be asked transforms into: does $\inf K = \inf J$ hold?
 
-\todoinline{\cite{San2015} Theorem 1.32 and~\cite{Bog2007} Def. 8.1.1}
+To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu, \nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
+
+\begin{definition}[Weak Convergence for Measures, cf.~\cite{Bog2007}, Definition 8.1.1]\label{WeakConMeas}
+	Let $X$ be a measurable space and ${(\mu_n)}_\NinN$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \MF{X}{\R}$ 
+	\[ \lim\limits_\NinN \int\limits_X f(x)~d\mu_n(x) = \int\limits_X f(x)~d\mu(x) \]
+	holds. In this case we will write \weak{\mu_n}{\mu} in analogy to Definition~\ref{WeakCon}.
+\end{definition}
+
+\begin{lemma}[Taken from~\cite{San2015}, Lemma 1.31]\label{CompWeakConv}
+	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that $\bigcup\limits_{i \in I_n} C_{i, n} = X$ for every \NinN. Suppose that $\text{size}(G_n) := \max\limits_{i \in I_n} \text{diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho}.
+	\todoinline{TODO:~Diameter definition!}
+\end{lemma}
+
+\begin{proof}
+	Cf.~the proof of Lemma 1.31 in~\cite{San2015}.
+\end{proof}
+
+\begin{theorem}[Set of Plans Induced by Maps is Dense, taken from~\cite{San2015}, Theorem 1.32]\label{IndPlansDense}
+	Let $\Omega \subset \R^d$ be a compact subset, and $\mu, \nu \in \PM{\Omega}$ be two measures. If $\mu$ is atomless, then the set of all transport plans $\gamma_T$ induced by a transport map $T$ as defined in~\ref{IndPlan} is dense in the set of all plans \TP{\mu}{\nu}.
+\end{theorem}
+
+\begin{proof}
+	Cf.~the proof of Theorem 1.32 in~\cite{San2015}.
+\end{proof}
+
+With the density of the induced transport plans shown, we can now conclude that the two innfima of $J$ and $K$ do coincide:
+
+\begin{theorem}[Infima of J and K are the Same, adapted from~\cite{San2015}, Theorem~1.33]\label{InfCoincide}
+	Let $\Omega \subset \R^d$ be a compact subset, $\mu, \nu \in \PM{\Omega}$ be two measures on $\Omega$ with $\mu$ being atomless, and $\map[c]{\Omega \times \Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function.
+\end{theorem}
+
+\begin{proof}
+	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.33 and the Memo on relaxations Box~1.10. \\
+	\todoinline{TODO:~Combine relaxation definition (\cite{San2015}, Memo 1.10) and proof of theorem.}
+\end{proof}
+
+\todoinline{TODO:~Dual problem and existence of optimal solutions}
