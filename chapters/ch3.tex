@@ -73,7 +73,7 @@ With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := 
 
 Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
 
-\begin{definition}[Atoms, adapted from~\cite{Bog2007} Definition 1.12.7]\label{Atoms}
+\begin{definition}[Atoms, adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
 	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
 	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
 	If $\mu$ has no atoms, we call it \textbf{atomless}.
@@ -142,7 +142,7 @@ $J$ immediately allows us to consider both (MP) and (KP) on the same set of admi
 
 To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu, \nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
 
-\begin{definition}[Weak Convergence for Measures, cf.~\cite{Bog2007}, Definition 8.1.1]\label{WeakConMeas}
+\begin{definition}[Weak Convergence for Measures, cf.~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_\NinN$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \MF{X}{\R}$ 
 	\[ \lim\limits_\NinN \int\limits_X f(x)~d\mu_n(x) = \int\limits_X f(x)~d\mu(x) \]
 	holds. In this case we will write \weak{\mu_n}{\mu} in analogy to Definition~\ref{WeakCon}.
@@ -176,4 +176,4 @@ With the density of the induced transport plans shown, we can now conclude that 
 	\todoinline{TODO:~Combine relaxation definition (\cite{San2015}, Memo 1.10) and proof of theorem.}
 \end{proof}
 
-\todoinline{TODO:~Dual problem and existence of optimal solutions}
+\todoinline{TODO:~Dual problem and existence of optimal solutions --- though this may be optional if the focus is on mapping estimation}
