@@ -2,6 +2,24 @@
 
 \section{The Kantorovich Dual}\label{KanDual}
 
+\todoinline{duals, regularization and convergence}
+
+As~\cite{San2015} points out at the beginning of Section~1.2, the problem (KP) is a linear problem with convex constraints. As such, we are going to investigate the \textit{dual problem} to attain further results. One of these results will be regarding \textit{regularized optimal transport}.
+\todoinline{why linear? why convex?}
+
+\todoinline{TODO:~Rewrite section intro when seciton is done}
+
+We will be expressing the dual problem of (KP) in terms of continuous bounded functions. For this it is useful to restate the constraint $\gamma \in \TP{\mu}{\nu}$ in a different manner. Firstly, we notice that for a general positive measure $\gamma \in \M[+]{X \times Y}$ the equation
+\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_X \varphi(x)~d\mu(x) + \int\limits_Y \psi(y)~d\nu(y) - \int\limits_{X \times Y} \varphi(x) + \psi(y)~d\gamma(x, y) \]
+is $0$, if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP), as if it is fulfilled, nothing will be changed, and if $\gamma$ is not a transport plan, (KP) will stay infeasible. Secondly, we want to restate the infimum in $\gamma$ as a constraint on $\varphi$ and $\psi$. For ease of notation, we will be using the notation $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. We get
+\[ \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~d\gamma = 
+\begin{cases}
+	0, & \varphi \oplus \psi \le c \text{ on } X \times Y \\
+	- \infty, & \text{else}
+\end{cases}. \]
+
+\todoinline{TODO:~Continue with dual (\cite{San2015}, Problem~1.9)}
+
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
-\todoinline{TODO:~Dual problem and existence of optimal solutions --- though this may be optional if the focus is on mapping estimation}
+\todoinline{TODO:~Stochastic estimation}
