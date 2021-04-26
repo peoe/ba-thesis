@@ -149,8 +149,10 @@ To answer this question, we will be giving results which show that the set of pl
 \end{definition}
 
 \begin{lemma}[Taken from~\cite{San2015}, Lemma 1.31]\label{CompWeakConv}
-	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that $\bigcup\limits_{i \in I_n} C_{i, n} = X$ for every \NinN. Suppose that $\text{size}(G_n) := \max\limits_{i \in I_n} \text{diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho}.
-	\todoinline{TODO:~Diameter definition!}
+	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that \[ \bigcup\limits_{i \in I_n} C_{i, n} = X \] for every \NinN. Suppose that $\max\limits_{i \in I_n} \text{\normalfont\ diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho}.
+	
+	Here, the diameter of a set $A \subseteq X$ is to be understood as
+	\[ \text{\normalfont\ diam}(A) := \sup \{ d(x, y) : x, y \in A \}. \]
 \end{lemma}
 
 \begin{proof}
@@ -165,15 +167,29 @@ To answer this question, we will be giving results which show that the set of pl
 	Cf.~the proof of Theorem 1.32 in~\cite{San2015}.
 \end{proof}
 
-With the density of the induced transport plans shown, we can now conclude that the two innfima of $J$ and $K$ do coincide:
+With the density of the induced transport plans shown, we can now conclude that the two infima of $J$ and $K$ do coincide:
+
+\begin{definition}[Lower Semi-Continuous Functions, adapted from~\cite{Kes2009}, Definition~5.1.2]\label{lsc}
+	Let $X$ be an arbitrary topological space. Then a function \map[f]{X}{\R} is called \textbf{lower semi-continuous} (l.s.c.), if the set
+	\[ \{ x \in X : f(x) \le \alpha \} \]
+	is closed in $X$ for all $\alpha \in \R$. In particular, every continuous function \map[f]{X}{\R} is also l.s.c.
+\end{definition}
 
 \begin{theorem}[Infima of J and K are the Same, adapted from~\cite{San2015}, Theorem~1.33]\label{InfCoincide}
-	Let $\Omega \subset \R^d$ be a compact subset, $\mu, \nu \in \PM{\Omega}$ be two measures on $\Omega$ with $\mu$ being atomless, and $\map[c]{\Omega \times \Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function.
+	Let $\Omega \subset \R^d$ be a compact subset, $\mu, \nu \in \PM{\Omega}$ be two measures on $\Omega$ with $\mu$ being atomless, and $\map[c]{\Omega \times \Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function. Then $\inf J = \inf K$ holds, with the infimum being taken over \TP{\mu}{\nu}.
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.33 and the Memo on relaxations Box~1.10. \\
-	\todoinline{TODO:~Combine relaxation definition (\cite{San2015}, Memo 1.10) and proof of theorem.}
+	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.33 and Memo on relaxations Box~1.10.
+
+	We consider the relaxation $\overline{J}$ of $J$ defined by
+	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma) : \weak{\gamma_n}{\gamma} \right\}. \]
+	\todoinline{Is weak convergence correct or should it be strong conv?}
+	Since $J \ge \overline{J}$ per definition implies $\inf J \ge \inf \overline{J}$ and as $J \ge \inf J$, with $\inf J$ being constant and thus l.s.c., results in $\overline{J} \ge \inf J$, we get that $\inf J = \inf \overline{J}$. As $K$ is also l.s.c.\ with $K \le J$ we obtain $\inf K \le \inf J$.
+
+	To show $\inf K = J$ we need to find for every transport plan $\gamma$ a sequence of transport maps ${(T_n)}_{\NinN}, T_n \in \MF{\R^d}{\R^d}$ with $\push[(T_n)]{\mu} = \nu$, such that $\gamma_{T_n} \rightharpoonup \gamma$ and $J(\gamma_{T_n}) \rightarrow K(\gamma)$ for \Ninf. Actually, as $K$ is continuous and for $\gamma = \gamma_{T_n}$ it holds that $K(\gamma) = J(\gamma)$, it is already sufficient for a sequence ${(T_n)}_{\NinN}$ to exist with \weak{\gamma_{T_n}}{\gamma}.
+
+	Such a sequence exists, as the set of transport plans induced by a transport map is dense in \TP{\mu}{\nu} by Theorem~\ref{NDTransMapExist}. With this minimizing sequence we finally have $\inf K = \inf \overline{J} = \inf J$.
 \end{proof}
 
 \todoinline{TODO:~Dual problem and existence of optimal solutions --- though this may be optional if the focus is on mapping estimation}
