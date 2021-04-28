@@ -11,14 +11,25 @@ As~\cite{San2015} points out at the beginning of Section~1.2, the problem (KP) i
 
 We will be expressing the dual problem of (KP) in terms of continuous bounded functions. For this it is useful to restate the constraint $\gamma \in \TP{\mu}{\nu}$ in a different manner. Firstly, we notice that for a general positive measure $\gamma \in \M[+]{X \times Y}$ the equation
 \[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_X \varphi(x)~d\mu(x) + \int\limits_Y \psi(y)~d\nu(y) - \int\limits_{X \times Y} \varphi(x) + \psi(y)~d\gamma(x, y) \]
-is $0$, if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP), as if it is fulfilled, nothing will be changed, and if $\gamma$ is not a transport plan, (KP) will stay infeasible. Secondly, we want to restate the infimum in $\gamma$ as a constraint on $\varphi$ and $\psi$. For ease of notation, we will be using the notation $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. We get
+is $0$, if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP): if the constraint is fulfilled, nothing will be changed, and if $\gamma$ is not a transport plan, (KP) will stay infeasible. For ease of notation, we will be using the notation $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. Exchanging the $\inf$ and the $\sup$ in the modified (KP), we obtain
+\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi~d\mu + \int\limits_{Y} \psi~d\nu + \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~d\gamma \]
+Secondly, we want to restate the above infimum in $\gamma$ as a constraint on $\varphi$ and $\psi$. We get
 \[ \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~d\gamma = 
 \begin{cases}
 	0, & \varphi \oplus \psi \le c \text{ on } X \times Y \\
 	- \infty, & \text{else}
 \end{cases}. \]
+This equation holds, as~\cite{San2015} points out, since if $\varphi \oplus \psi > c$ somewhere in $X \times Y$, we can choose measure $\gamma$ supported on that region with masses tending to $\infty$. 
 
-\todoinline{TODO:~Continue with dual (\cite{San2015}, Problem~1.9)}
+We can now formulate the dual problem to the Kantorovich Problem:
+
+\begin{definition}[Kantorovich Dual Problem]\label{DualProb}
+	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our usual measures and $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ be a cost function. Then we define the \textbf{Kantorovich Dual Problem} as
+	\begin{equation}\label{DPEq}
+		\sup \left\{ \int\limits_{X} \varphi~d\mu + \int\limits_{Y} \psi~d\nu : \varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c \right\}.
+	\end{equation}
+	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\inf \text{(DP)}$ to denominate its infimum.
+\end{definition}
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
