@@ -17,3 +17,9 @@ The following theorems and corollaries will not be explicitly proven. We will ho
 	Let $f \in \ELL{1}[a,b]$ with $-\infty < a < b < \infty$. Then we have
 	\[ \lim\limits_{\Ninf[k]} \int\limits_a^b f(x)\sin(xk)~dx = 0. \]
 \end{theorem}
+
+\begin{theorem}[Arzela-Ascoli; adapted from~\cite{San2015}, Box 1.7]\label{Arz-Asc}
+	Let $X$ be a compact metric space and \map[f_n]{X}{\R} be equicontinuous and equibounded for all \NinN. Equicontinuous meaning that for every $\epsilon > 0$, there exists a common $\delta > 0$ such that $|f_n(x) - f_n(y)| < \epsilon$ for all pairs $x, y \in X$ with $d(x, y) < \delta$ and for all \NinN. Equibounded referring to the property that there is a common constant $C$ with $|f_n(x)| \le C$ for all $x \in X$ and all \NinN.
+
+	Then the sequence ${(f_n)}_{\NinN}$ admits a subsequence ${(f_{n_k})}_{\NinN[k]}$ which uniformly converges to a continuous function \map[f]{X}{\R}.
+\end{theorem}
