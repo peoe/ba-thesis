@@ -29,10 +29,23 @@ We can now formulate the dual problem to the Kantorovich Problem:
 	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\inf \text{(DP)}$ to denominate its infimum.
 \end{definition}
 
-\todoinline{TODO:~State, why this is useful and motivate stochastic approaches and regularization}
+With the formulation of (DP) and the previous characterization of the constraint $\gamma \in \TP{\mu}{\nu}$ we can now reach a direct result for the relationship between the primal and the dual poblems. For all admissible $\gamma \in \TP{\mu}{\nu}$ (i.e.~the constraint from (KP)) and $\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}$ with $\varphi \oplus \psi \le c$ (i.e.~the constraint from (DP)) we have
+\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi(x)~\Dx{\mu} + \int\limits_{Y} \psi(y)~\Dx[y]{\nu}  \]
+\[ = \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X \times Y} (\varphi \oplus \psi)(x, y)~\Dx[x, y]{\gamma} \le \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma}. \]
+As the left hand side of this equality is just a constant, we can further consider the infimum over all $\gamma \in \TP{\mu}{\nu}$ and thus obtain $\sup \text{(DP)} \le \inf \text{(KP)}$.
 
-\todoinline{TODO:~Go to~\cite{Seg2018} from here, starting from Section~3.1, OT dual}
+So far, we do not know if the $\sup$ of the left hand side does exist. To handle this problem, we will be further transforming (DP) using so called \textit{$c$-transforms}, or \textit{$c$-conjugate functions}. With these transformations it will then be possible to formulate (DP) as a optimization problem over just one variable.
+
+\begin{definition}[$c$-Transform, $\bar{c}$-Transform, $c$-Concavity, $\bar{c}$-Concavity; taken from~\cite{San2015}, Definition 1.10]\label{cTrafo}
+	Given two functions \map[\chi]{X}{\Rbar} and \map[\zeta]{Y}{\Rbar}, as well as $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ a cost function, we define the \textbf{$\text{\textbf{\textit{c}}}$-transform} of $\chi$ by
+	\[ \map[\chi^c]{Y}{\Rbar},~y \mapsto \inf\limits_{x \in X} c(x, y) - \chi(x) \]
+	and the \textbf{$\bar{\text{\textbf{\textit{c}}}}$-transform} of $\zeta$ by
+	\[ \map[\zeta^{\bar{c}}]{X}{\Rbar},~x \mapsto \inf\limits_{y \in Y} c(x, y) - \zeta(y). \]
+	We further define the notion for a function \map[\psi]{Y}{\Rbar} to be \textbf{$\bar{\text{\textbf{\textit{c}}}}$-concave} if there exists a function \map[\chi]{Y}{\Rbar}, such that $\psi = \chi^c$. The set of all $\bar{c}$-concave functions over $Y$ will be denoted by \CBConc{Y}. Analogously, a function \map[\varphi]{X}{\Rbar} is said to be \textbf{$\text{\textbf{\textit{c}}}$-concave} if there exists a function \map[\zeta]{X}{\Rbar}, such that $\varphi = \zeta^{\bar{c}}$, and the set of all such $c$-concave functions over $X$ will accordingly be described by \CConc{X}.
+\end{definition}
+
+\todoinline{TODO:~Go via~\cite{San2015} towards convergence of optimal plans --- though possibly a shorter version.~\cite{San2015}, Theorem 1.39 $\rightarrow$ relax to Theorem 1.42 $\rightarrow$ motivate~\cite{Seg2018}, Theorem 1}
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
-\todoinline{TODO:~Stochastic estimation}
+\todoinline{TODO:~Stochastic estimation, starting from regularized OT~\cite{San2015}, Theorem 1 and Algorithm 1}
