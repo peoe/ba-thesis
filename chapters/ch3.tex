@@ -9,9 +9,9 @@ To motivate the formulation of the Monge problem, we consider a mass modelled by
 
 For this purpose we consider a non-negative \textit{cost function} $c(x, y)$, which will give us the cost of moving a particle from position $x$ to position $y$. Ideally this cost function will be continuous or semi-continuous, though later on we will see that with more constraints we can obtain optimality and uniqueness in a simpler fashion.
 
-To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure} of our original measure. We will later see, that a more general approach to this transport is beneficial in solving for an optimal solution. For now however, we will constrain ourselves to the earlier approach.
+To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure}, or \textit{image measure} of our original measure. We will later see, that a more general approach to this transport is beneficial in solving for an optimal solution. For now however, we will constrain ourselves to the earlier approach.
 
-\begin{definition}[Push-Forward]\label{PushForward}
+\begin{definition}[Push-Forward; adapted from~\cite{Bog2007}, Section 9.1]\label{PushForward}
 	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
 	\[ (\push{\mu})(y) := \mu(T^{-1} (y)). \]
 \end{definition}
@@ -26,7 +26,7 @@ Another useful step to take is to norm the overall mass. This can be acheived by
 We can now formulate the Monge Problem in terms of a cost function and the push-forward. This is a modern formulation of the problem originally described by Gaspard Monge in 1781~\cite{Mon1781}.
 
 \todoinline{Should $c$ be restricted to measurable/continuous for clarity?}
-\begin{definition}[Monge Problem]\label{MongeProb}
+\begin{definition}[Monge Problem; adapted from~\cite{San2015}, Problem 1.1]\label{MongeProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and target measures, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
 	\begin{equation}\label{MP}
 		\inf \left\{ M(T) := \int\limits_X c(x, T(x))~\Dx{\mu} : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}.
@@ -34,24 +34,24 @@ We can now formulate the Monge Problem in terms of a cost function and the push-
 	From here on, we will be using the abbreviation (MP) as the name of the Monge Problem, and $\inf \text{(MP)}$ will denote the attained infimum.
 \end{definition}
 
-\begin{definition}[Optimal Transport Map]\label{OTM}
+\begin{definition}[Optimal Transport Map; adapted from~\cite{San2015}, Section 1.1]\label{OTM}
 	A function $T~\in~\MF{X, Y}$ is called an \textbf{optimal transport map}, if it satisfies
 	\[ \int\limits_X c(x, T(x))~\Dx{\mu} = \inf \text{(MP)}. \]
 \end{definition}
 
 This problem in general is not easy to solve. In order to point out the difiiculites we may face, we require the notions of the \textit{dual space}, \textit{weak convergence} and the \textit{support} of a function.
 
-\begin{definition}[Dual Space, cf.~\cite{Ryn2008} Definition 4.28]\label{DuaSpa}
+\begin{definition}[Dual Space; adapted from~\cite{Ryn2008}, Definition 4.28]\label{DuaSpa}
 	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
 \end{definition}
 
-\begin{definition}[Weak Convergence for Dual Spaces, cf.~\cite{Ryn2008} Definition 5.68]\label{WeakCon}
+\begin{definition}[Weak Convergence for Dual Spaces; adapted from~\cite{Ryn2008}, Definition 5.68]\label{WeakCon}
 	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
 	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
 	holds. In this case, we write \weak[]{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
 \end{definition}
 
-\begin{definition}[Support, cf.~\cite{San2015} Definition 1.14]\label{Supp}
+\begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
 	Let $\mu \in \M{X}$ be a measure on a separable metric space $X$. We define the \textbf{support} of $\mu$ as
 	\[ \supp{\mu} := \bigcap \{ A \subseteq X : A \text{ closed and } \mu(X \setminus A) = 0 \}. \]
 \end{definition}
@@ -73,13 +73,13 @@ With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := 
 
 Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
 
-\begin{definition}[Atoms, adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
+\begin{definition}[Atoms; adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
 	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
 	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
 	If $\mu$ has no atoms, we call it \textbf{atomless}.
 \end{definition}
 
-\begin{lemma}[Adapted from~\cite{San2015} Lemma 1.27]\label{1DTransMapExist}
+\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.27]\label{1DTransMapExist}
 	Let $\mu, \nu \in \PM{\R}$ be two measures with $\mu$ being atomless. Then, there exists a transport map \map[T]{\R}{\R} such that $\push{\mu} = \nu$.
 \end{lemma}
 
@@ -87,7 +87,7 @@ Despite these problems of the Monge formulation, we can still provide a couple o
 	\todoinline{TODO:~\cite{San2015} only gives a very short remark\dots}
 \end{proof}
 
-\begin{lemma}[Adapted from~\cite{San2015} Lemma 1.28]\label{BorelExist}
+\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.28]\label{BorelExist}
 	There exists an injective Borel-measurable map \map[\sigma_d]{\R^d}{\R} with its image $\text{im}(\sigma_d)$ being a Borel-subset of $\R$ and its inverse map being Borel-measurable as well.
 \end{lemma}
 
@@ -95,7 +95,7 @@ Despite these problems of the Monge formulation, we can still provide a couple o
 	Cf.~the proof of Lemma 1.28 in~\cite{San2015}.
 \end{proof}
 
-\begin{corollary}[Adapted from~\cite{San2015} Corollary 1.29]\label{NDTransMapExist}
+\begin{corollary}[Adapted from~\cite{San2015}, Corollary 1.29]\label{NDTransMapExist}
 	Let $\mu, \nu \in \PM{\R^d}$ be two measures with $\mu$ being atomless. Then there exists at least a transport map \map[T]{\R^d}{\R^d} such that $\push{\mu} = \nu$.
 \end{corollary}
 
@@ -107,7 +107,7 @@ Despite these problems of the Monge formulation, we can still provide a couple o
 \section{The Kantorovich Relaxation}\label{KantRelax}
 In~\cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of restricting the two measures via the push-forward, Kantorovich used so called \textit{transport plans} where the original measures appeared as marginal distributions. This, as~\cite{San2015} puts it,  allowed for a description ofhow many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
 
-\begin{definition}[Transport Plans]\label{TransPlans}
+\begin{definition}[Transport Plans; adapted from~\cite{San2015}, Problem 1.2]\label{TransPlans}
 	Given two measures $\mu \in \PM{X}, \nu \in \PM{Y}$ we define the set of all \textbf{transport plans} from $\mu$ to $\nu$ as
 	\[ \TP{\mu}{\nu} := \big\{ \gamma \in \PM{X \times Y} : \push[(\pi_X)]{\gamma} = \mu, \push[(\pi_Y)]{\gamma} = \nu \big\}, \]
 	where $\pi_X$ and $\pi_Y$ are the canonical projections onto $X$ and $Y$, i.e.
@@ -116,7 +116,7 @@ In~\cite{Kan1942} gave a more general formulation for the optimal transport prob
 
 Using this terminology we may now describe the relaxed Kantorovich Problem.
 
-\begin{definition}[Kantorovich Problem]\label{KanProb}
+\begin{definition}[Kantorovich Problem; adapted from~\cite{San2015}, Problem 1.2]\label{KanProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be two measures and $\map[c]{X \times Y}{\RZero \cup \{\infty\}}$ be a cost function. Then we define the \textbf{Kantorovich Problem} as
 	\begin{equation}\label{KP}
 		\inf \left\{ K(\gamma) := \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma} : \gamma \in \TP{\mu}{\nu} \right\}.
@@ -142,7 +142,7 @@ $J$ immediately allows us to consider both (MP) and (KP) on the same set of admi
 
 To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu, \nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
 
-\begin{definition}[Weak Convergence for Measures, cf.~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
+\begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \MF{X}{\R}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
 	holds. In this case we will write \weak{\mu_n}{\mu} in analogy to Definition~\ref{WeakCon}.
@@ -159,7 +159,7 @@ To answer this question, we will be giving results which show that the set of pl
 	Cf.~the proof of Lemma 1.31 in~\cite{San2015}.
 \end{proof}
 
-\begin{theorem}[Set of Plans Induced by Maps is Dense, taken from~\cite{San2015}, Theorem 1.32]\label{IndPlansDense}
+\begin{theorem}[Set of Plans Induced by Maps is Dense; taken from~\cite{San2015}, Theorem 1.32]\label{IndPlansDense}
 	Let $\Omega \subset \R^d$ be a compact subset, and $\mu, \nu \in \PM{\Omega}$ be two measures. If $\mu$ is atomless, then the set of all transport plans $\gamma_T$ induced by a transport map $T$ as defined in~\ref{IndPlan} is dense in the set of all plans \TP{\mu}{\nu}.
 \end{theorem}
 
@@ -169,13 +169,13 @@ To answer this question, we will be giving results which show that the set of pl
 
 With the density of the induced transport plans shown, we can now conclude that the two infima of $J$ and $K$ do coincide:
 
-\begin{definition}[Lower Semi-Continuous Functions, adapted from~\cite{Kes2009}, Definition~5.1.2]\label{lsc}
+\begin{definition}[Lower Semi-Continuous Functions; adapted from~\cite{Kes2009}, Definition~5.1.2]\label{lsc}
 	Let $X$ be an arbitrary topological space. Then a function \map[f]{X}{\R} is called \textbf{lower semi-continuous} (l.s.c.), if the set
 	\[ \{ x \in X : f(x) \le \alpha \} \]
 	is closed in $X$ for all $\alpha \in \R$. In particular, every continuous function \map[f]{X}{\R} is also l.s.c.
 \end{definition}
 
-\begin{theorem}[Infima of J and K are the Same, adapted from~\cite{San2015}, Theorem~1.33]\label{InfCoincide}
+\begin{theorem}[Infima of J and K are the Same; adapted from~\cite{San2015}, Theorem~1.33]\label{InfCoincide}
 	Let $\Omega \subset \R^d$ be a compact subset, $\mu, \nu \in \PM{\Omega}$ be two measures on $\Omega$ with $\mu$ being atomless, and $\map[c]{\Omega \times \Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function. Then $\inf J = \inf K$ holds, with the infimum being taken over \TP{\mu}{\nu}.
 \end{theorem}
 
