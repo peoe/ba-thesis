@@ -242,11 +242,19 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 \end{theorem}
 
 \begin{proof}
-	We consider an increasing sequence ${(\varphi_n, \psi_n)}_{\NinN}$ for (DP). As this sequence must be feasible, we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$ and note that
+	We consider an increasing sequence ${(\varphi_n, \psi_n)}_{\NinN}$, with $\varphi_n \oplus \psi_n \le c$ and $(\varphi_n, \psi_n) \in \CF[b]{X} \times \CF[b]{Y}$ for \NinN{}, that is a pair of feasible functions for (DP). By its feasibility we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$ and note that
 	\[ \int\limits_Y \psi_n~\D[\nu] \le \int\limits_Y \inf\limits_{x \in X} c(x, y) - \varphi_n(x)~\Dx[y]{\nu} = \int\limits_Y \varphi_n^c~\D[\nu]. \]
-	Thus it will suffice to consider an increasing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument for $\varphi_n^c$ results in an increasing sequence ${(\varphi_n^{c\bar{c}}, \varphi_n^c)}_{\NinN}$. As 
-	\[\forall x \in X: \varphi^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \varphi^c(y), \]
-	further iteration cannot increase the sequence indefinitely. This already means that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is neccessary for $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ to hold, i.e.~they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
+	Thus it will suffice to consider an increasing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument for $\psi_n$ results in an increasing sequence ${(\psi^{\bar{c}}, \psi_n)}_{\NinN}$. This already means, that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is neccessary that $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ holds, i.e.~they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
+
+	From~\cite{San2015}, Proof of Proposition~1.34, we have $\varphi^{c\bar{c}} = \varphi, \psi^{\bar{c}c} = \psi$, as
+	\[ \forall x \in X: \eta^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \eta^c(y) = \inf\limits_{y \in Y} c(x, y) - \inf\limits_{z \in X} (c(z, y) - \eta(z)) \]
+	\[ \ge \inf\limits_{y \in Y} c(x, y) - c(x, y) + \eta(x) = \eta(x), \]
+	 $\zeta^{\bar{c}c} \ge \zeta$ analogously, and for $\eta$ $c$-concave, i.e.~ther exists a \map[\chi]{Y}{\Rbar} with $\eta = \chi^{\bar{c}}$, we have
+	\[ \eta^c = \chi^{\bar{c}c} \ge \chi \Rightarrow \eta^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \eta^c(y) \le \chi^{\bar{c}}(x) = \eta(x) \Rightarrow \eta^{c\bar{c}} = \eta. \]
+	Hence any further iteration of the transforms cannot increase the sequence anymore.
+
+	We will now consider a sequence of $c$- and $\bar{c}$-transforms of our original sequence and once again label it as ${(\varphi_n, \psi_n)}_{\NinN}$. As pointed out by~\cite{San2015}, these transforms can be assumed to have a uniform bound on their continuity, thus giving the equiboundedness for the whole sequence. We further conclude from the compactness of $X$ and $Y$, and from $\varphi_n$ and $\psi_n$ being equicontinuous
+	\todoinline{TODO:~give equiboundedness and apply Arz-Asc (\ref{Arz-Asc})}
 \end{proof}
 
 \todoinline{TODO:~Go via~\cite{San2015} towards convergence of optimal plans --- though possibly a shorter version.~\cite{San2015}, Theorem 1.39 $\rightarrow$ relax to Theorem 1.42 $\rightarrow$ motivate~\cite{Seg2018}, Theorem 1}
