@@ -218,11 +218,11 @@ We can now formulate the dual problem to the Kantorovich Problem:
 	\begin{equation}\label{DPEq}
 		\sup \left\{ \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] : \varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c \right\}.
 	\end{equation}
-	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\inf \text{(DP)}$ to denominate its infimum.
+	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\sup \text{(DP)}$ to denominate its supremum.
 \end{definition}
 
 With the formulation of (DP) and the previous characterization of the constraint $\gamma \in \TP{\mu}{\nu}$ we can now reach a direct result for the relationship between the primal and the dual poblems. For all admissible $\gamma \in \TP{\mu}{\nu}$ (i.e.~the constraint from (KP)) and $\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}$ with $\varphi \oplus \psi \le c$ (i.e.~the constraint from (DP)) we have
-\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi(x)~\Dx{\mu} + \int\limits_{Y} \psi(y)~\Dx[y]{\nu}  \]
+\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi(x)~\Dx{\mu} + \int\limits_{Y} \psi(y)~\Dx[y]{\nu} = \]
 \[ = \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X \times Y} (\varphi \oplus \psi)(x, y)~\Dx[x, y]{\gamma} \le \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma}. \]
 As the left hand side of this equality is just a constant, we can further consider the infimum over all $\gamma \in \TP{\mu}{\nu}$ and thus obtain $\sup \text{(DP)} \le \inf \text{(KP)}$.
 
@@ -235,5 +235,18 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 	\[ \map[\zeta^{\bar{c}}]{X}{\Rbar},~x \mapsto \inf\limits_{y \in Y} c(x, y) - \zeta(y). \]
 	We further define the notion for a function \map[\psi]{Y}{\Rbar} to be \textbf{$\bar{\text{\textbf{\textit{c}}}}$-concave} if there exists a function \map[\chi]{Y}{\Rbar}, such that $\psi = \chi^c$. The set of all $\bar{c}$-concave functions over $Y$ will be denoted by \CBConc{Y}. Analogously, a function \map[\varphi]{X}{\Rbar} is said to be \textbf{$\text{\textbf{\textit{c}}}$-concave} if there exists a function \map[\zeta]{X}{\Rbar}, such that $\varphi = \zeta^{\bar{c}}$, and the set of all such $c$-concave functions over $X$ will accordingly be described by \CConc{X}.
 \end{definition}
+
+\begin{theorem}[Adapted from~\cite{San2015}, Proposition~1.11]\label{DPSolExist}
+	Let $X, Y$ be compact and $c$ be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to (DP) taking the form $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular by the compactness of $X$ and $Y$, we can restate
+	\[ \sup \text{\normalfont\ (DP)} = \sup\limits_{\varphi \in \CConc{X}} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
+\end{theorem}
+
+\begin{proof}
+	We consider an increasing sequence ${(\varphi_n, \psi_n)}_{\NinN}$ for (DP). As this sequence must be feasible, we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$ and note that
+	\[ \int\limits_Y \psi_n~\D[\nu] \le \int\limits_Y \inf\limits_{x \in X} c(x, y) - \varphi_n(x)~\Dx[y]{\nu} = \int\limits_Y \varphi_n^c~\D[\nu]. \]
+	Thus it will suffice to consider an increasing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument for $\varphi_n^c$ results in an increasing sequence ${(\varphi_n^{c\bar{c}}, \varphi_n^c)}_{\NinN}$. As 
+	\[\forall x \in X: \varphi^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \varphi^c(y), \]
+	further iteration cannot increase the sequence indefinitely. This already means that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is neccessary for $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ to hold, i.e.~they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
+\end{proof}
 
 \todoinline{TODO:~Go via~\cite{San2015} towards convergence of optimal plans --- though possibly a shorter version.~\cite{San2015}, Theorem 1.39 $\rightarrow$ relax to Theorem 1.42 $\rightarrow$ motivate~\cite{Seg2018}, Theorem 1}
