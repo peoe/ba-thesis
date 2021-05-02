@@ -192,6 +192,13 @@ With the density of the induced transport plans shown, we can now conclude that 
 	Such a sequence exists, as the set of transport plans induced by a transport map is dense in \TP{\mu}{\nu} by Theorem~\ref{NDTransMapExist}. With this minimizing sequence we finally have $\inf K = \inf \overline{J} = \inf J$.
 \end{proof}
 
+So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions in order to enable later results, which will more directly influence the estimation of transport plans and maps.
+
+\todoinline{TODO:\cite{San2015}, Theorem~1.4}
+\begin{theorem}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmit}
+	asfd
+\end{theorem}
+
 \section{The Kantorovich Dual}\label{KanDual}
 
 As~\cite{San2015} points out at the beginning of Section~1.2, the problem (KP) is a linear problem with convex constraints. As such, we are going to investigate the \textit{dual problem} to attain further results. One of these results will be regarding \textit{regularized optimal transport}.
@@ -229,7 +236,7 @@ As the left hand side of this equality is just a constant, we can further consid
 So far, we do not know if the $\sup$ of the left hand side does exist. To handle this problem, we will be further transforming (DP) using so called \textit{$c$-transforms}, or \textit{$c$-conjugate functions}. With these transformations it will then be possible to formulate (DP) as a optimization problem over just one variable.
 
 \begin{definition}[$c$-Transform, $\bar{c}$-Transform, $c$-Concavity, $\bar{c}$-Concavity; taken from~\cite{San2015}, Definition 1.10]\label{cTrafo}
-	Given two functions \map[\chi]{X}{\Rbar} and \map[\zeta]{Y}{\Rbar}, as well as $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ a cost function, we define the \textbf{$\text{\textbf{\textit{c}}}$-transform} of $\chi$ by
+	Given \map[\chi]{X}{\Rbar} and \map[\zeta]{Y}{\Rbar} two functions, as well as $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ a cost function, we define the \textbf{$\text{\textbf{\textit{c}}}$-transform} of $\chi$ by
 	\[ \map[\chi^c]{Y}{\Rbar},~y \mapsto \inf\limits_{x \in X} c(x, y) - \chi(x) \]
 	and the \textbf{$\bar{\text{\textbf{\textit{c}}}}$-transform} of $\zeta$ by
 	\[ \map[\zeta^{\bar{c}}]{X}{\Rbar},~x \mapsto \inf\limits_{y \in Y} c(x, y) - \zeta(y). \]
@@ -260,5 +267,12 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 
 	Thus $(\varphi, \psi)$ is a solution to (DP) satisfying the desired properties.
 \end{proof}
+
+We have now seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Our aim is to now show $\inf \text{(KP)} \le \sup \text{(DP)}$. For this purpose, there are a few denominations we need to introduce:
+
+\todoinline{TODO:~start with c-CM and continue onto $dual = primal$}
+\begin{definition}[$c$-Cyclical Monotonicity; adapted from~\cite{San2015}, Definition~1.36]\label{c-CM}
+	asdf
+\end{definition}
 
 \todoinline{TODO:~Go via~\cite{San2015} towards convergence of optimal plans --- though possibly a shorter version.~\cite{San2015}, Theorem 1.39 $\rightarrow$ relax to Theorem 1.42 $\rightarrow$ motivate~\cite{Seg2018}, Theorem 1}
