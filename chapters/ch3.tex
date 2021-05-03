@@ -195,9 +195,29 @@ With the density of the induced transport plans shown, we can now conclude that 
 So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions in order to enable later results, which will more directly influence the estimation of transport plans and maps.
 
 \todoinline{TODO:\cite{San2015}, Theorem~1.4}
-\begin{theorem}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmit}
-	asfd
+\begin{lemma}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmitCompCont}
+	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and \map[c]{X \times{} Y}{\R} be a continuous function. Then$\text{\normalfont\ (KP)}$ admits a solution.
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+\begin{lemma}[Taken from~\cite{San2015}, Theorem 1.5]\label{KPAdmitCompLSCBound}
+	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be a l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)}$ admits a solution.
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.7]\label{KPAdmitPolishLSC}
+	Let $X$ and $Y$ be complete and separable metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be l.s.c. Then$\text{\normalfont\ (KP)}$ admits a solution.
 \end{theorem}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
 
 \section{The Kantorovich Dual}\label{KanDual}
 
@@ -244,8 +264,8 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 \end{definition}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Proposition~1.11]\label{DPSolExist}
-	Let $X, Y$ be compact metric spaces and \map[c]{X \times{} Y}{\RZero} be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to (DP) abiding to the form of $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular, we can restate
-	\[ \sup \text{\normalfont\ (DP)} = \max\limits_{\varphi \in \CConc{X}} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
+	Let $X, Y$ be compact metric spaces and \map[c]{X \times{} Y}{\RZero} be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to\text{\normalfont\ (DP)} abiding to the form of $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular, we can restate
+	\[ \sup\!\text{\normalfont\,(DP)} = \max\limits_{\varphi \in \CConc{X}} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
 \end{theorem}
 
 \begin{proof}
@@ -268,11 +288,56 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 	Thus $(\varphi, \psi)$ is a solution to (DP) satisfying the desired properties.
 \end{proof}
 
-We have now seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Our aim is to now show $\inf \text{(KP)} \le \sup \text{(DP)}$. For this purpose, there are a few denominations we need to introduce:
+We have now seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Our aim is to now show $\inf \text{(KP)} \le \sup \text{(DP)}$. For this purpose, there is an important denomination we need to introduce.
 
 \todoinline{TODO:~start with c-CM and continue onto $dual = primal$}
 \begin{definition}[$c$-Cyclical Monotonicity; adapted from~\cite{San2015}, Definition~1.36]\label{c-CM}
-	asdf
+	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-ciclycally monotone ($c$-CM) if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in X \times Y$ we have
+	\[ \sum\limits_{i = 1}^k c(x_i, y_i) \le \sum\limits_{i = 1}^k c(x_i, y_{\sigma(i)}). \]
 \end{definition}
 
-\todoinline{TODO:~Go via~\cite{San2015} towards convergence of optimal plans --- though possibly a shorter version.~\cite{San2015}, Theorem 1.39 $\rightarrow$ relax to Theorem 1.42 $\rightarrow$ motivate~\cite{Seg2018}, Theorem 1}
+With the definition of a $c$-cyclical set, we can now start working towards our desired primal-dual relationship.
+
+\begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.37]\label{c-CM-c-ConcExist}
+	Let $\Omega \subseteq X \times Y$ be a $c$-CM set with $\Omega \neq \emptyset$ and \map[c]{X \times{} Y}{\R} be an arbitrary function. Then there exists a $c$-concave function $\map[\varphi]{X}{\R \cup \{ - \infty \}}$ such that
+	\[ \Omega \subseteq \big\{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \big\}. \]
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+\begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.38]\label{OTPlanc-CM}
+	Let $\gamma$ be an optimal transport plan for$\text{\normalfont\ (KP)}$ with $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ a continuous cost function. Then $\text{\normalfont{}supp}(\gamma)$ is a $c$-CM set.
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.39]\label{BoundedPDRel}
+	Let $X$ and $Y$ be complete and separable metric spaces, and \map[c]{X \times{} Y}{\R} be uniformly continuous and bounded. Then the problem$\text{\normalfont\ (DP)}$ admits a solution $(\varphi, \varphi^c)$ and we have the primal-dual relationship $\sup \!\text{\normalfont\,(DP)} = \inf \!\text{\normalfont\,(KP)}$.
+\end{theorem}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+The problem we now face, is that on arbitrary spaces our $c$ will no longer be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is possible to avoid the constraints on uniform continuity and an upper bound. After these next results we will finish this part and continue towards transport plan and transport map estimation.
+
+\begin{lemma}[Adapted from~\cite{San2015}, Lemma~1.41]\label{ConvOfKanProb}
+	Let $c$ and $c_n$ be l.s.c.\ and bounded from below for all \NinN. If $c_n \nearrow c$ for \Ninf, i.e. ${(c_n)}_{\NinN}$ converges increasingly towards $c$, then
+	\[ \lim\limits_{\Ninf} \inf \left\{ \int c_n~\D[\gamma] : \gamma \in \TP{\mu}{\nu} \right\} = \inf \left\{ \int c~\D[\gamma] : \gamma \in \TP{\mu}{\nu} \right\}. \]
+\end{lemma}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
+
+\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.42]\label{GenPDRel}
+	Let $X$ and $Y$ be complete and separable metric spaces, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be an l.s.c.\ cost function. Then the primal-dual relationship $\sup\!\text{\normalfont\,(DP)} = \inf\!\text{\normalfont\,(KP)}$ holds.
+\end{theorem}
+
+\begin{proof}
+	\todoinline{TODO!}
+\end{proof}
