@@ -18,6 +18,10 @@ The following theorems and corollaries will not be explicitly proven. We will ho
 	\[ \lim\limits_{\Ninf[k]} \int\limits_a^b f(x)\sin(xk)~dx = 0. \]
 \end{theorem}
 
+\begin{theorem}[Prokhorov; adapted from~\cite{San2015}, Box~1.4]\label{Prok}
+	Suppose that ${(\mu_n)}_{\NinN}$ is a tight sequence of probability measures over a complete and separable metric space $X$, that is for every $\varepsilon > 0$ there exists a compact subset $K \subseteq X$ such that $\mu_n(X \setminus K) < \varepsilon$ for every \NinN. Then there exists $\mu \in \PM{X}$ and a subsequence ${(\mu_{n_k})}_{\NinN[k]}$ such that \weak[k \rightarrow{} \infty]{\mu_{n_k}}{\mu}. Conversely, every sequence \weak[]{\mu_n}{\mu} is necessarily tight.
+\end{theorem}
+
 \begin{theorem}[Arzela-Ascoli; adapted from~\cite{San2015}, Box 1.7]\label{Arz-Asc}
 	Let $X$ be a compact metric space and \map[f_n]{X}{\R} be equicontinuous and equibounded for all \NinN. Equicontinuous meaning that for every $\epsilon > 0$, there exists a common $\delta > 0$ such that $|f_n(x) - f_n(y)| < \epsilon$ for all pairs $x, y \in X$ with $d(x, y) < \delta$ and for all \NinN. Equibounded referring to the property that there is a common constant $C$ with $|f_n(x)| \le C$ for all $x \in X$ and all \NinN.
 
