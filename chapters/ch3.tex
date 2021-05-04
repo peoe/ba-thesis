@@ -143,7 +143,7 @@ $J$ immediately allows us to consider both (MP) and (KP) on the same set of admi
 To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu, \nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
 
 \begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
-	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \MF{X}{\R}$ 
+	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
 	holds. In this case we will write \weak{\mu_n}{\mu} in analogy to Definition~\ref{WeakCon}.
 \end{definition}
@@ -194,17 +194,27 @@ With the density of the induced transport plans shown, we can now conclude that 
 
 So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions in order to enable later results, which will more directly influence the estimation of transport plans and maps.
 
-\todoinline{TODO:\cite{San2015}, Theorem~1.4}
+One of the essential ideas here is the continuity of our functional $K$. One way to define the continuity of a function is via the limit criterium. For this, an explicit notion of convergence is needed. In the following results, we will be referring to the continuity of $K$ in terms of the weak convergence of measures (\ref{WeakConMeas}).
+
 \begin{lemma}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmitCompCont}
-	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and \map[c]{X \times{} Y}{\R} be a continuous function. Then$\text{\normalfont\ (KP)}$ admits a solution.
+	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and \map[c]{X \times{} Y}{\R} be a continuous function. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{lemma}
 
 \begin{proof}
-	\todoinline{TODO!}
+	It is sufficient to show $\TP{\mu}{\nu}$ is compact and $\gamma \mapsto K(\gamma)$ is continuous, as any continuous function attains its minimum over a compact set.
+
+	To show the continuity, let ${(\gamma_n)}_{\NinN}$ be a sequence of probability measures over $X \times Y$ converting weakly to $\gamma \in \PM{X \times Y}$. As $c$ is continuous and especially measurable, we have
+	\[ \lim\limits_{\NinN} K(\gamma_n) = \lim\limits_{\NinN} \int\limits_{X \times Y} c~\D[\gamma_n] = \int\limits_{X \times Y} c~\D[\gamma] = K(\gamma). \] 
+	
+	To show the compactness, let ${(\gamma_n)}_{\NinN}$ be a sequence with $\gamma_n \in \TP{\mu}{\nu}$ for every \NinN. We define $\hat{f}_n := \int f~\D[\gamma_n]$ for every $f \in \CF[b]{X \times Y}$. As $\rvert \int f~\D[\gamma_n] \lvert \le \int \lvert f \rvert~\D[\gamma_n] \le \sup\limits_{X \times Y} |f| < \infty$, since $f$ is bounded and continuous on a compact set, we see that the sequence ${(\hat{f}_n)}_{\NinN}$ is bounded and hence has a convergent subsequence ${(\hat{f}_{n_k})}_{\NinN[k]}$ for every $f \in \CF[b]{X \times Y}$.
 \end{proof}
 
+Note: Sequential compactness and compactness are the same on metric spaces. To see the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures with the total variation norm $\Vert \mu \Vert := \sup (|\mu(A)| + |\mu(A^C)|)$ with the supremum being considered over all elements of the underlying $\sigma$-algebra. This 
+
+\todoinline{Alternative: Prokhorov~\ref{Prok}}
+
 \begin{lemma}[Taken from~\cite{San2015}, Theorem 1.5]\label{KPAdmitCompLSCBound}
-	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be a l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)}$ admits a solution.
+	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be a l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{lemma}
 
 \begin{proof}
@@ -212,7 +222,7 @@ So far we have avoided the question, if (KP) even admits a solution. We will now
 \end{proof}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.7]\label{KPAdmitPolishLSC}
-	Let $X$ and $Y$ be complete and separable metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be l.s.c. Then$\text{\normalfont\ (KP)}$ admits a solution.
+	Let $X$ and $Y$ be complete and separable metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be l.s.c. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{theorem}
 
 \begin{proof}
@@ -264,7 +274,7 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 \end{definition}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Proposition~1.11]\label{DPSolExist}
-	Let $X, Y$ be compact metric spaces and \map[c]{X \times{} Y}{\RZero} be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to\text{\normalfont\ (DP)} abiding to the form of $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular, we can restate
+	Let $X, Y$ be compact metric spaces and \map[c]{X \times{} Y}{\RZero} be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to\text{\normalfont\ (DP)\,}abiding to the form of $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular, we can restate
 	\[ \sup\!\text{\normalfont\,(DP)} = \max\limits_{\varphi \in \CConc{X}} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
 \end{theorem}
 
@@ -308,7 +318,7 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \end{proof}
 
 \begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.38]\label{OTPlanc-CM}
-	Let $\gamma$ be an optimal transport plan for$\text{\normalfont\ (KP)}$ with $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ a continuous cost function. Then $\text{\normalfont{}supp}(\gamma)$ is a $c$-CM set.
+	Let $\gamma$ be an optimal transport plan for$\text{\normalfont\ (KP)\,}$with $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ a continuous cost function. Then $\text{\normalfont{}supp}(\gamma)$ is a $c$-CM set.
 \end{lemma}
 
 \begin{proof}
@@ -316,7 +326,7 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \end{proof}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.39]\label{BoundedPDRel}
-	Let $X$ and $Y$ be complete and separable metric spaces, and \map[c]{X \times{} Y}{\R} be uniformly continuous and bounded. Then the problem$\text{\normalfont\ (DP)}$ admits a solution $(\varphi, \varphi^c)$ and we have the primal-dual relationship $\sup \!\text{\normalfont\,(DP)} = \inf \!\text{\normalfont\,(KP)}$.
+	Let $X$ and $Y$ be complete and separable metric spaces, and \map[c]{X \times{} Y}{\R} be uniformly continuous and bounded. Then the problem$\text{\normalfont\ (DP)\,}$admits a solution $(\varphi, \varphi^c)$ and we have the primal-dual relationship $\sup \!\text{\normalfont\,(DP)} = \inf \!\text{\normalfont\,(KP)}$.
 \end{theorem}
 
 \begin{proof}
