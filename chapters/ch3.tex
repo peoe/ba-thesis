@@ -222,9 +222,9 @@ As our transport plans are probability measures on $X \times Y$, they are bounde
 	Cf.~the proof of Theorem~1.5 in~\cite{San2015}.
 \end{proof}
 
-\begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.7]\label{KPAdmitPolishLSC}
+\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.7]\label{KPAdmitPolishLSC}
 	Let $X$ and $Y$ be complete and separable metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be l.s.c. Then$\text{\normalfont\ (KP)\,}$admits a solution.
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
 	Our goal is to show that any sequence in \TP{\mu}{\nu} is tight and apply Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
@@ -307,7 +307,7 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 We have now seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Our aim is to now show $\inf \text{(KP)} \le \sup \text{(DP)}$. For this purpose, there is an important denomination we need to introduce.
 
 \begin{definition}[$c$-Cyclical Monotonicity; adapted from~\cite{San2015}, Definition~1.36]\label{c-CM}
-	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-ciclycally monotone ($c$-CM) if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in X \times Y$ we have
+	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-ciclycally monotone ($c$-CM), if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in X \times Y$ we have
 	\[ \sum\limits_{i = 1}^k c(x_i, y_i) \le \sum\limits_{i = 1}^k c(x_i, y_{\sigma(i)}). \]
 \end{definition}
 
@@ -319,7 +319,7 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \end{lemma}
 
 \begin{proof}
-	\todoinline{TODO!}
+	Cf.~the proof of Theorem~1.37 in~\cite{San2015}.
 \end{proof}
 
 \begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.38]\label{OTPlanc-CM}
@@ -327,7 +327,7 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \end{lemma}
 
 \begin{proof}
-	\todoinline{TODO!}
+	Cf.~the proof of Theorem~1.38 in~\cite{San2015}.
 \end{proof}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.39]\label{BoundedPDRel}
@@ -335,7 +335,10 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \end{theorem}
 
 \begin{proof}
-	\todoinline{TODO!}
+	We will first consider (KP) to find an admissible pair for (DP). As $c$ is continuous and thus also l.s.c., we can apply Theorem~\ref{KPAdmitPolishLSC} to obtain a solution $\gamma$ of (KP). By Lemma~\ref{OTPlanc-CM} the set $\Omega := \text{supp}(\gamma)$ is $c$-CM\@.
+
+	Applying Lemma~\ref{c-CM-c-ConcExist} we have a $c$-concave and thus continuous function $\varphi$ such that$\Omega \subseteq \{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \}$. Both $\varphi$ and $\varphi^c$ must further be bounded, as if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
+	\todoinline{TODO:~continue with this proof}
 \end{proof}
 
 The problem we now face, is that on arbitrary spaces our $c$ will no longer be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is possible to avoid the constraints on uniform continuity and an upper bound. After these next results we will finish this part and continue towards transport plan and transport map estimation.
