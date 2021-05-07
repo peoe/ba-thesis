@@ -337,11 +337,16 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 \begin{proof}
 	We will first consider (KP) to find an admissible pair for (DP). As $c$ is continuous and thus also l.s.c., we can apply Theorem~\ref{KPAdmitPolishLSC} to obtain a solution $\gamma$ of (KP). By Lemma~\ref{OTPlanc-CM} the set $\Omega := \text{supp}(\gamma)$ is $c$-CM\@.
 
-	Applying Lemma~\ref{c-CM-c-ConcExist} we have a $c$-concave and thus continuous function $\varphi$ such that$\Omega \subseteq \{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \}$. Both $\varphi$ and $\varphi^c$ must further be bounded, as if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
-	\todoinline{TODO:~continue with this proof}
+	Applying Lemma~\ref{c-CM-c-ConcExist} we have a $c$-concave and thus continuous function $\varphi$ such that $\Omega \subseteq \{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \}$. Both $\varphi$ and $\varphi^c$ must further be bounded, as, if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
+	
+	As $(\varphi, \varphi^c)$ is an admissible pair for (DP), we have
+	\[ \int\limits_X \varphi~\D + \int\limits_Y \varphi^c~\D[\nu] \overset{(*)}{=} \int\limits_{\Omega} \varphi \oplus \varphi^c~\D[\gamma]  = \int\limits_{\Omega} c~\D[\gamma] = \int\limits_{X \times Y} c~\D[\gamma]. \]
+	Here $(*)$ holds since $\gamma$ is concentrated on $\Omega$ and $\varphi \oplus \varphi^c = c$ on $\Omega$.
+
+	As $\gamma$ is an optimal transport plan, we get $\sup \text{(DP)} \ge \inf \text{(KP)}$. Combining this inequality with our previously obtained $\sup \text{(DP)} \le \inf \text{(KP)}$ we get the claimed $\sup \text{(DP)} = \inf \text{(KP)}$.
 \end{proof}
 
-The problem we now face, is that on arbitrary spaces our $c$ will no longer be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is possible to avoid the constraints on uniform continuity and an upper bound. After these next results we will finish this part and continue towards transport plan and transport map estimation.
+The problem we now face, is that our $c$ can not always be assumed to be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is however possible to avoid the constraints on uniform continuity and an upper bound and instead just require an l.s.c.\ cost function.
 
 \begin{lemma}[Adapted from~\cite{San2015}, Lemma~1.41]\label{ConvOfKanProb}
 	Let $c$ and $c_n$ be l.s.c.\ and bounded from below for all \NinN. If $c_n \nearrow c$ for \Ninf, i.e. ${(c_n)}_{\NinN}$ converges increasingly towards $c$, then
@@ -349,7 +354,16 @@ The problem we now face, is that on arbitrary spaces our $c$ will no longer be u
 \end{lemma}
 
 \begin{proof}
-	\todoinline{TODO!}
+	As $c_n \le c, c_n \le c_{n + 1}$ for all \NinN{} we have for all $\gamma \in \TP{\mu}{\nu}$:
+	\[ \forall \NinN: \int\limits_{X \times Y} c_n~\D[\gamma] \le \int\limits_{X \times Y} c~\D[\gamma], \int\limits_{X \times Y} c_n~\D[\gamma] \le \int\limits_{X \times Y} c_{n + 1}~\D[\gamma] \]
+	\[ \Rightarrow \forall \NinN: \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_{n + 1}~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c~\D[\gamma]. \]
+	With the convergence of $c_n$ we thus have $\lim\limits_{\Ninf} \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c~\D[\gamma]$.
+
+	In the proof of Theorem~\ref{KPAdmitPolishLSC} we have already seen, that every sequence from \TP{\mu}{\nu} is tight, and from the theorem itself we know that for every $c_n$ there exists an optimal transport map $\gamma_n$. Applying Prokhorov (\ref{Prok}) once more, we obtain a subsequence ${(\gamma_{n_k})}_{\NinN[k]}$ which weakly converges to a transport plan $\tilde{\gamma}$. Picking an arbitrary fixed \NinN[j] we have $\forall n \ge j: c_n \ge c_j$ by induction from the monotonicity of our original sequence, and hence
+	\[ \lim\limits_{\NinN} \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] = \lim\limits_{\NinN} \int\limits_{X \times Y} c_n~\D[\gamma_n] \ge \liminf\limits_{\NinN} \int\limits_{X \times Y} c_j~\D[\gamma_n]. \]
+	As $\vert c_j \vert \le c$ we can now take the limit over $j$ and apply Lebesgue (\ref{Leb-DomCon}) to get
+	\[ \lim\limits_{\NinN} \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \ge \liminf\limits_{\NinN} \lim\limits_{\NinN[j]} \int\limits_{X \times Y} c_j~\D[\gamma_n] = \liminf\limits_{\NinN} \int\limits_{X \times Y} c~\D[\gamma_n]. \]
+	We finally see that $\liminf\limits_{\NinN} \int c~\D[\gamma_n] \ge \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c~\D[\gamma]$, and thus our claim.
 \end{proof}
 
 \begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.42]\label{GenPDRel}
@@ -357,5 +371,13 @@ The problem we now face, is that on arbitrary spaces our $c$ will no longer be u
 \end{theorem}
 
 \begin{proof}
-	\todoinline{TODO!}
+	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of a l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: As~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
+
+	By Lipschitz continuity implying uniform continuity, and uniform continuity implying lower semi-continuity via regular continuity, this sequence is l.s.c. With the uniform continuity and the bound obtained from $c$, we can apply Theorem~\ref{BoundedPDRel} and apply $\varphi \oplus \psi \le c_n \le c$ to get
+	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \overset{\ref{BoundedPDRel}}{=} \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c_n} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu] \]
+	\[ \le \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
+
+	Using Lemma~\ref{ConvOfKanProb} for \Ninf, we have $\inf \text{(KP)} \le \sup \text{(DP)}$. Hence, in combination with $\sup \text{(DP)} \le \inf \text{(KP)}$, $\inf \text{(KP)} = \sup \text{(DP)}$.
 \end{proof}
+
+This finishes the first part, where we have laid a foundation for the theory of optimal transport. The focus will now shift towards applying the duality and existence results in order to investigate large-scale optimal transport and how to estimate optimal transport plans, as well as derive optimal transport maps from these estimated plans.
