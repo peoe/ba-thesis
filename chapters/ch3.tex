@@ -71,46 +71,50 @@ i.e. $T_n$ converges weakly to $0$ as \Ninf.
 
 With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := \sqrt{T^2}$ are almost surely $0$ with respect to the Lebesgue measure, as $\lim \inner{T_n}{T_n} = 0$ for \Ninf. Hence our target measure may only be discrete, as otherwise $\leb{\supp{T}} \neq 0 \Leftrightarrow T \neq 0~\lambda\text{-a.s.} \Leftrightarrow T^2 \neq 0~\lambda\text{-a.s.}$. As such, our starting measure may also only be discrete, which is a contradiction to the use of the underlying Lebesgue measure in $\ELL{2}[0, 2\pi]$.
 
-Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
+%Despite these problems of the Monge formulation, we can still provide a couple of results about the existence of transport maps --- though they must not be optimal.
 
-\begin{definition}[Atoms; adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
-	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
-	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
-	If $\mu$ has no atoms, we call it \textbf{atomless}.
-\end{definition}
+%\begin{definition}[Atoms; adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
+%	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if
+%	\[ \forall B \in \X, B \subseteq A : \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A). \]
+%	If $\mu$ has no atoms, we call it \textbf{atomless}.
+%\end{definition}
 
-\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.27]\label{1DTransMapExist}
-	Let $\mu, \nu \in \PM{\R}$ be two measures with $\mu$ atomless. Then, there exists a transport map \map[T]{\R}{\R} such that $\push{\mu} = \nu$.
-\end{lemma}
+%\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.27]\label{1DTransMapExist}
+%	Let $\mu, \nu \in \PM{\Omega}$ be two measures with $\mu$ atomless and $\Omega \subseteq \R$ being compact. Then, there exists a transport map \map[T]{\Omega}{\Omega} such that $\push{\mu} = \nu$.
+%\end{lemma}
 
-\begin{proof}
-	As stated in~\cite{San2015}, Remark~1.23, for an atomless $\mu \in \PM{\R}$, any convex function is differentiable $\mu$-almost everywhere. Since our assumptions put no restriction on a cost function, we can choose $c(x, y) := \frac{1}{2} \vert x - y \vert^2$. According to~\cite{San2015}, Theorem~1.17, this now implies the existence of an optimal transport map $T$ between $\mu$ and any measure $\nu \in \PM{\R}$, if we consider $\mu$ and $\nu$ to be concentrated on compact domains.
+%\begin{proof}
+	%TODO 1.23
+%\end{proof}
 
+%\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.28]\label{BorelExist}
+%	There exists an injective Borel-measurable map \map[\sigma_d]{\R^d}{\R} with its image $\text{im}(\sigma_d)$ being a Borel-subset of $\R$ and its inverse map being Borel-measurable as well.
+%\end{lemma}
 
-\end{proof}
+%\begin{proof}
+%	Cf.~the proof of Lemma 1.28 in~\cite{San2015}.
+%\end{proof}
 
-\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.28]\label{BorelExist}
-	There exists an injective Borel-measurable map \map[\sigma_d]{\R^d}{\R} with its image $\text{im}(\sigma_d)$ being a Borel-subset of $\R$ and its inverse map being Borel-measurable as well.
-\end{lemma}
+%\begin{corollary}[Adapted from~\cite{San2015}, Corollary 1.29]\label{NDTransMapExist}
+%	Let $\mu, \nu \in \PM{\Omega}$ be two measures with $\mu$ being atomless and $\Omega \subseteq \R^d$ being compact. Then there exists at least a transport map \map[T]{\Omega}{\Omega} such that $\push{\mu} = \nu$.
+%\end{corollary}
 
-\begin{proof}
-	Cf.~the proof of Lemma 1.28 in~\cite{San2015}.
-\end{proof}
+%\begin{proof}
+%	Using $\sigma_d$ from Lemma~\ref{BorelExist} we obtain the measures \push[(\sigma_d)]{\mu} and \push[(\sigma_d)]{\nu} on $\tilde{\Omega} \subseteq \R$ a compact subset of \R. By Lemma~\ref{1DTransMapExist} there now exists a transport map \map[\tilde{T}]{\tilde{\Omega}}{\tilde{\Omega}} which satisfies $\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})} = \push[(\sigma_d)]{\nu}$. Applying the push-forward with the inverse $\sigma_d^{-1}$ we finally obtain
+%	\[ \push{\mu} := \push[\sigma_d^{-1}]{(\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})})} = \push[\sigma_d^{-1}]{(\push[(\sigma_d)]{\nu})} = \nu. \]
+%\end{proof}
 
-\begin{corollary}[Adapted from~\cite{San2015}, Corollary 1.29]\label{NDTransMapExist}
-	Let $\mu, \nu \in \PM{\R^d}$ be two measures with $\mu$ being atomless. Then there exists at least a transport map \map[T]{\R^d}{\R^d} such that $\push{\mu} = \nu$.
-\end{corollary}
+\begin{remark}\label{TransMapExist}
+	It can be shown that for any atomless measure $\mu \in \PM{\R^d}$ (cf.\ \cite{Bog2007}, Volume 1, Definition 1.12.7) and any $\nu \in \PM{\R^d}$, there exists a transport map \map[T]{\R^d}{\R^d} with $\push{\mu} = \nu$. This makes (MP) feasible.
 
-\begin{proof}
-	Using $\sigma_d$ from Lemma~\ref{BorelExist} we obtain the measures \push[(\sigma_d)]{\mu} and \push[(\sigma_d)]{\nu} on \R. By Lemma~\ref{1DTransMapExist} there now exists a transport map \map[\tilde{T}]{\R}{\R} which satisfies $\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})} = \push[(\sigma_d)]{\nu}$. Applying the push-forward with the inverse $\sigma_d^{-1}$ we finally obtain
-	\[ \push{\mu} := \push[\sigma_d^{-1}]{(\push[\tilde{T}]{(\push[(\sigma_d)]{\mu})})} = \push[\sigma_d^{-1}]{(\push[(\sigma_d)]{\nu})} = \nu. \]
-\end{proof}
+	For a more detailed explanation, one may consider the argument made by~\cite{San2015} in Lemma~1.27 upto Corollary~1.29.
+\end{remark}
 
 \section{The Kantorovich Relaxation}\label{KantRelax}
-In~\cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of restricting the two measures via the push-forward, Kantorovich used so called \textit{transport plans} where the original measures appeared as marginal distributions. This, as~\cite{San2015} puts it,  allowed for a description ofhow many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
+In 1942, Kantorovich gave a more general formulation for the optimal transport problem (cf.~\cite{Kan1942}). Instead of restricting the two measures via the push-forward, Kantorovich used so called \textit{transport plans} where the original measures appeared as marginal distributions. This, as~\cite{San2015} puts it,  allowed for a description of how many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
 
 \begin{definition}[Transport Plans; adapted from~\cite{San2015}, Problem 1.2]\label{TransPlans}
-	Given two measures $\mu \in \PM{X}, \nu \in \PM{Y}$ we define the set of all \textbf{transport plans} from $\mu$ to $\nu$ as
+	For two measures $\mu \in \PM{X}, \nu \in \PM{Y}$ we define the set of all \textbf{transport plans} from $\mu$ to $\nu$ as
 	\[ \TP{\mu}{\nu} := \big\{ \gamma \in \PM{X \times Y} : \push[(\pi_X)]{\gamma} = \mu, \push[(\pi_Y)]{\gamma} = \nu \big\}, \]
 	where $\pi_X$ and $\pi_Y$ are the canonical projections onto $X$ and $Y$, i.e.
 	\[ \pi_X(x, y) := x, \text{ and } \pi_Y(x, y) := y. \]
@@ -130,7 +134,7 @@ Using this terminology we may now describe the relaxed Kantorovich Problem.
 One direct benefit of this formulation is, that we are no longer necessarily bound by the disallowed splitting of mass of (MP). We can however recover the (MP) formulation via (KP) if $\gamma = \push[(id, T)]{\mu}$ for $T \in \MF{X}{Y}$ is an optimal transport plan, in which case $T$ would once again be called an optimal transport map.
 \todoinline{Possibly fletch out why this works?}
 
-If given two measures $\mu \in \M{X}, \nu \in \M{Y}$ with $\push{\mu} = \nu$ and a transport map $T \in \MF{X}{Y}$, we can always induce a transport plan from $T$ by defining
+If given two measures $\mu \in \M{X}, \nu \in \M{Y}$ and a transport map $T \in \MF{X}{Y}$ with $\push{\mu} = \nu$, we can always induce a transport plan from $T$ by defining
 \begin{equation}\label{IndPlan}
 	\gamma_T := \push[(id, T)]{\mu}.
 \end{equation}
@@ -142,7 +146,7 @@ We are now interested if this already results in a statement which puts (KP) and
 	\end{cases}. \]
 $J$ immediately allows us to consider both (MP) and (KP) on the same set of admissible objects, that is all transport plans induced by a transport map. As Kantorovich replaced $J$ with $K$ (see Definition~\ref{KanProb}) the question to be asked transforms into: does $\inf K = \inf J$ hold?
 
-To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu, \nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
+To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu}{nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
 
 \begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
@@ -191,7 +195,7 @@ With the density of the induced transport plans shown, we can now conclude that 
 
 	To show $\inf K = J$ we need to find for every transport plan $\gamma$ a sequence of transport maps ${(T_n)}_{\NinN}, T_n \in \MF{\R^d}{\R^d}$ with $\push[(T_n)]{\mu} = \nu$, such that $\gamma_{T_n} \rightharpoonup \gamma$ and $J(\gamma_{T_n}) \rightarrow K(\gamma)$ for \Ninf. Actually, as $K$ is continuous and for $\gamma = \gamma_{T_n}$ it holds that $K(\gamma) = J(\gamma)$, it is already sufficient for a sequence ${(T_n)}_{\NinN}$ to exist with \weak{\gamma_{T_n}}{\gamma}.
 
-	Such a sequence exists, as the set of transport plans induced by a transport map is dense in \TP{\mu}{\nu} by Theorem~\ref{NDTransMapExist}. With this minimizing sequence we finally have $\inf K = \inf \overline{J} = \inf J$.
+	Such a sequence exists, as the set of transport plans induced by a transport map is dense in \TP{\mu}{\nu} by Theorem~\ref{IndPlansDense}. With this minimizing sequence we finally have $\inf K = \inf \overline{J} = \inf J$.
 \end{proof}
 
 So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions in order to enable later results, which will more directly influence the estimation of transport plans and maps.
