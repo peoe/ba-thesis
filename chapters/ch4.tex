@@ -1,6 +1,22 @@
 \chapter{Stochastic Estimation}\label{DualPlanEst}
 
+In this part we will first introduce regularized optimal transport. This regularization allows for a duality result between the dual solution and the primal solution which we will then be used to estimate optimal plans and maps.
+
+In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega \subseteq \R^{n_1 + n_2}$ will always be compact.
+
 \section{Regularized Optimal Transport}\label{RegOT}
+
+There are multiple ways that regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with positive integrable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
+\[ E(f) := \int\limits_\Omega \vert f(z) \vert \log(\vert f(z) \vert)~\D[z] < \infty \]
+with $0 \cdot \log(0) := 0$. From here we can define
+\[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
+as a subset of all integrable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
+
+The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is the equivalence of $f \in \MF{\Omega}{\RZero}$ with $E(f) < \infty$ and $f \in \LLL$. This will become very useful later on.
+
+The second conclusion regards the structure of \LLL{}. When considering the \textit{Luxemburg norm}
+\[ \Vert f \Vert_\Phi := \inf \left\{ C > 0 : \int\limits_\Omega \Phi\left( \frac{\vert f(z) \vert}{C} \right)~\D[z] \le 1 \right\} \]
+for measurable functions $f$, we denote $\Orlicz{\Phi} := (\mathcal{F}, \Vert \cdot \Vert_\Phi)$, where $\mathcal{F} := \{ f \in \MF{\Omega}{\R} : \Vert f \Vert_\Phi < \infty \}$, the \textit{Orlicz space} for a certain function $\Phi$. Using $\Phi_{\log}(x) := x \log^+ (x)$, we have $\Orlicz{\Phi_{\log}} = \LLL$
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
