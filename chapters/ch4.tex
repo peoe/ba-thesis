@@ -2,7 +2,9 @@
 
 In this part we will first introduce regularized optimal transport. This regularization allows for a duality result between the dual solution and the primal solution which we will then be used to estimate optimal plans and maps.
 
-In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega \subseteq \R^{n_1 + n_2}$ will always be compact.
+In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 = \Omega \subseteq \R^{n_1 + n_2}$ will always be compact.
+
+\todoinline{TODO:~figure out, what continuity $c$ is required to have}
 
 \section{Regularized Optimal Transport}\label{RegOT}
 
@@ -12,11 +14,39 @@ with $0 \cdot \log(0) := 0$. From here we can define
 \[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
 as a subset of all integrable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
-The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is the equivalence of $f \in \MF{\Omega}{\RZero}$ with $E(f) < \infty$ and $f \in \LLL$. This will become very useful later on.
+The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is the equivalence of $f \in \MF{\Omega}{\RZero}$ with $E(f) < \infty$ and $f \in \LLL$.
 
 The second conclusion regards the structure of \LLL{}. When considering the \textit{Luxemburg norm}
 \[ \Vert f \Vert_\Phi := \inf \left\{ C > 0 : \int\limits_\Omega \Phi\left( \frac{\vert f(z) \vert}{C} \right)~\D[z] \le 1 \right\} \]
-for measurable functions $f$, we denote $\Orlicz{\Phi} := (\mathcal{F}, \Vert \cdot \Vert_\Phi)$, where $\mathcal{F} := \{ f \in \MF{\Omega}{\R} : \Vert f \Vert_\Phi < \infty \}$, the \textit{Orlicz space} for a certain function $\Phi$. Using $\Phi_{\log}(x) := x \log^+ (x)$, we have $\Orlicz{\Phi_{\log}} = \LLL$
+for measurable functions $f$, we denote $\Orlicz{\Phi} := (\mathcal{F}, \Vert \cdot \Vert_\Phi)$, where $\mathcal{F} := \{ f \in \MF{\Omega}{\R} : \Vert f \Vert_\Phi < \infty \}$, the \textit{Orlicz space} for a certain function $\Phi$. Using $\Phi_{\log}(x) := x \log^+ (x)$, we have $\Orlicz{\Phi_{\log}} = \LLL$. In fact, by~\cite{Cla2021}, Theorem~2.5, \LLL{} is a Banach space with respect to its Luxemburg norm.
+
+For a third conclusion we are interested in the dual space of \LLL{}. We first define
+\[ \Phi_{\exp}(s) := \begin{cases}
+	s & , 0 < s \le 1 \\
+	\exp(s - 1) & , s > 1
+\end{cases} \]
+and then $\Lexp := \Orlicz{\Phi_{\exp}}$ in accordance to its corresponding Luxemburg norm $\Vert \cdot \Vert_{\Phi_{\exp}}$. As shown in~\cite{Cla2021}, Proposition~2.7, if $\Omega$ has finite Lebesgue measure (which it has by $\Omega \subseteq \R^{n_1 + n_2}$ being compact and thus bounded), then ${(\LLL)}^* = \Lexp$.
+
+\begin{definition}[Regularized Problems; adapted from~\cite{Cla2021}, the beginning of Section~3 and Proposition~3.1]\label{RegProbs}
+	We once again consider our starting measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
+	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_\Omega c(x, y)~\Dx[x, y]{\gamma} + \varepsilon \int\limits_\Omega \gamma(x, y) \big( \log(\gamma(x, y)) - 1 \big)~\Dx[x, y]{}. \]
+	Its \textbf{Dual Problem} for the same $\varepsilon > 0$ is defined as
+	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
+	\[ \text{with } F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
+	Just as in Definition~\ref{MongeProb},~\ref{KanProb} and~\ref{KanDual}, we will use the abbreviations (RP), $\inf \text{(RP)}$, (DR) and $\sup \text{(DR)}$ for the problems and their solutions respectively. Further, by~\cite{Cla2021}, Proposition~3.1, if $\sup \text{(DR)}$ is finite, (RP) admits a minimizer.
+\end{definition}
+
+With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures.
+
+\begin{theorem}[Taken from~\cite{Cla2021}, Theorem~3.3]\label{RegProbAdmitLLL}
+	The problem$\text{\normalfont\ (RP)}$ admits a minimizer $\gamma \in \TP{\mu}{\nu}$ if and only if $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$. In this case, $\gamma \in \LLL$ and $\gamma$ is unique.
+\end{theorem}
+
+\begin{proof}
+	Cf.~the proof of Theorem~3.3 in~\cite{Cla2021}.
+\end{proof}
+
+\todoinline{TODO:~\cite{Cla2021}, Theorem~4.6 and Theorem~4.7, then onto Equation~4.4 in Theorem~4.8}
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
