@@ -30,10 +30,10 @@ and then $\Lexp := \Orlicz{\Phi_{\exp}}$ in accordance to its corresponding Luxe
 \begin{definition}[Regularized Problems; adapted from~\cite{Cla2021}, the beginning of Section~3 and Proposition~3.1]\label{RegProbs}
 	We once again consider our starting measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_\Omega c(x, y)~\Dx[x, y]{\gamma} + \varepsilon \int\limits_\Omega \gamma(x, y) \big( \log(\gamma(x, y)) - 1 \big)~\Dx[x, y]{}. \]
-	Its \textbf{Dual Problem} for the same $\varepsilon > 0$ is defined as
+	Its \textbf{Predual Problem} for the same $\varepsilon > 0$ is defined as
 	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
 	\[ \text{with } F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
-	Just as in Definition~\ref{MongeProb},~\ref{KanProb} and~\ref{KanDual}, we will use the abbreviations (RP), $\inf \text{(RP)}$, (DR) and $\sup \text{(DR)}$ for the problems and their solutions respectively. Further, by~\cite{Cla2021}, Proposition~3.1, if $\sup \text{(DR)}$ is finite, (RP) admits a minimizer.
+	Just as in Definition~\ref{MongeProb},~\ref{KanProb} and~\ref{KanDual}, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their solutions respectively. Further, by~\cite{Cla2021}, Proposition~3.1, if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
 
 With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures.
@@ -45,6 +45,15 @@ With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport pla
 \begin{proof}
 	Cf.~the proof of Theorem~3.3 in~\cite{Cla2021}.
 \end{proof}
+
+As we have previously seen, the regularization term is finite if and only if $\gamma \in \LLL$. By considering (RP) over \LLL{} instead, we can also derive a dual problem over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$. Following the procedure from~\cite{Cla2021}, Section~4, we apply
+\[ \Phi(s) := \begin{cases}
+	\infty & , s < 0 \\
+	s & , 0 \le s \le 1 \\
+	\exp{s - 1} & , else
+\end{cases} \text{, and } \Psi(s) := \log \big( \Phi(s) \big). \]
+to get
+\[ \phi = \varepsilon \log \big( \Phi(u_1) \big) = \varepsilon \Psi(u_1) \text{ and } \psi = \varepsilon \log \big( \Pi(u_2) \big) = \varepsilon \Psi(u_2). \]
 
 \todoinline{TODO:~\cite{Cla2021}, Theorem~4.6 and Theorem~4.7, then onto Equation~4.4 in Theorem~4.8}
 
