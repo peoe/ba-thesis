@@ -109,9 +109,32 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 	Cf.~the proof of Theorem~4.8 in~\cite{Cla2021}.
 \end{proof}
 
-\todoinline{TODO:~give Sinkhorn (\cite{Cla2021}, Remark~4.9) then motivate large scale estimation}
+As~\cite{Cla2021}, Remark~4.9, points out, we can use this system to derive the \textit{Sinkhorn algorithm}. We make use of the first two equations to iteratively approach optimal dual variables, and apply the last equation to obtain an optimal transport plan. For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
+\[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
+and
+\[ T_2^{n + 1}(y) := \Phi^{-1} \left( \frac{\nu(y)}{\int_{\Omega_2} \Phi\big( u_1^{n + 1}(x) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[x]} \right) \]
+for all \NinN, $(x, y) \in \Omega$.
+\begin{algorithm}\label{SinkhornAlg}
+	\caption{Sinkhorn Algorithm}
+	\KwResult{Optimal dual variables $\bar{u}_1, \bar{u}_2$}
+	Initialization: $\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, (x, y) \in \Omega, \varepsilon > 0$, cost function $c$, starting variable $u_2^0 \in \Lexp[\Omega_2]$\;
+	$u_1^1(x) := T_1^1(x)$\;
+	$u_2^1(y) := T_2^1(y)$\;
+	$n := 1$\;
+	\While{$\text{\normalfont{}not converged}$}{
+		$u_1^{n + 1}(x) := T_1^{n + 1}(x)$\;
+		$u_2^{n + 1}(x) := T_2^{n + 1}(y)$\;
+		$n := n + 1$\;
+	}
+\end{algorithm}
+
+Stopping after $N - 1$ iterations, we get
+\[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
+as an approximate value of transport plan for (RP) at a predetermined $(x, y)$.
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
+
+As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples as each of its iterations has $\mathcal{O}(n^2)$ complexity. Hence, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
 \todoinline{TODO:~Stochastic estimation, starting from regularized OT~\cite{Seg2018}, Theorem 3.1 and Algorithm 1}
 
