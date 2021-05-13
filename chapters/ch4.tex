@@ -33,7 +33,7 @@ and then $\Lexp := \Orlicz{\Phi_{\exp}}$ in accordance to its corresponding Luxe
 	Its \textbf{Predual Problem} for the same $\varepsilon > 0$ is defined as
 	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
 	\[ \text{with } F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
-	Just as in previous problem definition, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their solutions respectively. Further, by~\cite{Cla2021}, Proposition~3.1, if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
+	Just as in previous problem definition, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their solutions respectively. Further, by~\cite{Cla2021}, Proposition~3.1, $\inf \text{(RP)} = \sup \text{(PD)}$, and if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
 
 With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures.
@@ -51,7 +51,11 @@ As we have previously seen, the regularization term is finite if and only if $\g
 	\infty, & s < 0 \\
 	s, & 0 \le s \le 1 \\
 	\exp(s - 1), & s > 1
-\end{cases}, \Psi(s) := \log \big( \Phi(s) \big), \]
+\end{cases}, \Psi(s) := \begin{cases}
+	- \infty, & s \le 0 \\
+	\log(s), & 0 < s \le 1 \\
+	s - 1, & s > 1
+\end{cases}, \]
 \[ u_1 := \begin{cases}
 	\exp \left( \frac{\varphi}{\varepsilon} \right), & \varphi \le 0 \\
 	\frac{\varphi}{\varepsilon} + 1, & \varphi > 0
@@ -60,19 +64,52 @@ As we have previously seen, the regularization term is finite if and only if $\g
 	\frac{\psi}{\varepsilon}, & \psi > 0
 \end{cases} \]
 and obtain $\varphi = \varepsilon \log \big( \Phi(u_1) \big) = \varepsilon \Psi(u_1) \text{ and } \psi = \varepsilon \log \big( \Phi(u_2) \big) = \varepsilon \Psi(u_2)$. When put back into (PD), this gives us
-\[ \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} \exp \left( \frac{\varphi(x) + \psi(y) - c(x, y)}{\varepsilon} \right)~\Dx[(x, y)]{} \]
-\[ = \varepsilon \int\limits_{\Omega_1} \Psi(u_1(x))~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi(u_2(y))~\Dx[y]{\nu} - \varepsilon \int\limits F_{\varepsilon}^{\Phi}(x, y)~\Dx[(x, y)]{}, \]
+\[ \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} \exp \left( \frac{\varphi(x) + \psi(y) - c(x, y)}{\varepsilon} \right)~\Dx[x, y]{} \]
+\[ = \varepsilon \int\limits_{\Omega_1} \Psi(u_1(x))~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi(u_2(y))~\Dx[y]{\nu} - \varepsilon \int\limits F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{}, \]
 with $F_{\varepsilon}^{\Phi}(x, y) := \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)$.
 
 We note that $\Phi = \Phi_{\exp}$ on \RZero, suggesting an optimization over ${(u_1, u_2)} \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ with $u_1, u_2 \ge 0$ (as the problem would be infeasible otherwise).
 
 \begin{definition}[Regularized Dual; adapted from~\cite{Cla2021}, ($\text{D}_{\exp}$)]\label{RegDualProb}
-	Let $\mu, \nu, \varepsilon$ as well as $c$ be the same as in Definition~\ref{RegProbs}. We consider the set $\mathcal{F} := \{ (f, g) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2] : f, g \ge 0 \}$ and define the \textbf{Dual Problem} as
-	\[ \sup\limits_{\mathcal{F}} \]
-	\todoinline{TODO:~finish dual problem!}
+	Let $\mu, \nu, \varepsilon$ as well as $c$ be the same as in Definition~\ref{RegProbs}. We consider the set $\mathcal{F} := \{ (f, g) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2] : f, g \ge 0 \}$ and define the \textbf{Dual Problem}
+	\[ \sup\limits_{\mathcal{F}} \varepsilon \int\limits_{\Omega_1} \Psi(u_1(x))~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi(u_2(y))~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{}. \]
+	We label this problem accordingly as (RD) and its supremum as $\sup \text{(RD)}$. The restriction on $\mathcal{F}$ ensures that all integrals are well defined.
 \end{definition}
 
-\todoinline{TODO:~\cite{Cla2021}, Theorem~4.6 and Theorem~4.7, then onto Equation~4.4 in Theorem~4.8}
+\begin{theorem}[Adapted from~\cite{Cla2021}, Theorem~4.6]\label{RegDualAdmit}
+	The problem$\text{\normalfont\ (RD)}$ admits a solution $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
+\end{theorem}
+
+\begin{proof}
+	Cf.~the proof of Theorem~4.6 in~\cite{Cla2021}.
+\end{proof}
+
+Using the previously seen, we can now resubstitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, turning the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible in (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
+
+If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdmitLLL}, we obtain strong duality between (RP) and (RD).
+
+\begin{theorem}[Adapted from~\cite{Cla2021}, Proposition~4.7]\label{RegStrongDualityLLL}
+	We consider $\mu \in \LLL[\Omega_1], \nu \in \LLL[\Omega_2]$ and $c \in \CF{\Omega}$. Then$\text{\normalfont\ (RP)}$ admits a solution $\bar{\gamma} \in \LLL$,$\text{\normalfont\ (RD)}$ admits a solution $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$, and $\sup\!\text{\normalfont\,(RD)} = \inf\!\text{\normalfont\,(RP)}$ holds.
+\end{theorem}
+
+\begin{proof}
+	\todoinline{TODO:~write exhaustive proof! cf.~\cite{Cla2021}, proof of theorem~4.8}
+\end{proof}
+
+\begin{corollary}[Conditions on Dual Optimality; adapted from~\cite{Cla2021}, Theorem~4.8]\label{RegOptCond}
+	Let $\mu \in \LLL[\Omega_1], \nu \in \LLL[\Omega_2]$ and $c \in \CF{\Omega}$, as in Theorem~\ref{RegStrongDualityLLL}. Then for $\mu$-a.e.\ $x \in \Omega_1$ and $\nu$-a.e.\ $y \in \Omega_2$ all dual solutions $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ of$\text{\normalfont\ (RD)}$ satisfy
+	\[ \mu(x) = \Phi\big( \bar{u}_1(x) \big) \int\limits_{\Omega_2} \Phi\big( \bar{u}_2(y) \big) \exp \left( \frac{- c(x, y)}{\varepsilon} \right)\D[y], \]
+	and
+	\[ \nu(y) = \Phi\big( \bar{u}_2(y) \big) \int\limits_{\Omega_1} \Phi\big( \bar{u}_1(x) \big) \exp \left( \frac{- c(x, y)}{\varepsilon} \right)\D[x]. \]
+	Furthermore, a solution $\bar{\gamma} \in \LLL$ of$\text{\normalfont\ (RP)}$ is defined by
+	\[ \bar{\gamma}(x, y) = \Phi\big( \bar{u}_1(x) \big) \Phi\big( \bar{u}_2(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right). \]
+\end{corollary}
+
+\begin{proof}
+	Cf.~the proof of Theorem~4.8 in~\cite{Cla2021}.
+\end{proof}
+
+\todoinline{TODO:~give Sinkhorn (\cite{Cla2021}, Remark~4.9) then motivate large scale estimation}
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
