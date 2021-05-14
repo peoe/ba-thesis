@@ -130,7 +130,7 @@ Stopping after $N - 1$ iterations, we get
 \[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
 as an approximate value of transport plan for (RP) at a predetermined $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
 \begin{equation}\label{RegApprTransPlan}
-	\gamma_N(x, y) = \exp\left( \frac{\varphi^N(x) + \psi^N(y) - c(x, y)}{\varepsilon} \right).
+	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
 \end{equation}
 
 This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
@@ -168,8 +168,23 @@ Applying Equation~\ref{RegApprTransPlan}, we denote the approximated transport p
 	Let $X$ and $Y$ be complete metric spaces, $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ be compact subsets, $\mu \in \LLL[\Omega_1], \nu \in \LLL[\Omega_2]$ be our starting probability measures, $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function, $\mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0, 1 \le i, j \le n$ be discrete probability measures with \weak[]{\mu_n}{\mu} and \weak[]{\nu_n}{\nu} for \Ninf, and ${(\varepsilon_n)}_{\NinN}$ be a sequence converging to $0$ sufficiently fast with $\varepsilon_n > 0$ for all \NinN. Then for $\gamma_n^{\varepsilon_n}$, the solution of$\text{\normalfont\ (RP)}$ between $\mu_n$ and $\nu_n$ with $\varepsilon := \varepsilon_n$, there exists a subsequence ${(\gamma_{n_k}^{\varepsilon_{n_k}})}_{\NinN[k]}$ that weakly converges to a solution $\gamma$ of$\text{\normalfont\ (KP)}$ between $\mu$ and $\nu$ for \Ninf.
 \end{theorem}
 
-\todoinline{TODO:~plan estimation (\cite{Seg2018}, Theorem 3.1)}
+\begin{proof}
+	\todoinline{TODO:~finish the proof! (\cite{Seg2018}, proof of Theorem~1)}
+\end{proof}
 
 \section{Optimal Transport Map Estimation}\label{OTMapEst}
+
+In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw, that the set of transport plans induced by transport maps is dense in the set of all transport maps \TP{\mu}{\nu}. We are now interested in finding a transport map from our previously computed estimation of an optimal transport plan, i.e.~a solution to (MP) between $\mu$ and $\nu$, as the handling of a mapping instead of a joint measure (probability distribution) is often advantageous. As we have already seen in Theorem~\ref{InfCoincide}, when $\mu$ is atomless, such a transport map is directly related to the accompanying transport plan. This suggests that we start with our weakly convergent subsequence and apply a transformation which will then result in a sequence weakly converging toward an optimal transport map.
+
+The transformation~\cite{Seg2018} chose, is the so called \textit{barycentric projection}.
+
+\begin{definition}[Barycentric Projection; adapted from~\cite{Seg2018}, Definition~1]\label{BarCentrProj}
+	We consider a transport plan $\gamma \in \TP{\mu}{\nu}$ and a convex and continuous cost function $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$. Then the \textbf{barycentric projection} of $\gamma$ at $x \in \Omega_1$ is defined as
+	\[ \bar{\gamma}(x) := \argmin\limits_{z \in \Omega_1} \int\limits_{\Omega_1} c(z, y)~\Dx[x, y]{\gamma}. \]
+	If $c = \Vert x - y \Vert_2^2$, where $\Vert \cdot \Vert_2$ is the Euclidean norm, the barycentric projection has the closed form
+	\[ \bar{\gamma}(x) = \int\limits_{\Omega_2} y~\Dx[x, y]{\gamma}. \]
+\end{definition}
+
+If $c = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be further shown, that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP). For more general convex cost functions,~\cite{Seg2018} provide a method of approximating the barycentric projection, making use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. 
 
 \todoinline{TODO:~Mapping estimation, starting with~\cite{Seg2018}, Definition 4.1}
