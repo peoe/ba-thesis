@@ -115,12 +115,12 @@ and
 \[ T_2^{n + 1}(y) := \Phi^{-1} \left( \frac{\nu(y)}{\int_{\Omega_2} \Phi\big( u_1^{n + 1}(x) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[x]} \right) \]
 for all \NinN, $(x, y) \in \Omega$.
 \begin{algorithm}\label{SinkhornAlg}
-	\caption{Sinkhorn Algorithm}
+	\caption{Sinkhorn Algorithm; adapted from~\cite{Cla2021}, Remark~4.9}
 	\KwResult{Optimal dual variables $\bar{u}_1, \bar{u}_2$}
-	Initialization: $\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, (x, y) \in \Omega, \varepsilon > 0$, cost function $c$, starting variable $u_2^0 \in \Lexp[\Omega_2]$\;
+	\KwIn{$\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, (x, y) \in \Omega, \varepsilon > 0$, cost function $c$, starting variable $u_2^0 \in \Lexp[\Omega_2]$}
 	$u_1^1(x) := T_1^1(x)$\;
 	$u_2^1(y) := T_2^1(y)$\;
-	$n := 1$\;
+	$n := 0$\;
 	\While{$\text{\normalfont{}not converged}$}{
 		$u_1^{n + 1}(x) := T_1^{n + 1}(x)$\;
 		$u_2^{n + 1}(x) := T_2^{n + 1}(y)$\;
@@ -130,13 +130,38 @@ for all \NinN, $(x, y) \in \Omega$.
 
 Stopping after $N - 1$ iterations, we get
 \[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
-as an approximate value of transport plan for (RP) at a predetermined $(x, y)$.
+as an approximate value of transport plan for (RP) at a predetermined $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi^N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi^N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
+\[ \gamma_N(x, y) = \exp\left( \frac{\varphi^N(x) + \psi^N(y) - c(x, y)}{\varepsilon} \right). \]
+
+This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
 \section{Optimal Transport Plan Estimation}\label{OTPlanEst}
 
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples as each of its iterations has $\mathcal{O}(n^2)$ complexity. Hence, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
-\todoinline{TODO:~Stochastic estimation, starting from regularized OT~\cite{Seg2018}, Theorem 3.1 and Algorithm 1}
+The procedure taken by~\cite{Seg2018} improves on both shortcomings: Instead of only computing the approximated plan at a specified location $(x, y)$ a neural network is trained to model the continuous case and a finite vector is iteratively improved in the discrete case. To deal with larger samples, the input measures $\mu$ and $\nu$ are interpreted as probability distributions and individual samples drawn from them for each iteration.
+
+In order to state the algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
+\[ \forall (x, y) \in \Omega: F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
+When considering the continuous case, we furhter define $\nabla \varphi$ and $\nabla \psi$ as the gradients with respect to the parameters of the underlying neural networks, and the notions of $\partial_\varphi F_\varepsilon$ and $\partial_\psi F_\varepsilon$ in accordance with these gradients.
+
+\begin{algorithm}\label{OTPlanEstAlg}
+	\caption{Transport Plan Estimation; adapted from~\cite{Seg2018}, Algorithm~1}
+	\KwResult{Estimates of optimal dual variables $\varphi, \psi$}
+	\KwIn{$\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, \varepsilon > 0$, cost function $c$, batch size $p$, learning rate $\rho$}
+	Initialize $\varphi_0, \psi_0$\;
+	$n := 0$\;
+	\While{$\text{\normalfont{}not converged}$}{
+		sample a batch $(x_1, \dots, x_p)$ from $\mu$\;
+		sample a batch $(y_1, \dots, y_p)$ from $\nu$\;
+		$\varphi_{n + 1} := \varphi_n + \rho \sum\limits_{i, j = 1}^p \Big( \nabla \varphi_n(x_i) + \partial_{\varphi_n} F_\varepsilon\big( \varphi_n(x_i), \psi_n(y_j) \big) \nabla\varphi_n(x_i) \Big)$\;
+		$\psi_{n + 1} := \psi_n + \rho \sum\limits_{i, j = 1}^p \Big( \nabla \psi_n(x_i) + \partial_{\psi_n} F_\varepsilon\big( \varphi_n(x_i), \psi_n(y_j) \big) \nabla\psi_n(y_j) \Big)$\;
+	}
+\end{algorithm}
+
+The most apparent advantage of this approach is that, in the case of $\mu$ and $\nu$ both being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( \frac{1}{\sqrt{k}} \right)$, where $k$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured to a stationary point.
+
+\todoinline{TODO:~plan estimation (\cite{Seg2018}, Theorem 3.1 and Algorithm 1)}
 
 \section{Optimal Transport Map Estimation}\label{OTMapEst}
 
