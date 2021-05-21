@@ -203,11 +203,15 @@ If $c(x, y) = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be fur
 This algorithm may also be used to compute the opposite barycentric projection $g$ with respect to a convex cost function $d$ on $\Omega_1 \times \Omega_1$. The last term in line~6 of Algorithm~\ref{OTMapEstAlg} should then be $d\big( g(y_j), x_i \big)$. This is due to the symmetry of the optimal transport problem, as~\cite{Seg2018} point out.
 
 We are now interested in how the barycentric projection of our regularized transport plan relates to the map $f$ solving (MP). Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider complete metric spaces $X$ and $Y$, compact subsets $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ compact subsets, a continuous cost function $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
-\[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n \delta_{y_j} \]
-weakly converging to $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$ for $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, respectively.
+\[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n \delta_{y_j}, \]
+with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging to $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$ respectively.
 
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~2]\label{RelatRegSolOrigSolMap}
 	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k})}_{\NinN[k]}$ such that \weak[]{\push[(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k})]{\mu}}{\push[(id_{\Omega_1}, f)]{\mu}} for \Ninf, where $f$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$ and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$ with respect to $d$.
 \end{theorem}
 
-\todoinline{TODO:~work towards~\cite{San2015}, Theorem~2}
+\begin{proof}
+	\todoinline{TODO:~finish this proof! (\cite{Seg2018}, proof of Theorem~1)}
+\end{proof}
+
+\todoinline{TODO:~work towards~\cite{San2015}, Theorem~3}
