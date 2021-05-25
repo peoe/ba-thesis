@@ -164,11 +164,21 @@ The most apparent advantage of this approach according to~\cite{Seg2018}, Sectio
 
 Applying Equation~\ref{RegApprTransPlan}, we denote the approximated transport plan for a certain $\varepsilon > 0$ after $N$ steps of Algorithm~\ref{OTPlanEstAlg} by $\gamma_N^\varepsilon$. We are now interested in how this estimate for the regularized problem (RP) may result in a solution for the original probme (KP).\@~\cite{Seg2018}, Theorem~1, gives us a result.
 
+\todoinline{TODO:~update the theorem statement to be more pretty\dots}
+
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~1]\label{RelatRegSolOrigSolPlan}
 	Let $X$ and $Y$ be complete metric spaces, $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ be compact subsets, $\mu \in \LLL[\Omega_1], \nu \in \LLL[\Omega_2]$ be our starting probability measures, $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function, $\mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0, 1 \le i, j \le n$, be discrete probability measures with \weak[]{\mu_n}{\mu} and \weak[]{\nu_n}{\nu} for \Ninf, and ${(\varepsilon_n)}_{\NinN}$ be a sequence converging to $0$ sufficiently fast with $\varepsilon_n > 0$ for all \NinN. Then for $\gamma_n^{\varepsilon_n}$, the solution of$\text{\normalfont\ (RP)}$ between $\mu_n$ and $\nu_n$ with $\varepsilon := \varepsilon_n$, there exists a subsequence ${(\gamma_{n_k}^{\varepsilon_{n_k}})}_{\NinN[k]}$ that weakly converges to a solution $\gamma$ of$\text{\normalfont\ (KP)}$ between $\mu$ and $\nu$ for \Ninf.
 \end{theorem}
 
 \begin{proof}
+	We consider $\gamma_n$ the solution of (KP) between $\mu_n$ and $\nu_n$ with maximum entropy. According to \todo{Add reference to Villani, 2008, Theorem~5.20}, there now exists a subsequence which weakly converges to a solution $\gamma$ of the same problem between $\mu$ and $\nu$. We continue to label this subsequence as $\gamma_n$, and further take the same indices to form a subsequence from the solutions of (RP) between $\mu_n$ and $\nu_n$, labeling it $\gamma_n^{\varepsilon_n}$. By expanding the following integral for $g \in \CF[b]{\Omega}$
+	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert = \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma_n] \Bigg\rvert + \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert, \]
+	we now only have to show that the left summand on the right hand side converges to $0$, as the right summand converges by the previous statement of \todo{Insert reference to Villani, 2008, Theorem~5.20}. As $\gamma_n^{\varepsilon_n}$ and $\gamma_n$ are solutions to optimal transport problems between discrete measures, we can replace the integral over $\Omega$ with sums over the masses of both measures and obtain
+	\[ \Bigg\lvert \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n^{\varepsilon_n}(x_i, y_j) - \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n(x_i, y_j) \Bigg\rvert \le M_g \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n}, \]
+	where $\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n} := \sum\limits_{i, j = 1}^n \big\lvert \gamma_n^{\varepsilon_n}(x_i, y_j) - \gamma_n(x_i, y_j) \big\rvert$ and $M_g := \max g(x_i, y_j)$ over $1 \le i, j \le n$. \todo{Add result by Cominetti and San Martin, 1994} shows that there exist $M_{c_n, \mu_n, \nu_n}, \lambda_{c_n, \mu_n, \nu_n} > 0$ such that
+	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_1^{n \times n} \le M_{c_n, \mu_n, \nu_n} \exp\left( -\frac{\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right), \]
+	with $c_n := {\big( c(x_i, y_j) \big)}_{i, j = 1}^n$. To show the convergence of the right hand side we can finally choose
+	\[ \varepsilon_n = \frac{\lambda_{c_n, \mu_n, \nu_n}}{\ln(n\,M_{c_n, \mu_n, \nu_n})} \rightarrow 0, \Ninf. \]
 	\todoinline{TODO:~finish the proof! (\cite{Seg2018}, proof of Theorem~1)}
 \end{proof}
 
@@ -211,7 +221,7 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 \end{theorem}
 
 \begin{proof}
-	\todoinline{TODO:~finish this proof! (\cite{Seg2018}, proof of Theorem~1)}
+	\todoinline{TODO:~finish this proof! (\cite{Seg2018}, proof of Theorem~2)}
 \end{proof}
 
 \begin{corollary}[Taken from~\cite{Seg2018}, Corollary~1]\label{RelatRegOrigCor}
