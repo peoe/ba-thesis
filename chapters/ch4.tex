@@ -221,8 +221,10 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 
 \begin{proof}
 	By \todo{Add reference to Villani, 2008, Corollary~9.3} there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. Following the proof of~\cite{Seg2018}, Theorem~2, we have to show that for any Lipschitz continuous function $g$ over $\Omega$
-	\[ \Biig\lvert \int\limits_{\Omega} g~\D[\push[id, \bar{\gamma}_n^{\varepsilon_n}]{\mu_n}] - \int\limits_{\Omega} g~\D[\push[id, \bar{\gamma}_n^]{\mu_n}] \Bigg\rvert \rightarrow 0 \]
-	for \Ninf{} and $\varepsilon_n$ converging to $0$ sufficiently fast.
+	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n}}] \Bigg\rvert \rightarrow 0 \]
+	for \Ninf{} and $\varepsilon_n$ converging to $0$ sufficiently fast. According to~\cite{Seg2018}, the optimal transport plan $\gamma_n$ is induced by an optimal map $T_n$, i.e.~$\gamma_n = \push[(id_{\Omega_1}, T_n)]{\mu_n}$, which then further implies $\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n} = \push[(id_{\Omega_1}, T_n)]{\mu_n}$. This allows us to apply the definition of the push forward and rewrite
+	\[ \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] = \int\limits_{\Omega} g\big( x, \bar{\gamma}_n^{\varepsilon_n}(x) \big)~\Dx{\mu_n} = \frac{1}{n} \sum\limits_{i = 1}^n g\big( x_i, \bar{\gamma}_n^{\varepsilon_n}(x_i) \big), \]
+	\[ \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1} \bar{\gamma}_n)]{\mu_n}}] = \int\limits_{\Omega} g\big( x, T_n(x) \big)~\Dx{\mu_n} = \frac{1}{n} \sum\limits_{i = 1}^n g\big( x_i, T_n(x_i) \big). \]
 	\todoinline{TODO:~finish this proof! (\cite{Seg2018}, proof of Theorem~2)}
 \end{proof}
 
