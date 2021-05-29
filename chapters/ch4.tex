@@ -197,29 +197,29 @@ If $c(x, y) = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be fur
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from~\cite{Seg2018}, Algorithm~2}
-	\KwResult{Estimate of the barycentric projection $\bar{\gamma}^\varepsilon$}
+	\KwResult{Estimate $T_{\theta}$ of the barycentric projection $\bar{\gamma}^\varepsilon$}
 	\KwIn{$\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, \varepsilon > 0$, cost function $c$, convex cost function $d$, batch size $p$, learning rate $\rho$}
-	Initialize $f_\theta$\;
+	Initialize $T_\theta$\;
 	Compute estimates of optimal dual variables $\varphi, \psi$ using Algorithm~\ref{OTPlanEstAlg} with $\mu, \nu, \varepsilon, c, p$ and $\rho$\;
 	\While{$\text{\normalfont{}not converged}$}{
 		sample a batch $(x_1, \dots, x_p)$ from $\mu$\;
 		sample a batch $(y_1, \dots, y_p)$ from $\nu$\;
-		$\theta := \theta - \rho \sum\limits_{i, j = 1}^p F_\varepsilon\big( \varphi(x_i), \psi(y_j) \big) \nabla_\theta\,d\big( y_j, f_\theta(x_i) \big)$\;
+		$\theta := \theta - \rho \sum\limits_{i, j = 1}^p F_\varepsilon\big( \varphi(x_i), \psi(y_j) \big) \nabla_\theta\,d\big( y_j, T_\theta(x_i) \big)$\;
 	}
 \end{algorithm}
 
 This algorithm may also be used to compute the opposite barycentric projection $g$ with respect to a convex cost function $d$ on $\Omega_1 \times \Omega_1$. The last term in line~6 of Algorithm~\ref{OTMapEstAlg} should then be $d\big( g(y_j), x_i \big)$. This is due to the symmetry of the optimal transport problem, as~\cite{Seg2018} point out.
 
-We are now interested in how the barycentric projection of our regularized transport plan relates to the map $f$ solving (MP). Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ \todo{Check which preliminaries Villani, 2008, Corollary 9.3 entails!}, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
+We are now interested in how the barycentric projection of our regularized transport plan relates to the map $T$ solving (MP). Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ \todo{Check which preliminaries Villani, 2008, Corollary 9.3 entails!}, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
 \[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n \delta_{y_j}, \]
 with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging to $\mu$ and $\nu$ respectively.
 
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~2]\label{RelatRegSolOrigSolMap}
-	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)}_{\NinN[k]}$ such that \weak[]{\push[\big(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_n}}{\push[(id_{\Omega_1}, f)]{\mu}} for \Ninf, where $f$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$, $id_{\Omega_1}$ is the identity map on $\Omega_1$, and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$ with respect to $d$.
+	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)}_{\NinN[k]}$ such that \weak[]{\push[\big(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_n}}{\push[(id_{\Omega_1}, T)]{\mu}} for \Ninf, where $T$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$, $id_{\Omega_1}$ is the identity map on $\Omega_1$, and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$ with respect to $d$.
 \end{theorem}
 
 \begin{proof}
-	\todoinline{TODO:~Add outline why we only have to show the following and properly introduce our $f$! Also add notice for $K_g$ as the Lipschitz constant of $g$!}
+	\todoinline{TODO:~Add outline why we only have to show the following and properly introduce our $T$! Also add notice for $K_g$ as the Lipschitz constant of $g$!}
 	By \todo{Add reference to Villani, 2008, Corollary 9.3} there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. Following the proof of~\cite{Seg2018}, Theorem~2, we only have to show that for any Lipschitz continuous function $g$ over $\Omega$
 	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n}}] \Bigg\rvert \rightarrow 0 \]
 	for \Ninf{} and $\varepsilon_n$ converging to $0$ sufficiently fast, as \todo{use stability result Villani, 2008, Theorem 5.20 to show $\gamma_n \rightharpoonup f$}. According to~\cite{Seg2018}, the optimal transport plan $\gamma_n$ is induced by an optimal map $T_n$, i.e.~$\gamma_n = \push[(id_{\Omega_1}, T_n)]{\mu_n}$, which then further implies $\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n} = \push[(id_{\Omega_1}, T_n)]{\mu_n}$. This allows us to apply the definition of the push forward and rewrite
@@ -230,13 +230,13 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 	\[ = n~K_g~\Vert \gamma_n^{\varepsilon_n} Y - \gamma_n Y \Vert_{\R^{n \times d}, 2} \le n~K_g~\Vert Y \Vert_{\R^{n \times d}, 2}^{1/2}~\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2}, \]
 	where $\Vert A \Vert_{\R^{d \times n}, 2} = \sigma_{\max}(A^T A)$, $\Vert A \Vert_{\R^{n \times n}, 2} = \sigma_{\max}(A^T A)$, $\gamma_n^{\varepsilon_n} = {\big( \gamma_n^{\varepsilon_n}(x_i, y_j) \big)}_{i, j = 1}^n$, $\gamma_n$ in a similar fashion, and Cauchy-Schwarz is used on the last inequality. By the same result by \todo{add reference to Cominetti and San Martin, 1994} as in the proof of Theorem~\ref{RelatRegSolOrigSolPlan}, we can now find $M_{c_n, \mu_n, \nu_n}, \lambda_{c_n, \mu_n, \nu_n} > 0$ such that
 	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2} \le M_{c_n, \mu_n, \nu_n} \exp\left( \frac{-\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right). \]
-	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot \ln\left( n^2 \Vert Y \vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)^{-1}$ suffices for the right hand side to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak[]{\bar{\gamma}_n^{\varepsilon_n}}{f} for \Ninf.
+	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot \ln\left( n^2 \Vert Y \vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)^{-1}$ suffices for the right hand side to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak[]{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
 \end{proof}
 
 \todoinline{TODO:~Consider whether or not to instead label $Y$ as $Y_n$, mimicking~\cite{Seg2018}}
 
 \begin{corollary}[Taken from~\cite{Seg2018}, Corollary~1]\label{RelatRegOrigCor}
-	With the same assumptions as for Theorem~\ref{RelatRegSolOrigSolMap}, \weak[]{\push[\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_{n_k}}}{\nu} for \Ninf.
+	With the same assumptions as for Theorem~\ref{RelatRegSolOrigSolMap}, there exists a subsequence $(n_k)_{\NinN[k]}, \NinN[n_k]$ for all \NinN[k], such that \weak[]{\push[\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_{n_k}}}{\nu} for \Ninf.
 \end{corollary}
 
 \begin{proof}
