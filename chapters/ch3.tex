@@ -48,7 +48,7 @@ This problem in general is not easy to solve. In order to point out the difiicul
 \begin{definition}[Weak Convergence for Dual Spaces; adapted from~\cite{Ryn2008}, Definition 5.68]\label{WeakCon}
 	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
 	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
-	holds. In this case, we write \weak[]{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
+	holds. In this case, we write \weak{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
 \end{definition}
 
 \begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
@@ -151,11 +151,11 @@ To answer this question, we will be giving results which show that the set of pl
 \begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
-	holds. In this case we will write \weak{\mu_n}{\mu} in analogy to Definition~\ref{WeakCon}.
+	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{} in analogy to Definition~\ref{WeakCon}.
 \end{definition}
 
 %\begin{lemma}[Taken from~\cite{San2015}, Lemma 1.31]\label{CompWeakConv}
-%	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that \[ \bigcup\limits_{i \in I_n} C_{i, n} = X \] for every \NinN. Suppose that $\max\limits_{i \in I_n} \text{\normalfont\ diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho}.
+%	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that \[ \bigcup\limits_{i \in I_n} C_{i, n} = X \] for every \NinN. Suppose that $\max\limits_{i \in I_n} \text{\normalfont\ diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho} for \Ninf.
 	
 %	Here, the diameter of a set $A \subseteq X$ is to be understood as
 %	\[ \text{\normalfont\ diam}(A) := \sup \{ d(x, y) : x, y \in A \}. \]
@@ -189,11 +189,11 @@ With the density of the induced transport plans shown, we can now conclude that 
 	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.33, and Memo on relaxations, Box~1.10.
 
 	We consider the relaxation $\overline{J}$ of $J$ defined by
-	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma) : \weak{\gamma_n}{\gamma} \right\}. \]
+	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma) : \weak{\gamma_n}{\gamma} \right\}, \Ninf. \]
 	\todoinline{Is weak convergence correct or should it be strong conv?}
 	Since $J \ge \overline{J}$ per definition implies $\inf J \ge \inf \overline{J}$ and as $J \ge \inf J$, with $\inf J$ being constant and thus l.s.c., results in $\overline{J} \ge \inf J$, we get that $\inf J = \inf \overline{J}$. As $K$ is also l.s.c.\ with $K \le J$ we obtain $\inf K \le \inf J$.
 
-	To show $\inf K = J$ we need to find for every transport plan $\gamma$ a sequence of transport maps ${(T_n)}_{\NinN}, T_n \in \MF{\R^d}{\R^d}$ with $\push[(T_n)]{\mu} = \nu$, such that $\gamma_{T_n} \rightharpoonup \gamma$ and $J(\gamma_{T_n}) \rightarrow K(\gamma)$ for \Ninf. Actually, as $K$ is continuous and for $\gamma = \gamma_{T_n}$ it holds that $K(\gamma) = J(\gamma)$, it is already sufficient for a sequence ${(T_n)}_{\NinN}$ to exist with \weak{\gamma_{T_n}}{\gamma}.
+	To show $\inf K = J$ we need to find for every transport plan $\gamma$ a sequence of transport maps ${(T_n)}_{\NinN}, T_n \in \MF{\R^d}{\R^d}$ with $\push[(T_n)]{\mu} = \nu$, such that $\gamma_{T_n} \rightharpoonup \gamma$ and $J(\gamma_{T_n}) \rightarrow K(\gamma)$ for \Ninf. Actually, as $K$ is continuous and for $\gamma = \gamma_{T_n}$ it holds that $K(\gamma) = J(\gamma)$, it is already sufficient for a sequence ${(T_n)}_{\NinN}$ to exist with \weak{\gamma_{T_n}}{\gamma} for \Ninf.
 
 	Such a sequence exists, as the set of transport plans induced by a transport map is dense in \TP{\mu}{\nu} by Theorem~\ref{IndPlansDense}. With this minimizing sequence we finally have $\inf K = \inf \overline{J} = \inf J$.
 \end{proof}
@@ -238,7 +238,7 @@ As our transport plans are probability measures on $X \times Y$, they are bounde
 	To this end, let $\varepsilon > 0$. As a sequence made up of a single transport plan $\gamma$ is necessarily tight, we can find two compact sets $K_X \subseteq X, K_Y \subseteq Y$ such that $\mu(X \setminus K_X) < \frac{\varepsilon}{2}$ and $\nu(Y \setminus K_Y) < \frac{\varepsilon}{2}$. Hence the set $K_X \times K_Y \subseteq X \times Y$ is compact too, resulting in
 	\[ \forall \gamma_n \in \TP{\mu}{\nu}: \gamma_n((X \times Y) \setminus (K_X \times K_Y)) \le \gamma_n ((X \setminus K_X) \times Y) + \]
 	\[ + \gamma_n(X \times (Y \setminus K_Y)) = \mu(X \setminus K_X) + \nu(Y \setminus K_Y) < \varepsilon. \]
-	With Prokhorov we have \weak{\gamma_n}{\gamma}. As our transport plan $\gamma$ was arbitrarily chosen, this property holds for all transport plans and thus all sequences of transport plans. The claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures.
+	With Prokhorov (\ref{Prok}) we have \weak{\gamma_n}{\gamma} for \Ninf. As our transport plan $\gamma$ was arbitrarily chosen, this property holds for all transport plans and thus all sequences of transport plans. The claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures.
 \end{proof}
 
 \section{The Kantorovich Dual}\label{KanDual}
