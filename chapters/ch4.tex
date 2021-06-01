@@ -1,10 +1,6 @@
 \chapter{Stochastic Estimation}\label{DualPlanEst}
 
-In this part we will first introduce regularized optimal transport. This regularization allows for a duality result between the dual solution and the primal solution which we will then be used to estimate optimal plans and maps.
-
-In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 = \Omega \subseteq \R^{n_1 + n_2}$ will always be compact.
-
-\todoinline{TODO:~figure out, what continuity $c$ is required to have}
+We will first introduce regularized optimal transport. This regularization allows for a duality result that will then be used to estimate optimal transport plans and maps. In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
 \section{Regularized Optimal Transport}\label{RegOT}
 
@@ -14,7 +10,7 @@ with $0 \cdot \log(0) := 0$. From here we can define
 \[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
 as a subset of all integrable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
-The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is the equivalence of $f \in \MF{\Omega}{\RZero}$ with $E(f) < \infty$ and $f \in \LLL$.
+The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
 
 The second conclusion regards the structure of \LLL{}. When considering the \textit{Luxemburg norm}
 \[ \Vert f \Vert_\Phi := \inf \left\{ C > 0 : \int\limits_\Omega \Phi\left( \frac{\vert f(z) \vert}{C} \right)~\D[z] \le 1 \right\} \]
@@ -162,7 +158,7 @@ When considering the continuous case, we further define $\nabla \varphi$ and $\n
 
 The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( n^{-\frac{1}{2}} \right)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-Applying Equation~\ref{RegApprTransPlan}, we denote the approximated transport plan for a certain $\varepsilon > 0$ after $N$ steps of Algorithm~\ref{OTPlanEstAlg} by $\gamma_N^\varepsilon$. We are now interested in how this estimate for the regularized problem (RP) may result in a solution for the original probme (KP).\@~\cite{Seg2018}, Theorem~1, gives us a result.
+We are now interested in how this estimate for the regularized problem (RP) may result in a solution for the original problem (KP). Applying Equation~\ref{RegApprTransPlan}, we denote the approximated transport plan for a certain $\varepsilon > 0$ by $\gamma^\varepsilon$.\@~\cite{Seg2018}, Theorem~1, gives us a result regarding the convergence of regularized optimal transport plans.
 
 \todoinline{TODO:~update the theorem statement to be more pretty\dots}
 
@@ -231,7 +227,7 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 	\[ = n~K_g~\Vert \gamma_n^{\varepsilon_n} Y - \gamma_n Y \Vert_{\R^{n \times d}, 2} \le n~K_g~\Vert Y \Vert_{\R^{n \times d}, 2}^{1/2}~\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2}, \]
 	where we use $K_g < \infty$ the Lipschitz constant of $g$, $\Vert A \Vert_{\R^{d \times n}, 2} = \sigma_{\max}(A^T A)$, $\Vert A \Vert_{\R^{n \times n}, 2} = \sigma_{\max}(A^T A)$, $\gamma_n^{\varepsilon_n} = {\big( \gamma_n^{\varepsilon_n}(x_i, y_j) \big)}_{i, j = 1}^n$, $\gamma_n$ in a similar fashion, and Cauchy-Schwarz is used on the last inequality. Using the same result by~\cite{Comi1994} as in the proof of Theorem~\ref{RelatRegSolOrigSolPlan}, we can now find $M_{c_n, \mu_n, \nu_n} > 0$ and $\lambda_{c_n, \mu_n, \nu_n} > 0$ such that
 	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2} \le M_{c_n, \mu_n, \nu_n} \exp\left( \frac{-\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right). \]
-	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n^2 \Vert Y \vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)}^{-1}$ suffices for the right hand side to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
+	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n^2 \Vert Y \Vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)}^{-1}$ suffices for the right hand side to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
 \end{proof}
 
 \todoinline{TODO:~Consider whether or not to instead label $Y$ as $Y_n$, mimicking~\cite{Seg2018}}
