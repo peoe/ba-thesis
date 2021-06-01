@@ -45,10 +45,16 @@ This problem in general is not easy to solve. In order to point out the difiicul
 	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
 \end{definition}
 
-\begin{definition}[Weak Convergence for Dual Spaces; adapted from~\cite{Ryn2008}, Definition 5.68]\label{WeakCon}
-	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
-	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
-	holds. In this case, we write \weak{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
+%\begin{definition}[Weak Convergence for Dual Spaces; adapted from~\cite{Ryn2008}, Definition 5.68]\label{WeakCon}
+%	Let $(X, ||\cdot||)$ be a normed space, and $(X', ||\cdot||_{X'})$ its dual space. A sequence ${(x_n)}_{\NinN}$ is said to \textbf{converge weakly} to $x \in X$, if
+%	\[ \forall \varphi \in X': \varphi(x_n) \xrightarrow[\Ninf]{} \varphi(x) \]
+%	holds. In this case, we write \weak{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
+%\end{definition}
+
+\begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
+	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
+	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
+	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{}.
 \end{definition}
 
 \begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
@@ -60,6 +66,8 @@ We can now consider the following two points to illustrate the hardships in deal
 
 Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. In order for $T$ to be a transport map in the formulation notation no \textit{mass splitting} mass splitting must occur. With a semidiscrete transport problem, this is simply not possible.
 \todoinline{Add notes on why mass splitting must occur?}
+
+\todoinline{TODO:~update this part to use weak convergence of measures!!!!!!}
 
 Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. For this we consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. As
 \[ \int_0^{2 \pi} \sin^2(nx)~\D[x] = \frac{4 \pi n - \sin(4\pi n)}{4n} = \pi < \infty, \]
@@ -147,12 +155,6 @@ We are now interested if this already results in a statement which puts (KP) and
 $J$ immediately allows us to consider both (MP) and (KP) on the same set of admissible objects, that is all transport plans induced by a transport map. As Kantorovich replaced $J$ with $K$ (see Definition~\ref{KanProb}) the question to be asked transforms into: does $\inf K = \inf J$ hold?
 
 To answer this question, we will be giving results which show that the set of plans induced by a map is dense in \TP{\mu}{nu} whenever certain conditions are met. This will then allow us to conclude that indeed both infima coincide. For these results we will always demand compactness for a subset $\Omega \subset \R^d$, however~\cite{San2015} points out, that this is just for simplicity and more general statements may be made.
-
-\begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
-	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
-	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
-	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{} in analogy to Definition~\ref{WeakCon}.
-\end{definition}
 
 %\begin{lemma}[Taken from~\cite{San2015}, Lemma 1.31]\label{CompWeakConv}
 %	Consider on a compact metric space $X$, endowed with a probability $\rho \in \PM{X}$, a sequence of partitions $G_n$, each $G_n$ being a family of disjoint subsets $C_{i, n}$ such that \[ \bigcup\limits_{i \in I_n} C_{i, n} = X \] for every \NinN. Suppose that $\max\limits_{i \in I_n} \text{\normalfont\ diam}(C_{i, n})$ tends to $0$ as \Ninf{} and consider a sequence of probability measures $\rho_n$ on $X$ such that, for every \NinN{} and $i \in I_n$, we have $\rho_n(C_{i, n}) = \rho(C_{i, n})$. Then \weak{\rho_n}{\rho} for \Ninf.
