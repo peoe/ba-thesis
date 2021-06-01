@@ -113,9 +113,7 @@ With this result, we can now conclude that $T^2 := \lim T_n^2$ as well as $T := 
 %\end{proof}
 
 \begin{remark}\label{TransMapExist}
-	It can be shown that for any atomless measure $\mu \in \PM{\R^d}$ (cf.\ \cite{Bog2007}, Volume 1, Definition 1.12.7) and any $\nu \in \PM{\R^d}$, there exists a transport map \map[T]{\R^d}{\R^d} with $\push{\mu} = \nu$. This makes (MP) feasible.
-
-	For a more detailed explanation, one may consider the argument made by~\cite{San2015} in Lemma~1.27 upto Corollary~1.29.
+	It can be shown that for any atomless measure $\mu \in \PM{\R^d}$ (cf.\ \cite{Bog2007}, Volume 1, Definition 1.12.7) and any $\nu \in \PM{\R^d}$, there exists a transport map \map[T]{\R^d}{\R^d} with $\push{\mu} = \nu$. For a more detailed explanation, one may consider the argument made by~\cite{San2015} in Lemma~1.27 upto Corollary~1.29.
 \end{remark}
 
 \section{The Kantorovich Relaxation}\label{KantRelax}
@@ -245,14 +243,13 @@ As our transport plans are probability measures on $X \times Y$, they are bounde
 
 \section{The Kantorovich Dual}\label{KanDual}
 
-As~\cite{San2015} points out at the beginning of Section~1.2, the problem (KP) is a linear problem with convex constraints. As such, we are going to investigate the \textit{dual problem} to attain further results. One of these results will be regarding \textit{regularized optimal transport}.
-\todoinline{why linear? why convex?}
+As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear problem with convex constraints. As such, we are going to investigate the \textit{dual problem} to attain further results. One of these results will be regarding \textit{regularized optimal transport}.
 
 \todoinline{TODO:~Rewrite section intro when section is done}
 
 We will be expressing the dual problem of (KP) in terms of continuous bounded functions. For this it is useful to restate the constraint $\gamma \in \TP{\mu}{\nu}$ in a different manner. Firstly, we notice that for a general positive measure $\gamma \in \M[+]{X \times Y}$ the equation
 \[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_X \varphi(x)~\Dx{\mu} + \int\limits_Y \psi(y)~\Dx[y]{\nu} - \int\limits_{X \times Y} \varphi(x) + \psi(y)~\Dx[x, y]{\gamma} \]
-is $0$, if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP): if the constraint is fulfilled, nothing will be changed, and if $\gamma$ is not a transport plan, (KP) will stay infeasible. For ease of notation, we will be using the notation $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. Exchanging the $\inf$ and the $\sup$ in the modified (KP), we obtain
+is equal to $0$, if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP): if the constraint is fulfilled, nothing will be changed, and if $\gamma$ is not a transport plan, (KP) will stay infeasible. For ease of notation, we will be using the notation $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. Exchanging the $\inf$ and the $\sup$ in the modified (KP), we obtain
 \[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] + \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma] \]
 Secondly, we want to restate the above infimum in $\gamma$ as a constraint on $\varphi$ and $\psi$. We get
 \[ \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma] = 
