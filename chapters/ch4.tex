@@ -128,30 +128,6 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 	Cf.~the proof of Theorem~4.8 in~\cite{Cla2021}.
 \end{proof}
 
-As~\cite{Cla2021}, Remark~4.9, points out, we can use this system to derive the \textit{Sinkhorn algorithm}. We make use of the first two equations to iteratively approach optimal dual variables, and apply the last equation to obtain an optimal transport plan. For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
-\[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
-and
-\[ T_2^{n + 1}(y) := \Phi^{-1} \left( \frac{\nu(y)}{\int_{\Omega_2} \Phi\big( u_1^{n + 1}(x) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[x]} \right) \]
-for all \NinN, $(x, y) \in \Omega$.
-\begin{algorithm}\label{SinkhornAlg}
-	\caption{Sinkhorn Algorithm; adapted from~\cite{Cla2021}, Remark~4.9}
-	\KwResult{Optimal dual variables $\bar{u}_1, \bar{u}_2$}
-	\KwIn{$\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, (x, y) \in \Omega, \varepsilon > 0$, cost function $c$, starting variable $u_2^0 \in \Lexp[\Omega_2]$}
-	$n := 0$\;
-	\While{$\text{\normalfont{}not converged}$}{
-		$u_1^{n + 1}(x) := T_1^{n + 1}(x)$\;
-		$u_2^{n + 1}(x) := T_2^{n + 1}(y)$\;
-		$n := n + 1$\;
-	}
-\end{algorithm}
-
-Stopping after $N - 1$ iterations, we get
-\[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
-as an approximate value of transport plan for (RP) at a predetermined $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
-\begin{equation}\label{RegApprTransPlan}
-	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
-\end{equation}
-
 %This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
 In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw, that the set of transport plans induced by transport maps is dense in the set of all transport maps \TP{\mu}{\nu}. We are now interested in finding a transport map from our previously computed estimation of an optimal transport plan, i.e.~a solution to (MP) between $\mu$ and $\nu$, as the handling of a mapping instead of a joint measure (probability distribution) is often advantageous. As we have already seen in Theorem~\ref{InfCoincide}, when $\mu$ is atomless, such a transport map is directly related to the accompanying transport plan. This suggests that we start with our weakly convergent subsequence and apply a transformation which will then result in a sequence weakly converging toward an optimal transport map.
@@ -204,6 +180,30 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 \end{proof}
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
+
+As~\cite{Cla2021}, Remark~4.9, points out, we can use the optimality conditions from Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}. We make use of the first two equations to iteratively approach optimal dual variables, and apply the last equation to obtain an estimated optimal transport plan. For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
+\[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
+and
+\[ T_2^{n + 1}(y) := \Phi^{-1} \left( \frac{\nu(y)}{\int_{\Omega_2} \Phi\big( u_1^{n + 1}(x) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[x]} \right) \]
+for all \NinN, $(x, y) \in \Omega$.
+\begin{algorithm}\label{SinkhornAlg}
+	\caption{Sinkhorn Algorithm; adapted from~\cite{Cla2021}, Remark~4.9}
+	\KwResult{Optimal dual variables $\bar{u}_1, \bar{u}_2$}
+	\KwIn{$\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}, (x, y) \in \Omega, \varepsilon > 0$, cost function $c$, starting variable $u_2^0 \in \Lexp[\Omega_2]$}
+	$n := 0$\;
+	\While{$\text{\normalfont{}not converged}$}{
+		$u_1^{n + 1}(x) := T_1^{n + 1}(x)$\;
+		$u_2^{n + 1}(x) := T_2^{n + 1}(y)$\;
+		$n := n + 1$\;
+	}
+\end{algorithm}
+
+Stopping after $N - 1$ iterations, we get
+\[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
+as an approximate value of transport plan for (RP) at a predetermined $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
+\begin{equation}\label{RegApprTransPlan}
+	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
+\end{equation}
 
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples as each of its iterations has $\mathcal{O}(n^2)$ complexity. Hence, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
