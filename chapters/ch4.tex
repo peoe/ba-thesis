@@ -205,6 +205,8 @@ as an approximate value of transport plan for (RP) at a predetermined $(x, y)$. 
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
 
+\todoinline{TODO:~add phrases to incorporate previous theorems, showing that this estimation is actually based on theory!}
+
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples as each of its iterations has $\mathcal{O}(n^2)$ complexity. Hence, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
 The procedure taken by~\cite{Seg2018} improves on both shortcomings: Instead of only computing the approximated plan at a specified location $(x, y)$ a neural network is trained to model the continuous case and a finite vector is iteratively improved in the discrete case. To deal with larger samples, the input measures $\mu$ and $\nu$ are interpreted as probability distributions and individual samples drawn from them for each iteration.
