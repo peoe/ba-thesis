@@ -36,7 +36,7 @@ Another useful step to take is to norm the overall mass. This can be acheived by
 	\[ \int\limits_X c(x, T(x))~\Dx{\mu} = \inf \text{(MP)}. \]
 \end{definition}
 
-This problem in general is not easy to solve. In order to point out the difiiculites we may face, we require the notions of the \textit{dual space}, \textit{weak convergence} and the \textit{support} of a function.
+This problem in general is not easy to solve. In order to point out the difiiculites we may face, we require the notions of the \textit{weak convergence} and the \textit{support} of a function.
 
 %\begin{definition}[Dual Space; adapted from~\cite{Ryn2008}, Definition 4.28]\label{DuaSpa}
 %	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
@@ -209,7 +209,7 @@ Note: Sequential compactness and compactness are the same on metric spaces. To s
 As our transport plans are probability measures on $X \times Y$, they are bounded and countably additive. We can thus assume \TP{\mu}{\nu} to be a subset of a metric space.
 
 \begin{lemma}[Taken from~\cite{San2015}, Theorem 1.5]\label{KPAdmitCompLSCBound}
-	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be a l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)\,}$admits a solution.
+	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be an l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{lemma}
 
 \begin{proof}
@@ -272,7 +272,7 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 \end{theorem}
 
 \begin{proof}
-	We consider a maximizing sequence ${(\varphi_n, \psi_n)}_{\NinN}$, with $\varphi_n \oplus \psi_n \le c$ and $(\varphi_n, \psi_n) \in \CF[b]{X} \times \CF[b]{Y}$ for \NinN{}, that is a pair of feasible functions for (DP). By its feasibility we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$ and note that $\int\limits_Y \psi_n~\D[\nu] \le \int\limits_Y \inf\limits_{x \in X} c(x, y) - \varphi_n(x)~\Dx[y]{\nu} = \int\limits_Y \varphi_n^c~\D[\nu]$. Thus it will suffice to consider a maximixing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument for $\psi_n$ results in a sequence ${(\psi^{\bar{c}}, \psi_n)}_{\NinN}$. This already means, that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is neccessary that $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ hold, i.e.~that they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be further enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
+	We consider a maximizing sequence ${(\varphi_n, \psi_n)}_{\NinN}$, with $\varphi_n \oplus \psi_n \le c$ and $(\varphi_n, \psi_n) \in \CF[b]{X} \times \CF[b]{Y}$ for \NinN{}, that is a pair of admissible functions for (DP). By its feasibility we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$ and note that $\int\limits_Y \psi_n~\D[\nu] \le \int\limits_Y \inf\limits_{x \in X} c(x, y) - \varphi_n(x)~\Dx[y]{\nu} = \int\limits_Y \varphi_n^c~\D[\nu]$. Thus it will suffice to consider a maximixing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument for $\psi_n$ results in a sequence ${(\psi^{\bar{c}}, \psi_n)}_{\NinN}$. This already means, that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is neccessary that $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ hold, i.e.~that they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be further enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
 
 	From~\cite{San2015}, Proof of Proposition~1.34, we have $\varphi^{c\bar{c}} = \varphi, \psi^{\bar{c}c} = \psi$, as
 	\[ \forall x \in X: \eta^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \eta^c(y) = \inf\limits_{y \in Y} c(x, y) - \inf\limits_{z \in X} (c(z, y) - \eta(z)) \]
@@ -358,7 +358,7 @@ The problem we now face, is that our $c$ can not always be assumed to be uniform
 \end{theorem}
 
 \begin{proof}
-	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of a l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: As~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
+	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: As~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
 
 	By Lipschitz continuity implying uniform continuity, and uniform continuity implying lower semi-continuity via regular continuity, this sequence is l.s.c. With the uniform continuity and the bound obtained from $c$, we can apply Theorem~\ref{BoundedPDRel} and apply $\varphi \oplus \psi \le c_n \le c$ to get
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \overset{\ref{BoundedPDRel}}{=} \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c_n} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu] \]
