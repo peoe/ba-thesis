@@ -5,7 +5,7 @@ This section will be dealing with the problem of optimal transport and some resu
 This introductory part will follow~\cite{San2015} Chapter 1 closely in content as well as notation.
 
 \section{The Monge Problem}\label{TheMonProb}
-To motivate the modern formulation of the Monge problem, first described by\ \cite{Mon1781}, we consider a mass modelled by a measure on $X$ to be moved to another mass, again modelled by a measure but on $Y$. One might for example imagine a pile of sand or a certain amount of particles being moved from one location to a different one. This transport will incur costs and the goal of optimal transport is to find a ``way of transporting'' the mass to its target whilst accumulating the smallest cost possible, while making sure that no mass is lost.
+To motivate the modern formulation of the Monge problem, first described by\ \cite{Mon1781}, we consider a mass modelled by a measure on $X$ to be moved to another mass, again modelled by a measure but on $Y$. One might for example imagine a pile of sand or a certain amount of particles being moved from one location to a different one. This transport will incur costs and the goal of optimal transport is to find a ``way of transporting'' the mass to its target, accumulating the smallest cost possible while making sure that no mass is lost.
 
 For this purpose we consider a non-negative \textit{cost function} $c(x, y)$, which will give us the cost of moving a particle from position $x$ to position $y$. Ideally this cost function will be continuous or semi-continuous, though later on we will see that with more constraints we can obtain optimality and uniqueness in a simpler fashion.
 
@@ -61,7 +61,7 @@ This problem in general is not easy to solve. In order to point out the difiicul
 
 We can now consider the following two points to illustrate the hardships in dealing with (MP):
 
-Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. In order for $T$ to be a transport map in the formulation notation no \textit{mass splitting} mass splitting must occur. With a semidiscrete transport problem, this is simply not possible.
+Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would be infeasible. In order for $T$ to be a transport map in the formulation notation no \textit{mass splitting} must occur. With a semidiscrete transport problem, this is simply not possible.
 
 Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. Consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. We get $(\push[T_n]{\mu})(y) = \mu\left( \frac{\arcsin(y)}{n} \right)$ and notice that for all $\varepsilon > 0$ there exists an \NinN{} such that the inner term is less then $\varepsilon$ for all $y \in Y$. If \push[T_n]{\mu} is weakly convergent, it can thus only converge to $\nu \equiv 0$, i.e.\ for \NinN{} sufficiently large, $T_n$ no longer induces a probability measure via the push-forward.
 
@@ -137,7 +137,7 @@ We are now interested if this already results in a statement which puts (KP) and
 \[ J(\gamma) := 
 	\begin{cases}
 		K(\gamma) = M(T), & \gamma = \gamma_T \\
-		\infty, & \text{ otherwise}
+		\infty, & \text{otherwise}
 	\end{cases}. \]
 $J$ immediately allows us to consider both (MP) and (KP) on the same set of admissible objects, that is all transport plans induced by a transport map. As Kantorovich replaced $J$ with $K$ (see Definition~\ref{KanProb}) the question to be asked transforms into: does $\inf K = \inf J$ hold?
 
@@ -188,7 +188,7 @@ With the density of the induced transport plans shown, we can now conclude that 
 
 So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions in order to enable later results, which will more directly influence the estimation of transport plans and maps.
 
-One of the essential ideas here is the continuity of our functional $K$. One way to define the continuity of a function is via the limit criterium. For this, an explicit notion of convergence is needed. In the following results, we will be referring to the continuity of $K$ in terms of the weak convergence of measures (\ref{WeakConMeas}).
+One of the essential ideas here is the continuity of the functional $K$. One way to define the continuity of a function is via the limit criterium. For this, an explicit notion of convergence is needed. In the following results, we will be referring to the continuity of $K$ in terms of the weak convergence of measures (\ref{WeakConMeas}).
 
 \begin{lemma}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmitCompCont}
 	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$, and \map[c]{X \times{} Y}{\R} be a continuous function. Then$\text{\normalfont\ (KP)\,}$admits a solution.
@@ -203,7 +203,7 @@ One of the essential ideas here is the continuity of our functional $K$. One way
 	To show the compactness, let ${(\gamma_n)}_{\NinN}$ be a sequence with $\gamma_n \in \TP{\mu}{\nu}$ for every \NinN. We define $\hat{f}_n := \int f~\D[\gamma_n]$ for every $f \in \CF[b]{X \times Y}$. As $\rvert \int f~\D[\gamma_n] \lvert \le \int \lvert f \rvert~\D[\gamma_n] \le \sup\limits_{X \times Y} |f| < \infty$, since $f$ is bounded and continuous on a compact set, we see that the sequence ${(\hat{f}_n)}_{\NinN}$ is bounded and hence has a convergent subsequence ${(\hat{f}_{n_k})}_{\NinN[k]}$ for every $f \in \CF[b]{X \times Y}$.
 \end{proof}
 
-Note: Sequential compactness and compactness are the same on metric spaces. To see the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \mu \Vert := |\mu|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\mu + \nu)(A) \le 0, (\mu + \nu)(B) \ge 0$ (cf.~\cite{Bog2007}, Volume 1, Theorem~3.1.1.~and Corollary~3.1.2) using
+Note that compactness and sequential compactness are the same on metric spaces. To see the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \mu \Vert := |\mu|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\mu + \nu)(A) \le 0, (\mu + \nu)(B) \ge 0$ (cf.~\cite{Bog2007}, Volume 1, Theorem~3.1.1.~and Corollary~3.1.2) using
 \[ \Vert \mu + \nu \Vert = \vert \mu + \nu \vert (X) = (\mu + \nu)((X \times Y) \cap A) - (\mu + \nu)((X \times Y) \cap B) \]
 \[ = (\mu + \nu)(A) - (\mu + \nu)(B) \le \vert \mu \vert (A) + \vert \mu \vert (B) + \vert \nu \vert (A) + \vert \nu \vert (B) = \Vert \mu \Vert + \Vert \nu \Vert. \]
 As our transport plans are probability measures on $X \times Y$, they are bounded and countably additive. We can thus assume \TP{\mu}{\nu} to be a subset of a metric space.
@@ -241,7 +241,7 @@ Secondly, we want to restate the above infimum in $\gamma$ as a constraint on $\
 	0, & \varphi \oplus \psi \le c \text{ on } X \times Y \\
 	- \infty, & \text{else}
 \end{cases}. \]
-This equation holds, as~\cite{San2015} points out, since if $\varphi \oplus \psi > c$ somewhere in $X \times Y$, we can choose measure $\gamma$ supported on that region with masses tending to $\infty$ and thus the expression is unbounded from below for these $\gamma$. 
+This equation holds,\ \cite{San2015} points out, because if $\varphi \oplus \psi > c$ somewhere in $X \times Y$, we can choose a measure $\gamma$ supported on that region with masses tending to $\infty$ and thus the expression is unbounded from below for these $\gamma$. 
 
 \begin{definition}[Kantorovich Dual Problem]\label{DualProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our usual measures and $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ be a cost function. Then we define the \textbf{Kantorovich Dual Problem} as
@@ -256,7 +256,7 @@ With the formulation of (DP) and the previous characterization of the constraint
 \[ = \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X \times Y} (\varphi \oplus \psi)(x, y)~\Dx[x, y]{\gamma} \le \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma}. \]
 As the left hand side of this equality is just a constant, we can further consider the infimum over all $\gamma \in \TP{\mu}{\nu}$ and thus obtain $\sup \text{(DP)} \le \inf \text{(KP)}$.
 
-So far, we do not know if the $\sup$ of the left hand side does exist. To handle this problem, we will be further transforming (DP) using so called \textit{$c$-transforms}, or \textit{$c$-conjugate functions}. With these transformations it will then be possible to formulate (DP) as a optimization problem over just one variable.
+So far, we do not know if the supremum on the left hand side does exist. To handle this problem, we will be further transforming (DP) using so called \textit{$c$-transforms}, or \textit{$c$-conjugate functions}. With these transformations it will then be possible to formulate (DP) as a optimization problem over just one variable.
 
 \begin{definition}[$c$-Transform, $\bar{c}$-Transform, $c$-Concavity, $\bar{c}$-Concavity; taken from~\cite{San2015}, Definition 1.10]\label{cTrafo}
 	Given \map[\chi]{X}{\Rbar} and \map[\zeta]{Y}{\Rbar} two functions, as well as $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ a cost function, we define the \textbf{$\text{\textbf{\textit{c}}}$-transform} of $\chi$ by
@@ -281,11 +281,11 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 	\[ \eta^c = \chi^{\bar{c}c} \ge \chi \Rightarrow \eta^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \eta^c(y) \le \chi^{\bar{c}}(x) = \eta(x) \Rightarrow \eta^{c\bar{c}} = \eta. \]
 	As such, any further iteration of the transforms cannot increase the sequence indefinitely.
 
-	We will now consider a sequence of $c$- and $\bar{c}$-transforms of our original sequence and once again label it as ${(\varphi_n, \psi_n)}_{\NinN}$. To be able to show convergence of this sequence, we want to apply the Theorem of Arzela-Ascoli (\ref{Arz-Asc}), however we still need to show equiboundedness and equicontinuity of our sequence. Let us assume that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equibounded. In this case we have $\forall C > 0~\exists (x, y) \in X \times Y, \NinN[N]: |(\varphi_N, \psi_N)(x, y)| > C$. Since $\varphi_n$ and $\psi_n$ are both bounded, we can assume that  for all \NinN{} $\exists C_n > 0~\forall (x, y) \in X \times Y: |(\varphi_n, \psi_n)(x, y)| < C_n$, and since our ${(\varphi_n, \psi_n)}_{\NinN}$ is increasing, we can assume that ${(C_n)}_{\NinN}$ is increasing too. This means that for the \NinN[N] from the assumption we get $C_N > \max\limits_{n < N} C_n$, ${(c_n)}_{\NinN}$ is thus strictly increasing. If ${(C_n)}_{\NinN}$ converges to a constant $\tilde{C} > 0$ for \Ninf{}, we contradicted our assumption for all $C > \tilde{C}$, as there would never exist a suitable \NinN. If ${(C_n)}_{\NinN}$ does not converge, there needs to exist a pair $(\hat{x}, \hat{y}) \in X \times Y$ with $|(\varphi_n, \psi_n)(\hat{x}, \hat{y})| > C_{n - 1}$. This would also lead to a contradiction as $C_n \rightarrow \infty$ for \Ninf{}, and hence for a certain $\NinN[\tilde{N}]: \varphi_n \oplus \psi_n > c$ for $n \ge \tilde{N}$, as $c$ is continuous on a compact space and must thus attain a finite maximum, meaning our sequence would no longer be admissible to (DP). Let us further assume, that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equicontinuous, that is $\exists \varepsilon > 0~\forall \delta > 0~\exists \NinN, (x, y), (\hat{x}, \hat{y}) \in X \times Y,|(d_X(x, \hat{x}), d_Y(y, \hat{y}))|< \delta: |(\varphi_n, \psi_n)(x, y) - (\varphi_n, \psi_n)(\hat{x}, \hat{y})| \ge \varepsilon$. In this assumption however, we have already contradicted the unifom continuity of all $(\varphi_n, \psi_n)$ on the compact space $X \times Y$.
+	We will now consider a sequence of $c$- and $\bar{c}$-transforms of our original sequence and once again label it as ${(\varphi_n, \psi_n)}_{\NinN}$. To be able to show convergence of this sequence, we want to apply the Theorem of Arzela-Ascoli (\ref{Arz-Asc}). To do so, we still need to show the equiboundedness and equicontinuity of our sequence. Let us assume that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equibounded. In this case we have $\forall C > 0~\exists (x, y) \in X \times Y, \NinN[N]: |(\varphi_N, \psi_N)(x, y)| > C$. Since $\varphi_n$ and $\psi_n$ are both bounded, we can assume that  for all \NinN{} $\exists C_n > 0~\forall (x, y) \in X \times Y: |(\varphi_n, \psi_n)(x, y)| < C_n$, and because ${(\varphi_n, \psi_n)}_{\NinN}$ is increasing, we can assume that ${(C_n)}_{\NinN}$ is increasing too. This means that for the \NinN[N] from the assumption we get $C_N > \max\limits_{n < N} C_n$, ${(c_n)}_{\NinN}$ is thus strictly increasing. If ${(C_n)}_{\NinN}$ converges to a constant $\tilde{C} > 0$ for \Ninf{}, we contradicted our assumption for all $C > \tilde{C}$, as there would never exist a suitable \NinN. If ${(C_n)}_{\NinN}$ does not converge, there needs to exist a pair $(\hat{x}, \hat{y}) \in X \times Y$ with $|(\varphi_n, \psi_n)(\hat{x}, \hat{y})| > C_{n - 1}$. This would also lead to a contradiction as $C_n \rightarrow \infty$ for \Ninf{}, and hence for a certain $\NinN[\tilde{N}]: \varphi_n \oplus \psi_n > c$ for $n \ge \tilde{N}$, as $c$ is continuous on a compact space and must thus attain a finite maximum, meaning our sequence would no longer be admissible to (DP). Let us further assume, that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equicontinuous, that is $\exists \varepsilon > 0~\forall \delta > 0~\exists \NinN, (x, y), (\hat{x}, \hat{y}) \in X \times Y,|(d_X(x, \hat{x}), d_Y(y, \hat{y}))|< \delta: |(\varphi_n, \psi_n)(x, y) - (\varphi_n, \psi_n)(\hat{x}, \hat{y})| \ge \varepsilon$. In this assumption however, we have already contradicted the unifom continuity of all $(\varphi_n, \psi_n)$ on the compact space $X \times Y$.
 	
 	By Arzela-Ascoli (\ref{Arz-Asc}), there now exists a subsequence ${(\varphi_{n_k}, \psi_{n_k})}_{\NinN[k]}$ which uniformly converges to a continuous and furthermore bounded function \map[(\varphi, \psi)]{X \times{} Y}{\R}. As this subsequence is once again equibounded and convergent, we can further apply the Theorem of Lebesgue (Dominated Convergence,~\ref{Leb-DomCon}) to obtain
 	\[ \lim\limits_{\NinN[k]} \int\limits_X \varphi_{n_k}~\D + \lim\limits_{\NinN[k]} \int\limits_Y \psi_{n_k}~\D[\nu] = \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
-	Lastly to show the admissibility of $(\varphi, \psi)$, we note that
+	Lastly, to show the admissibility of $(\varphi, \psi)$, we note that
 	\[ \varphi_{n_k} \oplus \psi_{n_k} \le c \Rightarrow \varphi \oplus \psi \le c. \]
 
 	Thus $(\varphi, \psi)$ is a solution to (DP) satisfying the desired properties.
@@ -294,7 +294,7 @@ So far, we do not know if the $\sup$ of the left hand side does exist. To handle
 We have now seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Our aim is to now show $\inf \text{(KP)} \le \sup \text{(DP)}$. For this purpose, there is an important denomination we need to introduce.
 
 \begin{definition}[$c$-Cyclical Monotonicity; adapted from~\cite{San2015}, Definition~1.36]\label{c-CM}
-	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-ciclycally monotone ($c$-CM), if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in X \times Y$ we have
+	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-cyclically monotone ($c$-CM), if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in X \times Y$ we have
 	\[ \sum\limits_{i = 1}^k c(x_i, y_i) \le \sum\limits_{i = 1}^k c(x_i, y_{\sigma(i)}). \]
 \end{definition}
 
@@ -328,7 +328,7 @@ With the definition of a $c$-cyclical set, we can now start working towards our 
 	
 	As $(\varphi, \varphi^c)$ is an admissible pair for (DP), we have
 	\[ \int\limits_X \varphi~\D + \int\limits_Y \varphi^c~\D[\nu] \overset{(*)}{=} \int\limits_{\Omega} \varphi \oplus \varphi^c~\D[\gamma]  = \int\limits_{\Omega} c~\D[\gamma] = \int\limits_{X \times Y} c~\D[\gamma]. \]
-	Here $(*)$ holds since $\gamma$ is concentrated on $\Omega$ and $\varphi \oplus \varphi^c = c$ on $\Omega$.
+	Here the equality $(*)$ holds because $\gamma$ is concentrated on $\Omega$ and $\varphi \oplus \varphi^c = c$ on $\Omega$.
 
 	As $\gamma$ is an optimal transport plan, we get $\sup \text{(DP)} \ge \inf \text{(KP)}$. Combining this inequality with our previously obtained $\sup \text{(DP)} \le \inf \text{(KP)}$ we get the claimed $\sup \text{(DP)} = \inf \text{(KP)}$.
 \end{proof}
@@ -358,7 +358,7 @@ The problem we now face, is that our $c$ can not always be assumed to be uniform
 \end{theorem}
 
 \begin{proof}
-	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: As~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
+	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: as~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
 
 	By Lipschitz continuity implying uniform continuity, and uniform continuity implying lower semi-continuity via regular continuity, this sequence is l.s.c. With the uniform continuity and the bound obtained from $c$, we can apply Theorem~\ref{BoundedPDRel} and apply $\varphi \oplus \psi \le c_n \le c$ to get
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \overset{\ref{BoundedPDRel}}{=} \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c_n} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu] \]
