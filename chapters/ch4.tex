@@ -23,7 +23,7 @@ For a third conclusion we are interested in the dual space of \LLL{}. We first d
 	s, & 0 \le s \le 1 \\
 	\exp(s - 1), & s > 1
 \end{cases} \]
-and then $\Lexp := \Orlicz{\Phi_{\exp}}$ in accordance to its corresponding Luxemburg norm $\Vert \cdot \Vert_{\Phi_{\exp}}$. As shown in~\cite{Cla2021}, Proposition~2.7, if $\Omega$ has finite Lebesgue measure (which it has by $\Omega \subseteq \R^{n_1 + n_2}$ being compact and thus bounded), then ${(\LLL)}^* = \Lexp$. Here, ${(\cdot)}^*$ denotes the dual space in accordance with\ \cite{Ryn2008}, Definition 4.28
+and then $\Lexp := \Orlicz{\Phi_{\exp}}$ in accordance to its corresponding Luxemburg norm $\Vert \cdot \Vert_{\Phi_{\exp}}$. As shown in~\cite{Cla2021}, Proposition~2.7, if $\Omega$ has finite Lebesgue measure (which it has by $\Omega \subseteq \R^{n_1 + n_2}$ being compact and thus bounded), then ${(\LLL)}' = \Lexp$. Here, ${(\cdot)}'$ denotes the dual space in accordance with\ \cite{Ryn2008}, Definition 4.28
 
 \begin{definition}[Regularized Problem; adapted from~\cite{Cla2021}, (P), (D) and Proposition~3.1]\label{RegProbs}
 	We once again consider our starting measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, and a cost function $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
@@ -44,11 +44,12 @@ With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport pla
 	Cf.~the proof of Theorem~3.3 in~\cite{Cla2021}.
 \end{proof}
 
-\todoinline{TODO:~update the theorem statement to be more pretty\dots}
-\todoinline{TODO:~add intro to this theorem!}
+With a solution to (RP), we can now acheive weak convergence to a solution of (KP). For this we first consider $X$ and $Y$ as complete metric spaces, and $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ as compact subsets. Given two probability measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, we further require two discrete probability measures, weakly converging to $\mu$ and $\nu$ for \Ninf{} respectively, which are defined as
+\[ \mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, \]
+with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$.
 
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~1]\label{RelatRegSolOrigSolPlan}
-	Let $X$ and $Y$ be complete metric spaces, $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ be compact subsets, $\mu \in \PM{\Omega_1}, \nu \in \PM{\Omega_2}$ be our starting probability measures, \map[c]{\Omega}{\RZero} be a finite and continuous cost function, $\mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0, 1 \le i, j \le n$, be discrete probability measures with \weak{\mu_n}{\mu} and \weak{\nu_n}{\nu} for \Ninf, and ${(\varepsilon_n)}_{\NinN}$ be a sequence converging to $0$ sufficiently fast with $\varepsilon_n > 0$ for all \NinN. Then for $\gamma_n^{\varepsilon_n}$, the solution of$\text{\normalfont\ (RP)}$ between $\mu_n$ and $\nu_n$ with $\varepsilon := \varepsilon_n$, there exists a subsequence ${(\gamma_{n_k}^{\varepsilon_{n_k}})}_{\NinN[k]}$ that weakly converges to a solution $\gamma$ of$\text{\normalfont\ (KP)}$ between $\mu$ and $\nu$ for \Ninf.
+	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\mu_n$, $\nu$ and $\nu_n$ as described above. Let \map[c]{\Omega}{\RZero} be a finite and continuous cost function, and ${(\varepsilon_n)}_{\NinN}$ be a sequence converging to $0$ sufficiently fast with $\varepsilon_n > 0$ for all \NinN. Then for ${(\gamma_n^{\varepsilon_n})}_{\NinN}$, the sequence of solutions of$\text{\normalfont\ (RP)}$ between $\mu_n$ and $\nu_n$ with $\varepsilon = \varepsilon_n$, there exists a subsequence ${(\gamma_{n_k}^{\varepsilon_{n_k}})}_{\NinN[k]}$ that weakly converges to a solution $\gamma$ of$\text{\normalfont\ (KP)}$ between $\mu$ and $\nu$ for \Ninf.
 \end{theorem}
 
 \begin{proof}
@@ -75,8 +76,8 @@ In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw t
 If $c(x, y) = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be further shown, that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
 
 Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ satisfying~\cite{Vill2009}, Corollary~9.3, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
-\[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n \delta_{y_j}, \]
-with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging to $\mu$ and $\nu$ respectively.
+\[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n a_i \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n b_j \delta_{y_j}, \]
+with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$, weakly converging to $\mu$ and $\nu$ respectively.
 
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~2]\label{RelatRegSolOrigSolMap}
 	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)}_{\NinN[k]}$ such that \weak{\push[\big(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_n}}{\push[(id_{\Omega_1}, T)]{\mu}} for \Ninf, where $T$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$, $id_{\Omega_1}$ is the identity map on $\Omega_1$, and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$ with respect to $d$.
@@ -105,7 +106,7 @@ with $x_i \in \Omega_1, y_j \in \Omega_2, 1 \le i, j \le n$, weakly converging t
 \end{corollary}
 
 \begin{proof}
-	We consider $h \in \CF[b]{\Omega_2}$ and further define define \map[g]{\Omega}{\R} by $g(x, y) := h(y)$ for all $(x, y) \in \Omega$. As $h$ is bounded and continuous, $g$ is as well. With the same notation as in the proof of Theorem~\ref{RelatRegSolOrigSolMap}, we see that
+	We consider $h \in \CF[b]{\Omega_2}$ and further define \map[g]{\Omega}{\R} by $g(x, y) := h(y)$ for all $(x, y) \in \Omega$. As $h$ is bounded and continuous, $g$ is as well. With the same notation as in the proof of Theorem~\ref{RelatRegSolOrigSolMap}, we see that
 	\[ \Bigg\lvert \int\limits_{\Omega_2} h~\D[{\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n}}] - \int\limits_{\Omega_2} h~\D[{\push{\mu}}] \Bigg\rvert = \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, T)]{\mu}}] \Bigg\rvert. \]
 	Applying the theorem mentioned above we see that the left hand side converges to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we use $\push{\mu} = \nu$ to prove the corollary.
 \end{proof}
