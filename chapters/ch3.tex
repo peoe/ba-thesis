@@ -30,7 +30,7 @@ Another useful step to take is to normalize the overall mass. This can be acheiv
 	\[ \int\limits_X c(x, T(x))~\Dx{\mu} = \inf \text{(MP)}. \]
 \end{definition}
 
-This problem in general is not easy to solve. In order to point out the difficulites we may face, we require the notions of the \textit{weak convergence} and the \textit{support} of a function.
+This problem in general is not easy to solve. In order to point out the difficulites we may face, we require the notions of the \textit{weak convergence} of a measure.
 
 %\begin{definition}[Dual Space; adapted from~\cite{Ryn2008}, Definition 4.28]\label{DuaSpa}
 %	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
@@ -46,11 +46,6 @@ This problem in general is not easy to solve. In order to point out the difficul
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
 	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{}.
-\end{definition}
-
-\begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
-	Let $\mu \in \M{X}$ be a measure on a separable metric space $X$. We define the \textbf{support} of $\mu$ as
-	\[ \supp{\mu} := \bigcap \big\{ A \subseteq X : A \text{ closed and } \mu(X \setminus A) = 0 \big\}. \]
 \end{definition}
 
 We can now consider the following two points to illustrate the hardships in dealing with (MP):
@@ -224,7 +219,12 @@ As our transport plans are probability measures on $X \times Y$, they are bounde
 
 \section{The Kantorovich Dual}\label{KanDual}
 
-As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear problem with convex constraints. Hence, it is plausible to investigate the \textit{dual problem}. 
+As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear problem with convex constraints. Hence, it is plausible to investigate the \textit{dual problem}. Beforehand, we introduce the notion of the support of a function.
+
+\begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
+	Let $\mu \in \M{X}$ be a measure on a separable metric space $X$. We define the \textbf{support} of $\mu$ as
+	\[ \supp{\mu} := \bigcap \big\{ A \subseteq X : A \text{ closed and } \mu(X \setminus A) = 0 \big\}. \]
+\end{definition}
 
 It is useful to restate the constraint ``$\gamma \in \TP{\mu}{\nu}$'' in terms of continuous bounded functions. We notice that for a general measure $\gamma \in \M{X \times Y}$ the term
 \[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_X \varphi(x)~\Dx{\mu} + \int\limits_Y \psi(y)~\Dx[y]{\nu} - \int\limits_{X \times Y} \varphi(x) + \psi(y)~\Dx[x, y]{\gamma} \]
@@ -236,7 +236,7 @@ We moreover want to restate the above infimum in $\gamma$ as a constraint on $\v
 	0, & \varphi \oplus \psi \le c \text{ on } X \times Y \\
 	- \infty, & \text{else}
 \end{cases}. \]
-This equation holds,\ \cite{San2015} points out, because if $\varphi \oplus \psi > c$ somewhere in $X \times Y$, we can choose a measure $\gamma$ supported on that region with a mass tending to $\infty$. Such a $\gamma$ would leave the expression unbounded from below, i.e.\ the problem infeasible. 
+This equation holds,\ \cite{San2015} points out, because if $\varphi \oplus \psi > c$ somewhere in $X \times Y$, we can choose a measure $\gamma$ supported on that region with a mass tending to $\infty$. Such a $\gamma$ would leave the expression unbounded from below, i.e.\ the problem infeasible.
 
 \begin{definition}[Kantorovich Dual Problem]\label{DualProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting measures, and $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ be a cost function. Then we define the \textbf{Kantorovich Dual Problem} as
