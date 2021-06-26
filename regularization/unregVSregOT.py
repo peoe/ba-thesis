@@ -41,7 +41,7 @@ for b in bs:
 	# EMD
 	G0 = ot.emd(a, b, M)
 	pl.figure(k, figsize=(5, 5))
-	ot.plot.plot1D_mat(a, b, G0, 'OT matrix G0')
+	ot.plot.plot1D_mat(a, b, G0, 'OT matrix no reg.')
 	fname = 'images/regVSunreg/dist' + str(im) + 'ToGaussianFig' + str(k) + '.pdf'
 	pl.savefig(fname)
 	k = k + 1
@@ -51,7 +51,7 @@ for b in bs:
 	for lambd in lambdas:
 		Gsm = ot.smooth.smooth_ot_dual(a, b, M, lambd, reg_type='kl')
 		pl.figure(k, figsize=(5, 5))
-		title = 'OT matrix Smooth OT ent. reg. ' + str(lambd)
+		title = 'OT matrix ent. reg. ' + str(lambd)
 		ot.plot.plot1D_mat(a, b, Gsm, title=title)
 		fname = 'images/regVSunreg/dist' + str(im) + 'ToGaussianFig' + str(k) + '.pdf'
 		pl.savefig(fname)
