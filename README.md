@@ -1,4 +1,4 @@
 # ba-thesis
 The thesis for my BSc Mathematics.
 
-The main branch will only contain the final version, all other versions may be found in other branches.
+This branch will contain files for image generation. It relies on the repo [PythonOT](https://github.com/PythonOT/POT).
