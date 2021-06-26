@@ -12,7 +12,18 @@ where $0 \cdot \log(0) := 0$. From here we can define
 \[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
 as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
+Figure~\ref{RegImages} shows the effect of regularization. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
+
 \todoinline{TODO:~add remark on how reg effects solutions (images! via pythonot.github.io)}
+\begin{figure}
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig9}\hfill
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig10}\hfill
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig11} \\
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig12}\hfill
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig13}\hfill
+	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig14}\hfill
+	\caption{Test images}\label{RegImages}
+\end{figure}
 
 The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
 
