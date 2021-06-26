@@ -47,7 +47,7 @@ for b in bs:
 	k = k + 1
 
 	# Reg
-	lambdas = [1, 1e-1, 1e-2, 1e-3, 2e-4]
+	lambdas = [1, 1e-1, 1e-2, 1e-3, 1e-4]
 	for lambd in lambdas:
 		Gsm = ot.smooth.smooth_ot_dual(a, b, M, lambd, reg_type='kl')
 		pl.figure(k, figsize=(5, 5))
