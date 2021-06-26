@@ -169,8 +169,9 @@ We note that $\Phi = \Phi_{\exp}$ on \RZero, suggesting an optimization over ${(
 	This proof was adapted from the proof of Theorem~4.6 in~\cite{Cla2021}.
 	
 	We define the functional
-	\[ B(u_1, u_2) := \int\limits_{\Omega} \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)~D[(x, y)] - \int\limits_{\Omega_1} \Psi(u_1)~\D - \int\limits_{\Omega_2} \Psi(u_2)~\D[\nu] \]
-	and show that it possesses a minimizer. The value taken by $B$ for e.g.\ $u_1 \cong u_2 \cong 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite{Cla2021}, Lemma~4.2, we can assume $\int \Phi_\exp(u_1^n)~\D[x] = 1$ without loss of generality. By applying\ \cite{Cla2021}, Lemma~4.4, we can observe that $\Vert u_2^n \Vert_{\Phi_\exp}$ is bounded. By applying Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite{Cla2021}, Lemma~4.5, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
+	\[ B(u_1, u_2) := \int\limits_{\Omega} \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)~\D[(x, y)] - \]
+	\[ - \int\limits_{\Omega_1} \Psi(u_1)~\D - \int\limits_{\Omega_2} \Psi(u_2)~\D[\nu] \]
+	and show that it possesses a minimizer. The value taken by $B$ for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite{Cla2021}, Lemma~4.2, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. By applying\ \cite{Cla2021}, Lemma~4.4, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite{Cla2021}, Lemma~4.5, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
 \end{proof}
 
 Continuing the previous argument, we can now resubstitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
@@ -182,7 +183,15 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 \end{theorem}
 
 \begin{proof}
-	Cf.~the proof of Theorem~4.8 in~\cite{Cla2021}.
+	This proof was taken from the proof of Proposition~4.7 in~\cite{Cla2021}.
+
+	The existence follows from Theorem~2.2 and Theorem~4.6.
+
+	According to\ \cite{Cla2021}, Proposition~3.1, it suffices to show $\sup \text{(PD)} = \sup \text{(RD)}$. For arbitrary $\alpha \in \CF{\Omega_1}, \beta \in \CF{\Omega_2}$ we set $u_1 := \Psi^{-1}(\alpha/\varepsilon), u_2 := \Psi(\beta/\varepsilon)$ and see that
+	\[ \int\limits_{\Omega_1} \alpha~\D + \int\limits_{\Omega_2} \beta~\D[\nu] - \varepsilon \int\limits_\Omega \exp\left( \frac{-c + \alpha + \beta}{\varepsilon} \right)~\D[(x, y)] \le \max\limits_{u_1, u_2 \ge 0} -\varepsilon B(u_1, u_2), \]
+	with $B(\cdot, \cdot)$ being defined as in the proof of Theorem~\ref{RegDualAdmit}. By taking the supremum over all $\alpha$ and $\beta$, we get $\sup \text{(PD)} \le \sup \text{(RD)}$.
+
+	To see $\sup \text{(RD)} \le \sup \text{(PD)}$, one may follow the argument put forth by\ \cite{Cla2021} using the theorems of monotone convergence applied to $B$ and dominated convergence applied to a uniformly bounded, weakly-* convergent subsequence.
 \end{proof}
 
 \begin{corollary}[Conditions on Dual Optimality; adapted from~\cite{Cla2021}, Theorem~4.8]\label{RegOptCond}
