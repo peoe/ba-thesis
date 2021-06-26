@@ -2,19 +2,18 @@
 
 In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
-We will first introduce regularized optimal transport. This regularization allows for a later duality result, which will then be used to estimate optimal transport plans and maps via methods motivated by the Sinkhorn algorithm.
+We will first introduce regularized optimal transport. This regularization allows for a later duality result, which will then be used to estimate optimal transport plans and maps via methods motivated by the Sinkhorn algorithm. The sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
 
 \section{Regularized Optimal Transport}\label{RegOT}
 
-There are multiple ways that regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with measurable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
+There are multiple ways in which regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with measurable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
 \[ E(f) := \int\limits_\Omega \vert f(z) \vert \log\left( \vert f(z) \vert \right)~\D[z] < \infty \]
 where $0 \cdot \log(0) := 0$. From here we can define
 \[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
 as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
-Figure~\ref{RegImages} shows the effect of regularization. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
+Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications. Figure~\ref{RegImages} shows the effect of entropic regularization on the optimal transport problem. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for entropic regularization with the parameters $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
 
-\todoinline{TODO:~add remark on how reg effects solutions (images! via pythonot.github.io)}
 \begin{figure}
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig9}\hfill
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig10}\hfill
@@ -22,10 +21,10 @@ Figure~\ref{RegImages} shows the effect of regularization. The software provided
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig12}\hfill
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig13}\hfill
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig14}\hfill
-	\caption{Test images}\label{RegImages}
+	\caption{Solutions for unregularized and entropically regularized optimal transport problems, $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$}\label{RegImages}
 \end{figure}
 
-The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
+The first conclusion about the entropic regularization that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
 
 The second conclusion regards the structure of \LLL{} in accordance with\ \cite{Cla2021}, Definition~2.3. When considering the \textit{Luxemburg norm}
 \[ \Vert f \Vert_\Phi := \inf \left\{ C > 0 : \int\limits_\Omega \Phi\left( \frac{\vert f(z) \vert}{C} \right)~\D[z] \le 1 \right\} \]
