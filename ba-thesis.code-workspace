@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/*.aux": true,
+			"**/*.bbl": true,
+			"**/*.blg": true,
+			"**/*.log": true,
+			"**/*.toc": true,
+			"**/*.pdf": true,
+			"**/*.xml": true,
+			"**/*.bcf": true
+		}
+	}
+}
