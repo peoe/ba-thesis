@@ -1,4 +1,4 @@
-\chapter{Stochastic Estimation}\label{DualPlanEst}
+\chapter{Mapping Estimation}\label{DualPlanEst}
 
 In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
@@ -11,6 +11,8 @@ There are multiple ways that regularization can take place, however we will focu
 where $0 \cdot \log(0) := 0$. From here we can define
 \[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
 as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
+
+\todoinline{TODO:~add remark on how reg effects solutions (images! via pythonot.github.io)}
 
 The first conclusion that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
 
@@ -115,7 +117,7 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 	Applying the theorem mentioned above we see that the left hand side converges to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we use $\push{\mu} = \nu$ to prove the corollary.
 \end{proof}
 
-\section{The Regularized Dual}\label{RegDual}
+\section{Regularized Duality}\label{RegDual}
 
 As we have previously seen, the regularization term is finite if and only if $\gamma \in \LLL$. By considering (RP) over \LLL{} instead of \TP{\mu}{\nu}, we can also derive a dual problem over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$. Following the procedure from~\cite{Cla2021}, Section~4, we define
 \[ \Phi(s) := \begin{cases}
@@ -149,12 +151,13 @@ We note that $\Phi = \Phi_{\exp}$ on \RZero, suggesting an optimization over ${(
 	This problem will accordingly be labelled as (RD) and its supremum as $\sup \text{(RD)}$. The restriction on $\mathcal{F}$ ensures that all integrals are well defined.
 \end{definition}
 
-\begin{lemma}[Adapted from~\cite{Cla2021}, Theorem~4.6]\label{RegDualAdmit}
+\begin{theorem}[Adapted from~\cite{Cla2021}, Theorem~4.6]\label{RegDualAdmit}
 	The problem$\text{\normalfont\ (RD)}$ admits a solution $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
-\end{lemma}
+\end{theorem}
 
 \begin{proof}
 	Cf.~the proof of Theorem~4.6 in~\cite{Cla2021}.
+	\todoinline{TODO:~write extensive proof of this lemma}
 \end{proof}
 
 Continuing the previous argument, we can now resubstitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
@@ -210,6 +213,8 @@ We have seen how to approximate dual variables in the regularized context. In co
 %This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
+
+\todoinline{TODO:~add part introducing neural networks, use e.g.\ \cite{Good2016}}
 
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 

@@ -3,14 +3,14 @@
 This introductory part will follow~\cite{San2015} Chapter 1 closely in content as well as notation.
 
 \section{The Monge Problem}\label{TheMonProb}
-This section will deal with the problem of optimal transport and some results regarding the existence and uniqueness of such transports. There are two important paradigms in the theory of optimal transport. The original formulation is the so called Monge Problem. It was later relaxed by Kantorovich to a more general problem which is easier to handle. To motivate the modern formulation of the Monge problem, first described by\ \cite{Mon1781} in 1781, we consider a mass modelled by a measure on $X$ to be moved to another mass, again modelled by a measure, on $Y$. One may for example imagine a pile of sand or a number of particles being moved from one location to another. This transport will incur costs and the goal of optimal transport is to find a ``way of transporting'' the mass, which accumulates the smallest cost possible while making sure that no mass is lost.
+This section will deal with the problem of optimal transport and some results regarding the existence and uniqueness of such transports. There are two important paradigms in the theory of optimal transport. The original formulation is the so called Monge Problem. It was later relaxed by Kantorovich to a more general problem which is easier to handle. To motivate the modern formulation of the Monge problem, first described by\ \cite{Mon1781} in 1781, we consider a mass distribution modelled by a measure on $X$ to be moved to another mass distribution, again modelled by a measure, on $Y$. One may for example imagine a pile of sand or a number of particles being moved from one location to another. This transport will incur costs and the goal of optimal transport is to find a ``way of transporting'' the mass, which accumulates the smallest cost possible while making sure that no mass is lost.
 
 For this purpose, we consider a non-negative \textit{cost function} $c(x, y)$, which will give us the cost of moving a particle from position $x$ to position $y$. Ideally this cost function will be continuous or semi-continuous, though later on we will see that we can obtain optimality and uniqueness in a simpler fashion by making use of more constraints on $c$.
 
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure}, or \textit{image measure} of our original measure on $X$.
 
 \begin{definition}[Push-Forward; adapted from~\cite{Bog2007}, Section 9.1]\label{PushForward}
-	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
+	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ as
 	\[ (\push{\mu})(y) := \mu(T^{-1} (y)). \]
 \end{definition}
 
@@ -42,13 +42,15 @@ This problem in general is not easy to solve. In order to point out the difficul
 %	holds. In this case, we write \weak{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
 %\end{definition}
 
-\begin{definition}[Weak Convergence for Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
+\begin{definition}[Weak Convergence of Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
 	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{}.
 \end{definition}
 
-We can now consider the following two points to illustrate the hardships in dealing with (MP):
+\todoinline{TODO:~add remark that this is actually weask-*-convergence!}
+
+We can now consider the following two points to illustrate the difficulties in dealing with (MP):
 
 Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would turn infeasible. In order for $T$ to be a transport map for (MP), no \textit{mass splitting} must occur. With a semidiscrete transport problem, this is not possible.
 
@@ -189,10 +191,12 @@ One of the essential ideas here is the continuity of the functional $K$. For thi
 	To show the compactness, let ${(\gamma_n)}_{\NinN}$ be a sequence with $\gamma_n \in \TP{\mu}{\nu}$ for every \NinN. Let $f \in \CF[b]{X \times Y}$. We define $\hat{f}_n := \int f~\D[\gamma_n]$. With $\lvert \int f~\D[\gamma_n] \rvert \le \int \lvert f \rvert~\D[\gamma_n] \le \sup\limits_{X \times Y} |f| < \infty$, because $f$ is bounded and continuous on a compact set, we see that the sequence ${(\hat{f}_n)}_{\NinN}$ is bounded. Hence, for every $f \in \CF[b]{X \times Y}$ there exists a convergent subsequence ${(\hat{f}_{n_k})}_{\NinN[k]}$.
 \end{proof}
 
-Note, that compactness and sequential compactness are the same on metric spaces. To see the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \pi \Vert := |\pi|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\sigma + \tau)(A) \le 0, (\sigma + \tau)(B) \ge 0$ (cf.~\cite{Bog2007}, Volume 1, Theorem~3.1.1.~and Corollary~3.1.2), using
-\[ \Vert \sigma + \tau \Vert = \vert \sigma + \tau \vert (X) = (\sigma + \tau)((X \times Y) \cap A) - (\sigma + \tau)((X \times Y) \cap B) \]
-\[ = (\sigma + \tau)(A) - (\sigma + \tau)(B) \le \vert \sigma \vert (A) + \vert \sigma \vert (B) + \vert \tau \vert (A) + \vert \tau \vert (B) = \Vert \sigma \Vert + \Vert \tau \Vert. \]
-As our transport plans are probability measures on $X \times Y$, they are bounded and countably additive. We can thus assume \TP{\mu}{\nu} to be a subset of the metric space of signed measures.
+\begin{remark}
+	Compactness and sequential compactness are the same on metric spaces. To view the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \pi \Vert := |\pi|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\sigma + \tau)(A) \le 0, (\sigma + \tau)(B) \ge 0$ (cf.~\cite{Bog2007}, Volume 1, Theorem~3.1.1.~and Corollary~3.1.2), using
+	\[ \Vert \sigma + \tau \Vert = \vert \sigma + \tau \vert (X) = (\sigma + \tau)((X \times Y) \cap A) - (\sigma + \tau)((X \times Y) \cap B) \]
+	\[ = (\sigma + \tau)(A) - (\sigma + \tau)(B) \le \vert \sigma \vert (A) + \vert \sigma \vert (B) + \vert \tau \vert (A) + \vert \tau \vert (B) = \Vert \sigma \Vert + \Vert \tau \Vert. \]
+	As our transport plans are probability measures on $X \times Y$, they are bounded and countably additive. We can thus assume \TP{\mu}{\nu} to be a subset of the metric space of signed measures.
+\end{remark}
 
 \begin{lemma}[Taken from~\cite{San2015}, Theorem 1.5]\label{KPAdmitCompLSCBound}
 	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$ be probability measures, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be an l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)\,}$admits a solution.
@@ -217,7 +221,7 @@ As our transport plans are probability measures on $X \times Y$, they are bounde
 	With Prokhorov (\ref{Prok}) we get \weak{\gamma_n}{\gamma} for \Ninf. As our transport plan $\gamma$ was chosen arbitrarily, this property holds for all transport plans and thus all sequences of transport plans. Finally, the claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures.
 \end{proof}
 
-\section{The Kantorovich Dual}\label{KanDual}
+\section{Kantorovich Duality}\label{KanDual}
 
 As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear problem with convex constraints. Hence, it is plausible to investigate the \textit{dual problem}. Beforehand, we introduce the notion of the support of a function.
 
