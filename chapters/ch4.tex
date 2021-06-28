@@ -236,15 +236,40 @@ We have seen how to approximate dual variables in the regularized context. In co
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
 
-\todoinline{TODO:~add part introducing neural networks, use e.g.\ \cite{Good2016}}
-
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
 The procedure taken by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated plan at a specified location $(x, y)$ a neural network is trained to model the continuous case and a finite vector is iteratively improved in the discrete case. To deal with larger samples, the input measures $\mu$ and $\nu$ are interpreted as probability distributions and used to draw individual samples from them for each iteration.
 
-In order to state the algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
+We first give a basic overview on \textit{neural networks}. This will be based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2.
+
+\begin{definition}[Neural Network; adapted from\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2]
+	A \textbf{neural network} $\mathcal{H}$ of depth $\NinN[N]$ is a collection of tuples $\cup_{n = 1}^{N} (M_n, b_n, h_n)$. These tuples consist of
+	\begin{itemize}
+		\item (real-valued) matrices $M_n$,
+		\item (real-valued) vectors $b_n$, and
+		\item (real-valued) non-linear activation functions $h_n$.
+	\end{itemize}
+	The dimensions of these metrices vectors and functions are chosen, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
+	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big), n = 1, \dots, N \]
+	with $x = x_1, y = x_{n + 1}$.
+\end{definition}
+
+\begin{remark}[Taken from\ \cite{Brag2020}, Formulae~6.48--6.52]
+	Typical \textit{activation functions} are for example
+	\begin{itemize}
+		\item $h(x) = \max\{ 0 , x \}$ (Rectifier Linear Unit, ReLU),
+		\item $h(x) = \mathbbm{1}_{(0, \infty)}(x)$ (Threshold),
+		\item $h(x) = \frac{1}{1 + \exp(-x)}$ (Logistic Sigmoid),
+		\item $h(x) = \frac{1}{2} + \frac{1}{\pi} \arctan(x)$ (Arctan Sigmoid), and
+		\item $h(x) = \frac{1}{2\pi} \int_{-\infty}^x \exp\big( -\frac{1}{2} x^2 \big)$ (Gaussian Sigmoid).
+	\end{itemize}
+\end{remark}
+
+The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \textit{parameters} $\theta$, and the gradient of the neural network can then be computed with regard to these parameters. From here, we can define the notions of $\nabla \mathcal{H}$ and for $f$ a sufficiently differentiable function $\partial_{\mathcal{H}} f$ (or $\partial_\theta f$). 
+
+In order to now state the algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
-When considering the continuous case, we further define $\nabla \varphi$ and $\nabla \psi$ as the gradients with respect to the parameters of the underlying neural networks, and the notions of $\partial_\varphi F_\varepsilon$ and $\partial_\psi F_\varepsilon$ in the usual way.
+When $\mu$ and $\nu$ are discrete, the resulting dual variables are simply vectors, for the continuous case however, they have to be modelled by the previously mentioned neural networks.
 
 \begin{algorithm}\label{OTPlanEstAlg}
 	\caption{Transport Plan Estimation; adapted from~\cite{Seg2018}, Algorithm~1}
