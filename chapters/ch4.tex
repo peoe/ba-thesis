@@ -249,9 +249,9 @@ We first give a basic overview on \textit{neural networks}. This will be based o
 		\item (real-valued) vectors $b_n$, and
 		\item (real-valued) non-linear activation functions $h_n$.
 	\end{itemize}
-	The dimensions of these metrices vectors and functions are chosen, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
+	The dimensions of these metrices, vectors and functions are chosen appropriately, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
 	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big), n = 1, \dots, N \]
-	with $x = x_1, y = x_{n + 1}$.
+	with $x_1 := x, y := x_{n + 1}$.
 \end{definition}
 
 \begin{remark}[Taken from\ \cite{Brag2020}, Formulae~6.48--6.52]
@@ -271,6 +271,8 @@ In order to now state the algorithm, we need to adapt the previous definition of
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
 When $\mu$ and $\nu$ are discrete, the resulting dual variables are simply vectors, for the continuous case however, they have to be modelled by the previously mentioned neural networks.
 
+\todoinline{TODO:~better tie in to the previous sections!}
+
 \begin{algorithm}\label{OTPlanEstAlg}
 	\caption{Transport Plan Estimation; adapted from~\cite{Seg2018}, Algorithm~1}
 	\KwResult{Estimates of optimal dual variables $\varphi, \psi$}
@@ -288,7 +290,9 @@ When $\mu$ and $\nu$ are discrete, the resulting dual variables are simply vecto
 
 The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( n^{-\frac{1}{2}} \right)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-To incorporate the estimated transport plan into a transport map using\ \ref{RelatRegSolOrigSolMap},~\cite{Seg2018} provide a method of approximating the barycentric projection, making use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Making use of $F_\varepsilon$ as defined above and a map $T_\theta$ parameterized as a deep neural network with the parameters $\theta$ the following algorithm can be used to approximate the barycentric projection, i.e.\ a transport map.
+\todoinline{TODO:~differentiate from previous algorithm, add mention of $d$ and setting!}
+
+To incorporate the estimated transport plan into a transport map using\ \ref{RelatRegSolOrigSolMap},~\cite{Seg2018} provide a method of approximating the barycentric projection, making use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Incorporating $F_\varepsilon$ as defined above and a map $T_\theta$ parameterized as a deep neural network with the parameters $\theta$, the following algorithm can be used to approximate the barycentric projection of the transport plan, i.e.\ a transport map.
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from~\cite{Seg2018}, Algorithm~2}
