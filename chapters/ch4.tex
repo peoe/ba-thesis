@@ -251,7 +251,7 @@ We first give a basic overview on \textit{neural networks}. This will be based o
 		\item (real-valued) non-linear activation functions $h_n$.
 	\end{itemize}
 	The dimensions of these metrices, vectors and functions are chosen appropriately, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
-	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big), n = 1, \dots, N \]
+	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big),\ n = 1, \dots, N \]
 	with $x_1 := x, y := x_{n + 1}$.
 
 	A neural network with multiple layers between the input and output layers, i.e.\ dimension $N \ge 4$, is often called a \textbf{deep neural network}.
