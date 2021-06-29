@@ -2,19 +2,11 @@
 
 In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
-We will first introduce regularized optimal transport. Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications. Figure~\ref{RegImages} shows the effect of entropic regularization on the optimal transport problem. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for entropic regularization with the parameters $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
+We will first introduce regularized optimal transport. Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications.
 
-\begin{figure}
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig9}\hfill
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig10}\hfill
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig11} \\
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig12}\hfill
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig13}\hfill
-	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig14}\hfill
-	\caption{Solutions for unregularized and entropically regularized optimal transport problems, $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$}\label{RegImages}
-\end{figure}
+The following duality result will then be used to obtain an optimal transport map via the barycentric projection. Due to the explicit computation of these transport solutions often being impractical for applications, it is necessary to estimate optimal transport plans and maps. This is traditionally done using the Sinkhorn algorithm, however this particular algorithm is not suited to handle large-scale problems. Hence, a different approach involving neural networks and stochastic mapping estimation is required.
 
-This regularization allows for a duality result, which will then be used to estimate optimal transport plans and maps via methods motivated by the Sinkhorn algorithm. The sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
+The first sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
 
 \section{Regularized Optimal Transport}\label{RegOT}
 
@@ -45,6 +37,20 @@ and $\Lexp := \Orlicz{\Phi_{\exp}}$ with its corresponding Luxemburg norm $\Vert
 	\[ \text{with } F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
 	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by~\cite{Cla2021}, Proposition~3.1, $\inf \text{(RP)} = \sup \text{(PD)}$, and if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
+
+\begin{remark}
+	Figure~\ref{RegImages} shows the effect of entropic regularization on solutions of the optimal transport problem. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for entropic regularization.
+
+	\begin{figure}
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig9}\hfill
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig10}\hfill
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig11} \\
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig12}\hfill
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig13}\hfill
+		\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig14}\hfill
+		\caption{Solutions for unregularized and entropically regularized optimal transport problems, $\varepsilon \in \{ 1, 0.1, 0.	01, 0.001, 0.0001 \}$}\label{RegImages}
+	\end{figure}
+\end{remark}
 
 With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures.
 
