@@ -2,17 +2,7 @@
 
 In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
-We will first introduce regularized optimal transport. This regularization allows for a later duality result, which will then be used to estimate optimal transport plans and maps via methods motivated by the Sinkhorn algorithm. The sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
-
-\section{Regularized Optimal Transport}\label{RegOT}
-
-There are multiple ways in which regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with measurable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
-\[ E(f) := \int\limits_\Omega \vert f(z) \vert \log\left( \vert f(z) \vert \right)~\D[z] < \infty \]
-where $0 \cdot \log(0) := 0$. From here we can define
-\[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
-as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
-
-Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications. Figure~\ref{RegImages} shows the effect of entropic regularization on the optimal transport problem. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for entropic regularization with the parameters $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
+We will first introduce regularized optimal transport. Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications. Figure~\ref{RegImages} shows the effect of entropic regularization on the optimal transport problem. The software provided by\ \cite{PythonOT} was used to generate the solutions between a Gaussian and a uniform distribution. The upper left image shows the unregularized result and the remaining images show the results for entropic regularization with the parameters $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$.
 
 \begin{figure}
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig9}\hfill
@@ -23,6 +13,16 @@ Regularization imposes an additional penalty on the objective function of an opt
 	\includegraphics[width=0.32\textwidth]{dist2ToGaussianFig14}\hfill
 	\caption{Solutions for unregularized and entropically regularized optimal transport problems, $\varepsilon \in \{ 1, 0.1, 0.01, 0.001, 0.0001 \}$}\label{RegImages}
 \end{figure}
+
+This regularization allows for a duality result, which will then be used to estimate optimal transport plans and maps via methods motivated by the Sinkhorn algorithm. The sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
+
+\section{Regularized Optimal Transport}\label{RegOT}
+
+There are multiple ways in which regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with measurable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
+\[ E(f) := \int\limits_\Omega \vert f(z) \vert \log\left( \vert f(z) \vert \right)~\D[z] < \infty \]
+where $0 \cdot \log(0) := 0$. From here we can define
+\[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
+as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
 The first conclusion about the entropic regularization that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
 
@@ -206,11 +206,19 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 	Cf.~the proof of Theorem~4.8 in~\cite{Cla2021}.
 \end{proof}
 
-As~\cite{Cla2021}, Remark~4.9, points out, we can use these optimality conditions to derive the \textit{Sinkhorn algorithm}. We make use of the first two equations to iteratively approach optimal dual variables, and apply the last equation to obtain an estimated optimal transport plan. For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
+\section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
+
+In this final section, the focus will be on the estimation of optimal transport solutions, that is both plans and maps. The first step is the Sinkhorn algorithm, which is a well known approach. We will then go on to a method involving stochastic gradient descent, as described by\ \cite{Seg2018}.
+
+We can use the optimality conditions in Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as~\cite{Cla2021}, Remark~4.9, points out. The idea of this algorithm is twofold: apply the first two equations to iteratively approach optimal dual variables, and then use the last equation to obtain an estimated optimal transport plan.
+
+For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
 \[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
 and
 \[ T_2^{n + 1}(y) := \Phi^{-1} \left( \frac{\nu(y)}{\int_{\Omega_2} \Phi\big( u_1^{n + 1}(x) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[x]} \right) \]
 for all \NinN, $(x, y) \in \Omega$.
+
+The Sinkhorn algorithm expressed in this setting is given by:
 \begin{algorithm}\label{SinkhornAlg}
 	\caption{Sinkhorn Algorithm; adapted from~\cite{Cla2021}, Remark~4.9}
 	\KwResult{Optimal dual variables $\bar{u}_1, \bar{u}_2$}
@@ -223,25 +231,22 @@ for all \NinN, $(x, y) \in \Omega$.
 	}
 \end{algorithm}
 
-Stopping after $N - 1$ iterations, we get
+Stopping after $N - 1, N > 1$ iterations, we get
 \[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
 as an approximate value of transport plan for (RP) at a predetermined value $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
 \begin{equation}\label{RegApprTransPlan}
 	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
 \end{equation}
-This $\gamma_N$ now functions as the approximation of an optimal transport plan for the regularized problem.
 
-We have seen how to approximate dual variables in the regularized context. In combination with Theorem~\ref{RelatRegSolOrigSolPlan} and Theorem~\ref{RelatRegSolOrigSolMap}, it is sensible to use these estimates in applications. When considering complex problem settings however, the evergrowing dimensions of the underlying data becomes problematic.
+This $\gamma_N$ now functions as the approximation of an optimal transport plan for the regularized problem. To get an optimal transport map, the barycentric projection of $\gamma_N$ is calculated. In combination with Theorem~\ref{RelatRegSolOrigSolPlan} and Theorem~\ref{RelatRegSolOrigSolMap}, it is sensible to use these estimates in applications.
 
 %This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
-\section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
+When considering complex problem settings however, the evergrowing dimensions of the underlying data become problematic. As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the dimensions of the individual samples get too large.
 
-As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
+The procedure proposed by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated the dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
 
-The procedure taken by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
-
-We first give a basic overview on \textit{neural networks}. This will be based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps.
+Before continuing, we first give a basic overview on \textit{neural networks}. This overview is based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps with the algorithms given by\ \cite{Seg2018}, Algorithm~1 and Algorithm~2.
 
 \begin{definition}[Neural Network; adapted from\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2]
 	A \textbf{neural network} $\mathcal{H}$ of depth $\NinN[N]$ is a collection of tuples $\cup_{n = 1}^{N} (M_n, b_n, h_n)$. These tuples consist of
@@ -270,9 +275,9 @@ We first give a basic overview on \textit{neural networks}. This will be based o
 
 The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \textit{parameters} $\theta$, and the gradient of the neural network can then be computed with regard to these parameters. From here, we can define the notions of $\nabla \mathcal{H}$ and for $f$ a sufficiently differentiable function $\partial_{\mathcal{H}} f$ (or $\partial_\theta f$). 
 
-In order to now state the algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
+In order to now state the first algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
-When $\mu$ and $\nu$ are discrete, the resulting dual variables take the form of vectors, for the continuous case however, they have to be modelled by neural networks.
+As mentioned above, the resulting dual variables take the form of vectors, when $\mu$ and $\nu$ are discrete, and are modelled by neural networks in the continuous case.
 
 \begin{algorithm}\label{OTPlanEstAlg}
 	\caption{Transport Plan Estimation; adapted from~\cite{Seg2018}, Algorithm~1}
@@ -293,9 +298,7 @@ To recover the estimated optimal transport plan from the dual variables, we appl
 
 The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( n^{-\frac{1}{2}} \right)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. To incorporate the estimated dual variables into a transport map,~\cite{Seg2018} provide a method of approximating the barycentric projection. They make use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$.
-
-Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be used to approximate the barycentric projection of the estimated optimal transport plan, i.e.\ a transport map.
+Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. The computation of the desired barycentric projection is however unfeasible for a large-scale problem. To deal with this constraint,\ \cite{Seg2018} train a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be given.
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from~\cite{Seg2018}, Algorithm~2}
