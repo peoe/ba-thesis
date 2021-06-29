@@ -229,6 +229,7 @@ as an approximate value of transport plan for (RP) at a predetermined value $(x,
 \begin{equation}\label{RegApprTransPlan}
 	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
 \end{equation}
+This $\gamma_N$ now functions as the approximation of an optimal transport plan for the regularized problem.
 
 We have seen how to approximate dual variables in the regularized context. In combination with Theorem~\ref{RelatRegSolOrigSolPlan} and Theorem~\ref{RelatRegSolOrigSolMap}, it is sensible to use these estimates in applications. When considering complex problem settings however, the evergrowing dimensions of the underlying data becomes problematic.
 
@@ -238,9 +239,9 @@ We have seen how to approximate dual variables in the regularized context. In co
 
 As~\cite{Seg2018}, Section~1, Large-scale OT, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the individual sample sizes get too large.
 
-The procedure taken by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated plan at a specified location $(x, y)$ a neural network is trained to model the continuous case and a finite vector is iteratively improved in the discrete case. To deal with larger samples, the input measures $\mu$ and $\nu$ are interpreted as probability distributions and used to draw individual samples from them for each iteration.
+The procedure taken by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
 
-We first give a basic overview on \textit{neural networks}. This will be based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2.
+We first give a basic overview on \textit{neural networks}. This will be based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps.
 
 \begin{definition}[Neural Network; adapted from\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2]
 	A \textbf{neural network} $\mathcal{H}$ of depth $\NinN[N]$ is a collection of tuples $\cup_{n = 1}^{N} (M_n, b_n, h_n)$. These tuples consist of
@@ -252,6 +253,8 @@ We first give a basic overview on \textit{neural networks}. This will be based o
 	The dimensions of these metrices, vectors and functions are chosen appropriately, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
 	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big), n = 1, \dots, N \]
 	with $x_1 := x, y := x_{n + 1}$.
+
+	A neural network with multiple layers between the input and output layers, i.e.\ dimension $N \ge 4$, is often called a \textbf{deep neural network}.
 \end{definition}
 
 \begin{remark}[Taken from\ \cite{Brag2020}, Formulae~6.48--6.52]
@@ -269,9 +272,7 @@ The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \texti
 
 In order to now state the algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
-When $\mu$ and $\nu$ are discrete, the resulting dual variables are simply vectors, for the continuous case however, they have to be modelled by the previously mentioned neural networks.
-
-\todoinline{TODO:~better tie in to the previous sections!}
+When $\mu$ and $\nu$ are discrete, the resulting dual variables take the form of vectors, for the continuous case however, they have to be modelled by neural networks.
 
 \begin{algorithm}\label{OTPlanEstAlg}
 	\caption{Transport Plan Estimation; adapted from~\cite{Seg2018}, Algorithm~1}
@@ -288,11 +289,13 @@ When $\mu$ and $\nu$ are discrete, the resulting dual variables are simply vecto
 	}
 \end{algorithm}
 
+To recover the estimated optimal transport plan from the dual variables, we apply Equation~\ref{RegApprTransPlan} in analogy to the sinkhorn algorithm.
+
 The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( n^{-\frac{1}{2}} \right)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-\todoinline{TODO:~differentiate from previous algorithm, add mention of $d$ and setting!}
+Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. To incorporate the estimated dual variables into a transport map,~\cite{Seg2018} provide a method of approximating the barycentric projection. They make use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$.
 
-To incorporate the estimated transport plan into a transport map using\ \ref{RelatRegSolOrigSolMap},~\cite{Seg2018} provide a method of approximating the barycentric projection, making use of a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Incorporating $F_\varepsilon$ as defined above and a map $T_\theta$ parameterized as a deep neural network with the parameters $\theta$, the following algorithm can be used to approximate the barycentric projection of the transport plan, i.e.\ a transport map.
+Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be used to approximate the barycentric projection of the estimated optimal transport plan, i.e.\ a transport map.
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from~\cite{Seg2018}, Algorithm~2}
@@ -307,4 +310,6 @@ To incorporate the estimated transport plan into a transport map using\ \ref{Rel
 	}
 \end{algorithm}
 
-This algorithm may also be used to compute the opposite barycentric projection $g$ with respect to a convex cost function $d$ on $\Omega_1 \times \Omega_1$. The last term in line~6 of Algorithm~\ref{OTMapEstAlg} should then state $d\big( g(y_j), x_i \big)$ instead. This is due to the symmetry of the optimal transport problem, as~\cite{Seg2018} points out.
+This algorithm can also be used to compute the opposite barycentric projection $g$ with respect to a convex cost function $d$ on $\Omega_1 \times \Omega_1$. The last term in line~6 of Algorithm~\ref{OTMapEstAlg} should then state $d\big( g(y_j), x_i \big)$ instead. This is due to the symmetry of the optimal transport problem, as~\cite{Seg2018} points out.
+
+This concludes the second part of the thesis, having stated an algorithm that produces an estimate optimal transport map for optimal transport problems.
