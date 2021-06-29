@@ -283,6 +283,8 @@ The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \texti
 
 In order to now state the first algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
+To recover the estimated optimal transport plan from the dual variables, we apply Equation~\ref{RegApprTransPlan} in analogy to the sinkhorn algorithm.
+
 As mentioned above, the resulting dual variables take the form of vectors, when $\mu$ and $\nu$ are discrete, and are modelled by neural networks in the continuous case.
 
 \begin{algorithm}\label{OTPlanEstAlg}
@@ -300,11 +302,9 @@ As mentioned above, the resulting dual variables take the form of vectors, when 
 	}
 \end{algorithm}
 
-To recover the estimated optimal transport plan from the dual variables, we apply Equation~\ref{RegApprTransPlan} in analogy to the sinkhorn algorithm.
+The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\big( n^{-\frac{1}{2}} \big)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-The most apparent advantage of this approach according to~\cite{Seg2018}, Section~3, Convergence rates and computational cost comparison, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\left( n^{-\frac{1}{2}} \right)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
-
-Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. The computation of the desired barycentric projection is however unfeasible for a large-scale problem. To deal with this constraint,\ \cite{Seg2018} train a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be given.
+Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. The computation of the desired barycentric projection is however unfeasible for a large-scale problem. To deal with this constraint,\ \cite{Seg2018} train a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be stated.
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from~\cite{Seg2018}, Algorithm~2}
