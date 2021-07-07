@@ -35,6 +35,10 @@
 % algorithms
 \usepackage[linesnumbered, ruled, noline, noend]{algorithm2e}
 
+% add toc dots after chapter (i.e. update chapter leaders)
+\usepackage{tocloft}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+
 % proper pdf linking
 \usepackage{hyperref}
 \hypersetup{
