@@ -6,14 +6,14 @@ We will first introduce regularized optimal transport. Regularization imposes an
 
 The following duality result will then be used to obtain an optimal transport map via the barycentric projection. Due to the explicit computation of these transport solutions often being impractical for applications, it is necessary to estimate optimal transport plans and maps. This is traditionally done using the Sinkhorn algorithm, however this particular algorithm is not suited to handle large-scale problems. Hence, a different approach involving neural networks and stochastic mapping estimation is required.
 
-The first sections on regularization follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
+The first sections on regularization and the corresponding regularized dual problem follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite{Seg2018}.
 
 \section{Regularized Optimal Transport}\label{RegOT}
 
 There are multiple ways in which regularization can take place, however we will focus on \textit{entropic regularization}. This form of regularization deals with measurable functions with finite entropy, i.e.~for $f \in \MF{\Omega}{\R}$
-\[ E(f) := \int\limits_\Omega \vert f(z) \vert \log\left( \vert f(z) \vert \right)~\D[z] < \infty \]
+\[ E(f) := \int\limits_\Omega \big\vert f(z) \big\vert \log\big( \vert f(z) \vert \big)~\D[z] < \infty, \]
 where $0 \cdot \log(0) := 0$. From here we can define
-\[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \vert f(z) \vert \log^+(\vert f(z) \vert)~\D[z] < \infty \right\} \]
+\[ \LLL := \left\{ f \in \MF{\Omega}{\R} : \int\limits_\Omega \big\vert f(z) \big\vert \log^+\big( \vert f(z) \vert \big)~\D[z] < \infty \right\} \]
 as a subset of all measurable functions with finite entropy, where we consider $\log^+(x) := \max \{ 0, \log (x) \}$.
 
 The first conclusion about the entropic regularization that can be reached via~\cite{Cla2021}, Proposition~2.1, is that $f \in \MF{\Omega}{\RZero}$ is equivalent to $E(f) < \infty$ and $f \in \LLL$.
@@ -27,14 +27,16 @@ For a third conclusion we are interested in the dual space of \LLL{}. We define
 	s, & 0 \le s \le 1 \\
 	\exp(s - 1), & s > 1
 \end{cases} \]
-and $\Lexp := \Orlicz{\Phi_{\exp}}$ with its corresponding Luxemburg norm $\Vert \cdot \Vert_{\Phi_{\exp}}$. As shown in~\cite{Cla2021}, Proposition~2.7, if $\Omega$ has finite Lebesgue measure (which it has by $\Omega \subseteq \R^{n_1 + n_2}$ being compact and thus bounded), then ${(\LLL)}' = \Lexp$. Here, ${(\cdot)}'$ denotes the dual space in accordance with\ \cite{Ryn2008}, Definition 4.28.
+and $\Lexp := \Orlicz{\Phi_{\exp}}$ with its corresponding Luxemburg norm $\Vert \cdot \Vert_{\Phi_{\exp}}$. As shown in~\cite{Cla2021}, Proposition~2.7, if $\Omega$ has finite Lebesgue measure (which it has by $\Omega \subseteq \R^{n_1 + n_2}$ being compact and thus bounded), then
+\[ {(\LLL)}' = \Lexp. \]
+Here, ${(\cdot)}'$ denotes the dual space in accordance with\ \cite{Ryn2008}, Definition 4.28.
 
 \begin{definition}[Regularized Problem; adapted from~\cite{Cla2021}, (P), (D) and Proposition~3.1]\label{RegProbs}
 	We once again consider our starting measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, and a cost function $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
-	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_\Omega c(x, y)~\Dx[x, y]{\gamma} + \varepsilon \int\limits_\Omega \gamma(x, y) \big( \log(\gamma(x, y)) - 1 \big)~\Dx[x, y]{}. \]
+	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_\Omega c(x, y)~\Dx[x, y]{\gamma} + \varepsilon \int\limits_\Omega \gamma(x, y) \Big( \log\big( \gamma(x, y) \big) - 1 \Big)~\Dx[x, y]{}. \]
 	Its \textbf{Predual Problem} for the same $\varepsilon > 0$ is defined as
 	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
-	\[ \text{with } F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right). \]
+	with $F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right)$.
 	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by~\cite{Cla2021}, Proposition~3.1, $\inf \text{(RP)} = \sup \text{(PD)}$, and if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
 
@@ -62,7 +64,7 @@ With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport pla
 	Cf.~the proof of Theorem~3.3 in~\cite{Cla2021}.
 \end{proof}
 
-With a solution to (RP), we can now acheive weak convergence to a solution of (KP). For this we first consider $X$ and $Y$ as complete metric spaces, and $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ as compact subsets. Given two probability measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, we further require two discrete probability measures, weakly converging to $\mu$ and $\nu$ for \Ninf{} respectively, which are defined as
+With a solution to (RP), we can now achieve weak convergence in the sense of Deinition~\ref{WeakConMeas} of the regularized optimal transport plans to a solution of (KP). For this we first consider $X$ and $Y$ as complete metric spaces, and $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ as compact subsets. Given two probability measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, we further require two discrete probability measures, weakly converging to $\mu$ and $\nu$ for \Ninf{} respectively, which are defined as
 \[ \mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, \]
 with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$.
 
@@ -73,13 +75,13 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 \begin{proof}
 	This proof was adapted from~\cite{Seg2018}, Proof of Theorem~1.
 
-	We consider $\gamma_n$ the solution of (KP) between $\mu_n$ and $\nu_n$ with maximum entropy. According to~\cite{Vill2009}, Theorem~5.20, there now exists a subsequence which weakly converges to a solution $\gamma$ of the same problem between $\mu$ and $\nu$. We continue to label this subsequence as $\gamma_n$, and further take the same indices to form a subsequence from the solutions of (RP) between $\mu_n$ and $\nu_n$, labeling it $\gamma_n^{\varepsilon_n}$. The solutions of (RP) exist due to the discrete measures $\mu_n, \nu_n$ reducing the integral over $\Omega_1$ and $\Omega_2$ respectively to a finite sum over their masses $x_i, y_j$, hence allowing for the application of Theorem~\ref{RegProbAdmitLLL}. By expanding the following integral for $g \in \CF[b]{\Omega}$
+	We consider $\gamma_n$ the solution of (KP) between $\mu_n$ and $\nu_n$ with maximum entropy. According to~\cite{Vill2009}, Theorem~5.20, there now exists a subsequence which weakly converges to a solution $\gamma$ of the same problem between $\mu$ and $\nu$. We continue to label this subsequence as $\gamma_n$, and further take the same indices to form a subsequence from the solutions of (RP) between $\mu_n$ and $\nu_n$, labelling it $\gamma_n^{\varepsilon_n}$. The solutions of (RP) exist due to the discrete measures $\mu_n, \nu_n$ reducing the integral over $\Omega_1$ and $\Omega_2$ respectively to a finite sum over their masses $x_i, y_j$, hence allowing for the application of Theorem~\ref{RegProbAdmitLLL}. By expanding the following integral for $g \in \CF[b]{\Omega}$
 	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert \le \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma_n] \Bigg\rvert + \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert, \]
-	we now only have to show that the left summand on the right hand side converges to $0$, because the other summand converges by the previously mentioned statement of~\cite{Vill2009}. As $\gamma_n^{\varepsilon_n}$ and $\gamma_n$ are solutions to optimal transport problems between discrete measures, we can replace the integral over $\Omega$ with sums over the masses of both measures and obtain
+	we now only have to show that the left summand on the right-hand side converges to $0$, because the other summand converges by the previously mentioned statement of~\cite{Vill2009}. As $\gamma_n^{\varepsilon_n}$ and $\gamma_n$ are solutions to optimal transport problems between discrete measures, we can replace the integral over $\Omega$ with sums over the masses of both measures and obtain
 	\[ \Bigg\lvert \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n^{\varepsilon_n}(x_i, y_j) - \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n(x_i, y_j) \Bigg\rvert \le M_g \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n}, \]
 	where $\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n} := \sum\limits_{i, j = 1}^n \big\lvert \gamma_n^{\varepsilon_n}(x_i, y_j) - \gamma_n(x_i, y_j) \big\rvert$ and $M_g := \max g(x_i, y_j)$ over $1 \le i, j \le n$. Adapting a result from~\cite{Comi1994}, specifically Equation~2 in the proof of Proposition~3.1, there exist $M_{c_n, \mu_n, \nu_n}, \lambda_{c_n, \mu_n, \nu_n} > 0$ such that
 	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_1^{n \times n} \le M_{c_n, \mu_n, \nu_n} \exp\left( \frac{-\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right), \]
-	with $c_n := {\big( c(x_i, y_j) \big)}_{i, j = 1}^n$. To show the convergence of the right hand side, we finally choose $\varepsilon_n = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n\,M_{c_n, \mu_n, \nu_n} \right)}^{-1} \rightarrow 0, \Ninf$.
+	with $c_n := {\big( c(x_i, y_j) \big)}_{i, j = 1}^n$. To show the convergence of the right-hand side, we finally choose $\varepsilon_n = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n\,M_{c_n, \mu_n, \nu_n} \right)}^{-1} \rightarrow 0, \Ninf$.
 \end{proof}
 
 \section{The Barycentric Projection}\label{BaryProj}
@@ -89,36 +91,35 @@ In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw t
 \begin{definition}[Barycentric Projection; adapted from~\cite{Seg2018}, Definition~1]\label{BarCentrProj}
 	We consider a transport plan $\gamma \in \TP{\mu}{\nu}$ and a convex cost function $\map[d]{\Omega_2 \times \Omega_2}{\RZero \cup \{ \infty \}}$. Then the \textbf{barycentric projection} of $\gamma$ at $x \in \Omega_1$ is defined as
 	\[ \bar{\gamma}(x) := \argmin\limits_{z \in \Omega_2} \int\limits_{\Omega_2} d(z, y)~\Dx[x, y]{\gamma}. \]
-	If $d = \Vert x - y \Vert_2^2$, where $\Vert \cdot \Vert_2$ is the Euclidean norm, the barycentric projection has the closed form
+	If $d(x, y) = \Vert x - y \Vert_2^2$, where $\Vert \cdot \Vert_2$ is the Euclidean norm, the barycentric projection has the closed form
 	\[ \bar{\gamma}(x) = \int\limits_{\Omega_2} y~\Dx[x, y]{\gamma}. \]
+	If $c(x, y) = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be further shown, that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
 \end{definition}
-
-If $c(x, y) = \Vert x - y \Vert_2^2$, according to~\cite{Seg2018}, it can be further shown, that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
 
 Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ satisfying~\cite{Vill2009}, Corollary~9.3, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
 \[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n a_i \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n b_j \delta_{y_j}, \]
 with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$, weakly converging to $\mu$ and $\nu$ respectively.
 
 \begin{theorem}[Adapted from~\cite{Seg2018}, Theorem~2]\label{RelatRegSolOrigSolMap}
-	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)}_{\NinN[k]}$ such that \weak{\push[\big(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_n}}{\push[(id_{\Omega_1}, T)]{\mu}} for \Ninf, where $T$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$, $id_{\Omega_1}$ is the identity map on $\Omega_1$, and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$ with respect to $d$.
+	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\nu$, $c$, $\mu_n$, $\nu_n$ as described above. Assume that the solutions $\gamma_n$ to$\text{\normalfont\ (KP)}$ between $\mu_n$ and $\nu_n$ are unique for all \NinN. Further let ${(\varepsilon_n)}_{\NinN}$ be a sequence converging sufficiently fast to $0$ with $\varepsilon_n > 0$ for all \NinN, and $d$ be a convex cost function on $\Omega_2 \times \Omega_2$. Then there exists a subsequence ${\big(\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)}_{\NinN[k]}$ such that \weak{\push[\big(id_{\Omega_1}, \bar{\gamma}^{\varepsilon_{n_k}}_{n_k}\big)]{\mu_n}}{\push[(id_{\Omega_1}, T)]{\mu}} for \Ninf, where $T$ is the map solving$\text{\normalfont\ (MP)}$ between $\mu$ and $\nu$, $id_{\Omega_1}$ is the identity map on $\Omega_1$, and $\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}$ is the barycentric projection with respect to the cost function $d$ of the solution $\gamma^{\varepsilon_{n_k}}_{n_k}$ of$\text{\normalfont\ (RP)}$.
 \end{theorem}
 
 \begin{proof}
 	This proof was adapted from~\cite{Seg2018}, Proof of Theorem~2.
 
-	We know that $\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push{\mu} = \push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push[\bar{\gamma}_n]{\mu_n} + \push[\bar{\gamma}_n]{\mu_n} - \push{\mu}$. When considering the absolute value of the left hand side and applying the triangle inequality to the right hand side, we can prove the weak convergence claimed in the theorem by proving it for both summands on the right hand side.	By~\cite{Vill2009}, Corollary~9.3, there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. Following the proof of~\cite{Seg2018}, Theorem~2, we see that the summand involving $\push[\bar{\gamma}_n]{\mu_n} - \push[T]{\mu}$ converges.
+	We know that $\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push{\mu} = \push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push[\bar{\gamma}_n]{\mu_n} + \push[\bar{\gamma}_n]{\mu_n} - \push{\mu}$. When considering the absolute value of the left-hand side and applying the triangle inequality to the right-hand side, we can prove the weak convergence claimed in the theorem by proving it for both summands on the right-hand side.	By~\cite{Vill2009}, Corollary~9.3, there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. Following the proof of~\cite{Seg2018}, Theorem~2, we see that the summand involving $\push[\bar{\gamma}_n]{\mu_n} - \push[T]{\mu}$ converges.
 	
 	We thus only have to show that for any Lipschitz continuous function $g$ over $\Omega$
 	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n}}] \Bigg\rvert \rightarrow 0 \]
 	for \Ninf{} and $\varepsilon_n$ converging to $0$ sufficiently fast, as \weak{\gamma_n}{T} by~\cite{Vill2009}, Theorem~5.20. According to~\cite{Seg2018}, the optimal transport plan $\gamma_n$ is induced by an optimal map $T_n$, i.e.~$\gamma_n = \push[(id_{\Omega_1}, T_n)]{\mu_n}$, which then further implies $\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n} = \push[(id_{\Omega_1}, T_n)]{\mu_n}$. This allows us to apply the definition of the push forward and rewrite
 	\[ \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] = \int\limits_{\Omega} g\big( x, \bar{\gamma}_n^{\varepsilon_n}(x) \big)~\Dx{\mu_n} = \frac{1}{n} \sum\limits_{i = 1}^n g\big( x_i, \bar{\gamma}_n^{\varepsilon_n}(x_i) \big), \]
 	\[ \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n}}] = \int\limits_{\Omega} g\big( x, T_n(x) \big)~\Dx{\mu_n} = \frac{1}{n} \sum\limits_{i = 1}^n g\big( x_i, T_n(x_i) \big). \]
-	We apply the closed form of the barycentric projection as given by~\cite{Seg2018} $\bar{\gamma}(x) = \gamma(x) Y_n$, with $Y_n := {(y_1, \dots, y_n)}^T$ and $\gamma(x) := (\gamma(x, y_1), \dots \gamma(x, y_n))$, to obtain
+	We apply the closed form of the barycentric projection as given by~\cite{Seg2018} $\bar{\gamma}(x) = \gamma(x) Y_n$, with $Y_n := {(y_1, \dots, y_n)}^T$ and $\gamma(x) := \big( \gamma(x, y_1), \dots, \gamma(x, y_n) \big)$, to obtain
 	\[ \Bigg\lvert \int\limits_{\Omega} g\big( x, \bar{\gamma}_n^{\varepsilon_n}(x) \big)~\Dx{\mu_n} - \int\limits_{\Omega} g\big( x, T_n(x) \big)~\Dx{\mu_n} \Bigg\rvert \le \sum\limits_{i = 1}^n K_g \big\vert \bar{\gamma}_n^{\varepsilon_n}(x_i) - \bar{\gamma}_n(x_i) \big\vert \]
 	\[ = n~K_g~\Vert \gamma_n^{\varepsilon_n} Y_n - \gamma_n Y_n \Vert_{\R^{n \times d}, 2} \le n~K_g~\Vert Y_n \Vert_{\R^{n \times d}, 2}^{1/2}~\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2}, \]
 	where we use $K_g < \infty$ the Lipschitz constant of $g$, $\Vert A \Vert_{\R^{d \times n}, 2} = \sigma_{\max}(A^T A)$, $\Vert A \Vert_{\R^{n \times n}, 2} = \sigma_{\max}(A^T A)$, $\gamma_n^{\varepsilon_n} = {\big( \gamma_n^{\varepsilon_n}(x_i, y_j) \big)}_{i, j = 1}^n$, $\gamma_n$ in a similar fashion, and Cauchy-Schwarz is used on the last inequality. Using the same result by~\cite{Comi1994} as in the proof of Theorem~\ref{RelatRegSolOrigSolPlan}, we can now find $M_{c_n, \mu_n, \nu_n} > 0$ and $\lambda_{c_n, \mu_n, \nu_n} > 0$ such that
 	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert^{1/2}_{\R^{n \times n}, 2} \le M_{c_n, \mu_n, \nu_n} \exp\left( \frac{-\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right). \]
-	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n^2 \Vert Y \Vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)}^{-1}$ suffices for the right hand side of the previous equation to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
+	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n^2 \Vert Y \Vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)}^{-1}$ suffices for the right-hand side of the previous equation to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
 \end{proof}
 
 \begin{corollary}[Taken from~\cite{Seg2018}, Corollary~1]\label{RelatRegOrigCor}
@@ -130,12 +131,12 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 
 	We consider $h \in \CF[b]{\Omega_2}$ and further define \map[g]{\Omega}{\R} by $g(x, y) := h(y)$ for all $(x, y) \in \Omega$. As $h$ is bounded and continuous, $g$ is as well. With the same notation as in the proof of Theorem~\ref{RelatRegSolOrigSolMap}, we see that
 	\[ \Bigg\lvert \int\limits_{\Omega_2} h~\D[{\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n}}] - \int\limits_{\Omega_2} h~\D[{\push{\mu}}] \Bigg\rvert = \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, T)]{\mu}}] \Bigg\rvert. \]
-	Applying the theorem mentioned above we see that the left hand side converges to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we use $\push{\mu} = \nu$ to prove the corollary.
+	Applying the theorem mentioned above we see that the left-hand side converges to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we use $\push{\mu} = \nu$ to prove the corollary.
 \end{proof}
 
 \section{Regularized Duality}\label{RegDual}
 
-As we have previously seen, the regularization term is finite if and only if $\gamma \in \LLL$. By considering (RP) over \LLL{} instead of \TP{\mu}{\nu}, we can also derive a dual problem over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$. Following the procedure from~\cite{Cla2021}, Section~4, we define
+As we have previously seen, the regularization term is finite if and only if $\gamma \in \LLL$. By considering (RP) over \LLL{} instead of \TP{\mu}{\nu}, we can also derive a dual problem over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$. Following the argument put forth in~\cite{Cla2021}, Section~4, we define
 \[ \Phi(s) := \begin{cases}
 	\infty, & s < 0 \\
 	s, & 0 \le s \le 1 \\
@@ -154,7 +155,7 @@ As we have previously seen, the regularization term is finite if and only if $\g
 \end{cases} \]
 and obtain $\varphi = \varepsilon \log \big( \Phi(u_1) \big) = \varepsilon \Psi(u_1) \text{ and } \psi = \varepsilon \log \big( \Phi(u_2) \big) = \varepsilon \Psi(u_2)$. When put back into (PD), this gives us
 \[ \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} \exp \left( \frac{\varphi(x) + \psi(y) - c(x, y)}{\varepsilon} \right)~\Dx[x, y]{} \]
-\[ = \varepsilon \int\limits_{\Omega_1} \Psi(u_1(x))~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi(u_2(y))~\Dx[y]{\nu} - \varepsilon \int\limits F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{}, \]
+\[ = \varepsilon \int\limits_{\Omega_1} \Psi\big( u_1(x) \big)~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi\big( u_2(y) \big)~\Dx[y]{\nu} - \varepsilon \int\limits F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{}, \]
 with $F_{\varepsilon}^{\Phi}(x, y) := \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)$.
 
 %We are now interested in how this estimate for the regularized problem (RP) may result in a solution for the original problem (KP). Applying Equation~\ref{RegApprTransPlan}, we denote the approximated transport plan for a certain $\varepsilon > 0$ by $\gamma^\varepsilon$.\@~\cite{Seg2018}, Theorem~1, gives us a result regarding the convergence of regularized optimal transport plans.
@@ -163,8 +164,8 @@ We note that $\Phi = \Phi_{\exp}$ on \RZero, suggesting an optimization over ${(
 
 \begin{definition}[Regularized Dual; adapted from~\cite{Cla2021}, ($\text{D}_{\exp}$)]\label{RegDualProb}
 	Let $\mu, \nu, \varepsilon$ as well as $c$ be the same as in Definition~\ref{RegProbs}. We consider the set $\mathcal{F} := \{ (f, g) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2] : f, g \ge 0 \}$ and define the \textbf{Regularized Dual Problem} as
-	\[ \sup\limits_{\mathcal{F}} \left\{ \varepsilon \int\limits_{\Omega_1} \Psi(u_1(x))~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi(u_2(y))~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{} \right\}. \]
-	This problem will accordingly be labelled as (RD) and its supremum as $\sup \text{(RD)}$. The restriction on $\mathcal{F}$ ensures that all integrals are well defined.
+	\[ \sup\limits_{\mathcal{F}} \left\{ \varepsilon \int\limits_{\Omega_1} \Psi\big( u_1(x) \big)~\Dx{\mu} + \varepsilon \int\limits_{\Omega_2} \Psi\big( u_2(y) \big)~\Dx[y]{\nu} - \varepsilon \int\limits_{\Omega} F_{\varepsilon}^{\Phi}(x, y)~\Dx[x, y]{} \right\}. \]
+	This problem will accordingly be labelled as (RD) and its supremum as $\sup \text{(RD)}$. The restriction on $\mathcal{F}$ ensures that all integrals are well-defined.
 \end{definition}
 
 \begin{theorem}[Adapted from~\cite{Cla2021}, Theorem~4.6]\label{RegDualAdmit}
@@ -177,7 +178,7 @@ We note that $\Phi = \Phi_{\exp}$ on \RZero, suggesting an optimization over ${(
 	We define the functional
 	\[ B(u_1, u_2) := \int\limits_{\Omega} \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)~\D[(x, y)] - \]
 	\[ - \int\limits_{\Omega_1} \Psi(u_1)~\D - \int\limits_{\Omega_2} \Psi(u_2)~\D[\nu] \]
-	and show that it possesses a minimizer. The value taken by $B$ for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite{Cla2021}, Lemma~4.2, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. By applying\ \cite{Cla2021}, Lemma~4.4, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite{Cla2021}, Lemma~4.5, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
+	and show that it possesses a minimizer. The value taken by $B$ for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite{Cla2021}, Lemma~4.2, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. By applying\ \cite{Cla2021}, Lemma~4.4, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying the Theoreom of Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite{Cla2021}, Lemma~4.5, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
 \end{proof}
 
 Continuing the previous argument, we can now resubstitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
@@ -189,9 +190,7 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 \end{theorem}
 
 \begin{proof}
-	This proof was taken from the proof of Proposition~4.7 in~\cite{Cla2021}.
-
-	The existence follows from Theorem~2.2 and Theorem~4.6.
+	This proof was taken from the proof of Proposition~4.7 in~\cite{Cla2021}. The existence of a solution follows from Theorem~2.2 and Theorem~4.6.
 
 	According to\ \cite{Cla2021}, Proposition~3.1, it suffices to show $\sup \text{(PD)} = \sup \text{(RD)}$. For arbitrary $\alpha \in \CF{\Omega_1}, \beta \in \CF{\Omega_2}$ we set $u_1 := \Psi^{-1}(\alpha/\varepsilon), u_2 := \Psi(\beta/\varepsilon)$ and see that
 	\[ \int\limits_{\Omega_1} \alpha~\D + \int\limits_{\Omega_2} \beta~\D[\nu] - \varepsilon \int\limits_\Omega \exp\left( \frac{-c + \alpha + \beta}{\varepsilon} \right)~\D[(x, y)] \le \max\limits_{u_1, u_2 \ge 0} -\varepsilon B(u_1, u_2), \]
@@ -214,7 +213,7 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
 
-In this final section, the focus will be on the estimation of optimal transport solutions, that is both plans and maps. The first step is the Sinkhorn algorithm, which is a well known approach. We will then go on to a method involving stochastic gradient descent, as described by\ \cite{Seg2018}.
+In this final section, the focus will be on the estimation of optimal transport solutions, that is both plans and maps. The first step is the Sinkhorn algorithm, which is a well-known approach. We will then go on to describe a method involving stochastic gradient descent, as described by\ \cite{Seg2018}.
 
 We can use the optimality conditions in Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as~\cite{Cla2021}, Remark~4.9, points out. The idea of this algorithm is twofold: apply the first two equations to iteratively approach optimal dual variables, and then use the last equation to obtain an estimated optimal transport plan.
 
@@ -252,7 +251,7 @@ When considering complex problem settings however, the evergrowing dimensions of
 
 The procedure proposed by~\cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated the dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
 
-Before continuing, we first give a basic overview on \textit{neural networks}. This overview is based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps with the algorithms given by\ \cite{Seg2018}, Algorithm~1 and Algorithm~2.
+Before continuing, we first give a basic overview on \textit{neural networks}. This overview is based on\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps with the algorithms given by\ \cite{Seg2018}.
 
 \begin{definition}[Neural Network; adapted from\ \cite{Good2016}, Chapter~6, and\ \cite{Brag2020}, Section~6.2]
 	A \textbf{neural network} $\mathcal{H}$ of depth $\NinN[N]$ is a collection of tuples $\cup_{n = 1}^{N} (M_n, b_n, h_n)$. These tuples consist of
@@ -261,7 +260,7 @@ Before continuing, we first give a basic overview on \textit{neural networks}. T
 		\item (real-valued) vectors $b_n$, and
 		\item (real-valued) non-linear activation functions $h_n$.
 	\end{itemize}
-	The dimensions of these metrices, vectors and functions are chosen appropriately, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
+	The dimensions of these matrices, vectors and functions are chosen appropriately, such that for fixed $\NinN[d, l]$ the neural network $\mathcal{H}$ can be evaluated for an input vector $x \in \R^d$ and an output vector $y \in \R^l$ be obtained by applying the recursive formula
 	\[ x_{n + 1} = h_n\big( M_n x_n + b_n \big),\ n = 1, \dots, N \]
 	with $x_1 := x, y := x_{n + 1}$.
 
@@ -275,15 +274,15 @@ Before continuing, we first give a basic overview on \textit{neural networks}. T
 		\item $h(x) = \mathbbm{1}_{(0, \infty)}(x)$ (Threshold),
 		\item $h(x) = \frac{1}{1 + \exp(-x)}$ (Logistic Sigmoid),
 		\item $h(x) = \frac{1}{2} + \frac{1}{\pi} \arctan(x)$ (Arctan Sigmoid), and
-		\item $h(x) = \frac{1}{2\pi} \int_{-\infty}^x \exp\big( -\frac{1}{2} x^2 \big)$ (Gaussian Sigmoid).
+		\item $h(x) = \frac{1}{2\pi} \int_{-\infty}^x \exp\big(\!-\frac{1}{2} x^2 \big)$ (Gaussian Sigmoid).
 	\end{itemize}
 \end{remark}
 
 The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \textit{parameters} $\theta$, and the gradient of the neural network can then be computed with regard to these parameters. From here, we can define the notions of $\nabla \mathcal{H}$ and for $f$ a sufficiently differentiable function $\partial_{\mathcal{H}} f$ (or $\partial_\theta f$). 
 
-In order to now state the first algorithm, we need to adapt the previous definition of $F_\varepsilon$ slightly to include the dual variables:
-\[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\big( \varphi(x) + \psi(y) - c(x, y) \big)}{\varepsilon} \right). \]
-To recover the estimated optimal transport plan from the dual variables, we apply Equation~\ref{RegApprTransPlan} in analogy to the sinkhorn algorithm.
+In order to now state the first algorithm, we need to adapt the previous definition of $F_\varepsilon$ in Definition~\ref{RegProbs} slightly to include the dual variables:
+\[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\varphi(x) + \psi(y) - c(x, y)}{\varepsilon} \right). \]
+To recover the estimated optimal transport plan from the dual variables, we apply Equation~\ref{RegApprTransPlan} in analogy to the Sinkhorn algorithm.
 
 As mentioned above, the resulting dual variables take the form of vectors, when $\mu$ and $\nu$ are discrete, and are modelled by neural networks in the continuous case.
 
