@@ -7,15 +7,15 @@
 
 The following theorems and corollaries will not be explicitly proven. Direct sources which include proofs will be provided.
 
-\begin{theorem}[Riesz-Fr\'{e}chet; adapted from~\cite{Ryn2008}, Theorem 5.2]\label{Rie-Fre}
-	Let $(H, \inner{\cdot}{\cdot})$ be a Hilbert space. Then
-	\[ \forall \varphi \in H'~\exists x \in H: \varphi(x) = \inner{\varphi}{x}. \]
-\end{theorem}
+%\begin{theorem}[Riesz-Fr\'{e}chet; adapted from~\cite{Ryn2008}, Theorem 5.2]\label{Rie-Fre}
+%	Let $(H, \inner{\cdot}{\cdot})$ be a Hilbert space. Then
+%	\[ \forall \varphi \in H'~\exists x \in H: \varphi(x) = \inner{\varphi}{x}. \]
+%\end{theorem}
 
-\begin{corollary}
-	In particular for $H = \ELL{2}[a, b], \inner{f}{g} := \int\limits_a^b f(x) \conj{g(x)}~dx$ and $H' = \ELL{2}[a,b]$, with $-\infty < a < b < \infty$, we obtain
-	\[ \forall f \in \ELL{2}[a,b]~\exists g \in \ELL{2}[a,b]: f(g) = \inner{f}{g} = \int\limits_a^b f(x) \conj{g(x)}~dx. \]
-\end{corollary}
+%\begin{corollary}
+%	In particular for $H = \ELL{2}[a, b], \inner{f}{g} := \int\limits_a^b f(x) \conj{g(x)}~dx$ and $H' = \ELL{2}[a,b]$, with $-\infty < a < b < \infty$, we obtain
+%	\[ \forall f \in \ELL{2}[a,b]~\exists g \in \ELL{2}[a,b]: f(g) = \inner{f}{g} = \int\limits_a^b f(x) \conj{g(x)}~dx. \]
+%\end{corollary}
 
 %\begin{theorem}[Riemann-Lebesgue; adapted from~\cite{Plo2018}, Lemma 1.27]\label{Rie-Leb}
 %	Let $f \in \ELL{1}[a,b]$ with $-\infty < a < b < \infty$. Then we have
@@ -23,7 +23,9 @@ The following theorems and corollaries will not be explicitly proven. Direct sou
 %\end{theorem}
 
 \begin{theorem}[Prokhorov; adapted from~\cite{San2015}, Box~1.4]\label{Prok}
-	Suppose that ${(\mu_n)}_{\NinN}$ is a tight sequence of probability measures over a complete and separable metric space $X$, that is for every $\varepsilon > 0$ there exists a compact subset $K \subseteq X$ such that $\mu_n(X \setminus K) < \varepsilon$ for every \NinN. Then there exists $\mu \in \PM{X}$ and a subsequence ${(\mu_{n_k})}_{\NinN[k]}$ such that \weak{\mu_{n_k}}{\mu} for \Ninf[k]. Conversely, every sequence \weak{\mu_n}{\mu} is necessarily tight.
+	Suppose that ${(\mu_n)}_{\NinN}$ is a tight sequence of probability measures over a complete and separable metric space $X$, that is for every $\varepsilon > 0$ there exists a compact subset $K \subseteq X$ such that $\mu_n(X \setminus K) < \varepsilon$ for every \NinN. Then there exists $\mu \in \PM{X}$ and a subsequence ${(\mu_{n_k})}_{\NinN[k]}$ such that \weak{\mu_{n_k}}{\mu} for \Ninf[k]. Conversely, every sequence \weak{\mu_n}{\mu} for \Ninf{} is necessarily tight.
+
+	Here, \weak{\mu_n}{\mu} is meant in the sense of Definition~\ref{WeakConMeas}.
 \end{theorem}
 
 \begin{theorem}[Arzela-Ascoli; adapted from~\cite{San2015}, Box 1.7]\label{Arz-Asc}
@@ -33,9 +35,7 @@ The following theorems and corollaries will not be explicitly proven. Direct sou
 \end{theorem}
 
 \begin{theorem}[Lebesgue, Dominated Convergence; adapted from~\cite{Bog2007}, Volume 1, Theorem 2.8.1]\label{Leb-DomCon}
-	Suppose that $\mu$-integrable functions $f_n$ converge almost everywhere to a function $f$. If there exists a $\mu$-integrable function $\phi$ such that
-	\[ |f_n| \le \phi \]
-	a.e.~for every $n$, then the function $f$ is integrable and
+	Suppose that $\mu$-integrable functions $f_n$ converge almost everywhere to a function $f$. If there exists a $\mu$-integrable function $\phi$ such that $|f_n| \le \phi$ a.e.~for every $n$, then the function $f$ is integrable and
 	\[ \lim\limits_{\Ninf} \int\limits_X f_n~\D = \int\limits_X f~\D. \]
 \end{theorem}
 
