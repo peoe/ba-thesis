@@ -1,6 +1,6 @@
 \chapter{Optimal Transport}\label{OT}
 
-This introductory part will follow~\cite{San2015}, Chapter~1, closely in content as well as notation. It will contain the Monge and Kantorovich formulations of the optimal transport problem, as well as a dual problem for the Kantorovich problem. Afterwards, we will introduce regularized optimal transport and work towards mapping estimation in the second part.
+This introductory part will follow\ \cite[Chapter~1]{San2015} closely in content as well as notation. It will contain the Monge and Kantorovich formulations of the optimal transport problem, as well as a dual problem for the Kantorovich problem. Afterwards, we will introduce regularized optimal transport and work towards mapping estimation in the second part.
 
 \section{The Monge Problem}\label{TheMonProb}
 %This section will deal with the problem of optimal transport and some results regarding the existence and uniqueness of such transports.
@@ -10,7 +10,7 @@ For this purpose, we consider a non-negative \textit{cost function} $c(x, y)$, w
 
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure}, or \textit{image measure}, of our original measure on $X$.
 
-\begin{definition}[Push-Forward; adapted from~\cite{Bog2007}, Section 9.1]\label{PushForward}
+\begin{definition}[Push-Forward; adapted from\ {\cite[Section~9.1]{Bog2007}}]\label{PushForward}
 	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ as
 	\[ (\push{\mu})(y) := \mu\big( T^{-1} (y) \big). \]
 \end{definition}
@@ -23,7 +23,7 @@ Another useful step to take is to normalize the overall mass. This can be achiev
 
 We can now state the Monge problem in its modern form:
 
-\begin{definition}[Monge Problem; adapted from~\cite{San2015}, Problem 1.1]\label{MongeProb}
+\begin{definition}[Monge Problem; adapted from\ {\cite[Problem~1.1]{San2015}}]\label{MongeProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting and target measures, and \map[c]{X\times{}Y}{\RZero{}\cup{}\{\infty\}}{} be a cost function. Then we define the \textbf{Monge Problem} as
 	\[ \inf \left\{ M(T) := \int\limits_X c\big( x, T(x) \big)~\Dx{\mu} : T \in \MF{X}{Y}, \push{\mu} = \nu \right\}. \]
 	From here on, we will be using the abbreviation (MP) as the name of the Monge Problem, and $\inf \text{(MP)}$ to denote the attained infimum. A function $T~\in~\MF{X, Y}$ is called an \textbf{optimal transport map}, if it satisfies
@@ -32,18 +32,18 @@ We can now state the Monge problem in its modern form:
 
 We can already provide a couple of results about the general existence of transport maps --- though these must not be optimal for (MP). The main restriction on our starting measures $\mu$ regards the existence of so-called \textit{atoms}.
 
-\begin{definition}[Atoms; adapted from~\cite{Bog2007}, Volume 1, Definition 1.12.7]\label{Atoms}
+\begin{definition}[Atoms; adapted from\ {\cite[Volume~1, Definition~1.12.7]{Bog2007}}]\label{Atoms}
 	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if $\forall B \in \X, B \subseteq A \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A)$ holds. If $\mu$ has no atoms, we say it is \textbf{atomless}.
 \end{definition}
 
 When there are no atoms for $\mu$ and the underlying measurable space is compact, we can first acheive existence of transport maps on the real line.
 
-\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.27]\label{1DTransMapExist}
+\begin{lemma}[Adapted from\ {\cite[Lemma~1.27]{San2015}}]\label{1DTransMapExist}
 	Let $\mu, \nu \in \PM{\Omega}$ be two measures with $\mu$ being atomless, and $\Omega \subseteq \R$ being compact. Then, there exists a transport map \map[T]{\Omega}{\Omega} such that $\push{\mu} = \nu$.
 \end{lemma}
 
 \begin{proof}
-	Cf.~the proof of Lemma 1.27 in~\cite{San2015}.
+	Cf.~the proof of\ \cite[Lemma~1.27]{San2015}.
 \end{proof}
 
 %\begin{lemma}[Adapted from~\cite{San2015}, Lemma 1.28]\label{BorelExist}
@@ -54,14 +54,14 @@ When there are no atoms for $\mu$ and the underlying measurable space is compact
 %	Cf.~the proof of Lemma 1.28 in~\cite{San2015}.
 %\end{proof}
 
-By applying the injective map \map[\sigma_d]{\R^d}{\R} from\ \cite{San2015}, Lemma~1.29, we can extend Lemma~\ref{1DTransMapExist} onto compact subsets of $\R^d$.
+By applying the injective map \map[\sigma_d]{\R^d}{\R} from\ {\cite[Lemma~1.29]{San2015}}, we can extend Lemma~\ref{1DTransMapExist} onto compact subsets of $\R^d$.
 
-\begin{theorem}[Adapted from~\cite{San2015}, Corollary 1.29]\label{NDTransMapExist}
+\begin{theorem}[Adapted from\ {\cite[Corollary~1.29]{San2015}}]\label{NDTransMapExist}
 	Let $\mu, \nu \in \PM{\Omega}$ be two measures with $\mu$ being atomless, and $\Omega \subseteq \R^d$ being compact. Then, there exists at least a transport map \map[T]{\Omega}{\Omega} such that $\push{\mu} = \nu$.
 \end{theorem}
 
 \begin{proof}
-	Cf.\ the proof of Corollary~1.29 in\ \cite{San2015}.
+	Cf.\ the proof of\ \cite[Corollary~1.29]{San2015}.
 \end{proof}
 
 %\begin{proof}
@@ -85,14 +85,14 @@ In general, (MP) is not easy to solve. In order to point out the difficulites we
 %	holds. In this case, we write \weak{x_n}{x} for \Ninf. The convergence of ${(\varphi(x_n))}_{\NinN}$ is to be understood in the norm $||\cdot||_{X'}$.
 %\end{definition}
 
-\begin{definition}[Weak Convergence of Measures; adapted from~\cite{Bog2007}, Volume 2, Definition 8.1.1]\label{WeakConMeas}
+\begin{definition}[Weak Convergence of Measures; adapted from\ {\cite[Volume~2, Definition~8.1.1]{Bog2007}}]\label{WeakConMeas}
 	Let $X$ be a measurable space and ${(\mu_n)}_{\NinN}$ be a sequence of measures which satisfies $\forall \NinN: \mu_n \in \M{X}$. This sequence is said to \textbf{converge weakly to a measure} $\mu \in \M{X}$, if for all $f \in \CF[b]{X}$ 
 	\[ \lim\limits_{\NinN} \int\limits_X f(x)~\Dx{\mu_n} = \int\limits_X f(x)~\Dx{\mu} \]
 	holds. In this case we will write \weak{\mu_n}{\mu} for \Ninf{}.
 \end{definition}
 
 \begin{remark}
-	Technically, the space of radon measures is the dual of the space of continuous functions, see e.g.\ \cite{Kapl1957}, Section 4. Following this duality, one can define weak-* convergence for locally finite non-negative measures in accordance with\ \cite{Cami2008}, Definition~2.4. The measures observed in Definition~\ref{WeakConMeas} are globally finite, meaning that it should instead refer to the \textit{weak-* convergence} of these measures. It is however not uncommon to see the usage of weak convergence in relevant literature. Due to this, we will continue to use this term, while at the same time acknowledging that it should not be used.
+	Technically, the space of radon measures is the dual of the space of continuous functions, see e.g.\ \cite[Section~4]{Kapl1957}. Following this duality, one can define weak-* convergence for locally finite non-negative measures in accordance with\ \cite[Definition~2.4]{Cami2008}. The measures observed in Definition~\ref{WeakConMeas} are globally finite, meaning that it should instead refer to the \textit{weak-* convergence} of these measures. It is however not uncommon to see the usage of weak convergence in relevant literature. Due to this, we will continue to use this term, while at the same time acknowledging that it should not be used.
 \end{remark}
 
 We can now consider the following two points to illustrate the difficulties in dealing with (MP):
@@ -106,7 +106,7 @@ Both of these problems can be avoided by considering a different way of formulat
 \section{The Kantorovich Relaxation}\label{KantRelax}
 In 1942,\ \cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of formulating the transport via the push-forward under a transport map, Kantorovich used so-called \textit{transport plans}, where the original measures appeared as marginals of a joint measure. This, as~\cite{San2015} puts it,  allowed for a description of how many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
 
-\begin{definition}[Transport Plans; adapted from~\cite{San2015}, Problem 1.2]\label{TransPlans}
+\begin{definition}[Transport Plans; adapted from\ {\cite[Problem~1.2]{San2015}}]\label{TransPlans}
 	For two measures $\mu \in \PM{X}, \nu \in \PM{Y}$ we define the set of all \textbf{transport plans} from $\mu$ to $\nu$ as
 	\[ \TP{\mu}{\nu} := \Big\{ \gamma \in \PM{X \times Y} : \push[(\pi_X)]{\gamma} = \mu, \push[(\pi_Y)]{\gamma} = \nu \Big\}, \]
 	where $\pi_X$ and $\pi_Y$ are the canonical projections onto $X$ and $Y$, i.e.
@@ -115,7 +115,7 @@ In 1942,\ \cite{Kan1942} gave a more general formulation for the optimal transpo
 
 Using this terminology we can now describe the Kantorovich Problem as a more general problem when compared to (MP).
 
-\begin{definition}[Kantorovich Problem; adapted from~\cite{San2015}, Problem 1.2]\label{KanProb}
+\begin{definition}[Kantorovich Problem; adapted from\ {\cite[Problem~1.2]{San2015}}]\label{KanProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting measures, and $\map[c]{X \times Y}{\RZero \cup \{\infty\}}$ be a cost function. Then we define the \textbf{Kantorovich Problem} as
 	\[ \inf \left\{ K(\gamma) := \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma} : \gamma \in \TP{\mu}{\nu} \right\}. \]
 	In analogy to Definition~\ref{MongeProb} we will be using the abbreviation (KP) to describe the problem itself and denominate the attained infimum as $\inf \text{(KP)}$. We shall further define \textbf{optimal transport plans} as those transport plans $\gamma \in \TP{\mu}{\nu}$ that satisfy
@@ -148,28 +148,28 @@ To answer this question, it can be shown that the set of plans induced by a map 
 %	Cf.~the proof of Lemma 1.31 in~\cite{San2015}.
 %\end{proof}
 
-\begin{theorem}[Plans Induced by Maps are Dense; taken from~\cite{San2015}, Theorem 1.32]\label{IndPlansDense}
+\begin{theorem}[Plans Induced by Maps are Dense; taken from\ {\cite[Theorem~1.32]{San2015}}]\label{IndPlansDense}
 	Let $\Omega \subseteq \R^d$ be a compact subset, and $\mu, \nu \in \PM{\Omega}$ be two probability measures. If $\mu$ is atomless, then the set of all transport plans $\gamma_T$ induced by a transport map $T$ as defined in Equation~\ref{IndPlan} is dense in the set of all transport plans \TP{\mu}{\nu}.
 \end{theorem}
 
 \begin{proof}
-	Cf.~the proof of Theorem 1.32 in~\cite{San2015}.
+	Cf.~the proof of\ \cite[Theorem~1.32]{San2015}.
 \end{proof}
 
 Before we can prove strong duality for continuous cost functions and atomless $\mu$, we need to define the term \textit{lower semi-continuous}. This definition will then be used to consider the \textit{relaxation} of the functional $J$ in the following proof.
 
-\begin{definition}[Lower Semi-Continuous Functions; adapted from~\cite{Kes2009}, Definition~5.1.2]\label{lsc}
+\begin{definition}[Lower Semi-Continuous Functions; adapted from\ {\cite[Definition~5.1.2]{Kes2009}}]\label{lsc}
 	Let $X$ be an arbitrary topological space. Then a function \map[f]{X}{\R} is called \textbf{lower semi-continuous} (l.s.c.), if the set
 	\[ \big\{ x \in X : f(x) \le \alpha \big\} \]
 	is closed in $X$ for all $\alpha \in \R$. In particular, if \map[f]{X}{\R} is continuous, it is also l.s.c.
 \end{definition}
 
-\begin{theorem}[Infima of J and K coincide; adapted from~\cite{San2015}, Theorem~1.33]\label{InfCoincide}
+\begin{theorem}[Infima of J and K coincide; adapted from\ {\cite[Theorem~1.33]{San2015}}]\label{InfCoincide}
 	Let $\,\Omega \subseteq \R^d$ be a compact subset, $\mu, \nu \in \PM{\Omega}$ be two measures on $\Omega$ with $\mu$ being atomless, and $\map[c]{\Omega \times \Omega}{\RZero \cup \{ \infty \}}$ be a continuous cost function. Then $\inf J = \inf K$ holds, with the infimum being taken over \TP{\mu}{\nu}.
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.33, and the memo on relaxations, Box~1.10.
+	This proof was adapted from\ \cite[the proof of Theorem~1.33 and the memo on relaxations, Box~1.10]{San2015}.
 
 	We consider the relaxation $\overline{J}$ of $J$ defined by
 	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma) : \weak{\gamma_n}{\gamma}, \Ninf \right\}. \]
@@ -182,12 +182,12 @@ Before we can prove strong duality for continuous cost functions and atomless $\
 
 So far we have avoided the question, if (KP) even admits a solution. We will now give a basic result for continuous cost functions. One of the essential ideas here is the continuity of the functional $K$. For this, an explicit notion of convergence is needed. We will be referring to the continuity of $K$ in terms of the weak convergence of measures (cf.\ Definition~\ref{WeakConMeas}).
 
-\begin{lemma}[Taken from~\cite{San2015}, Theorem 1.4]\label{KPAdmitCompCont}
+\begin{lemma}[Taken from\ {\cite[Theorem~1.4]{San2015}}]\label{KPAdmitCompCont}
 	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$ be probability measures, and \map[c]{X \times{} Y}{\R} be a continuous function. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{lemma}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.4. It is sufficient to show that $\TP{\mu}{\nu}$ is compact and $\gamma \mapsto K(\gamma)$ is continuous, as any continuous function attains its minimum over a compact set.
+	This proof was adapted from the proof of\ \cite[Theorem~1.4]{San2015}. It is sufficient to show that $\TP{\mu}{\nu}$ is compact and $\gamma \mapsto K(\gamma)$ is continuous, as any continuous function attains its minimum over a compact set.
 
 	To show the continuity, let ${(\gamma_n)}_{\NinN}$ be a sequence of probability measures over $X \times Y$ converging weakly to $\gamma \in \PM{X \times Y}$. As $c$ is continuous and especially measurable, we have
 	\[ \lim\limits_{\NinN} K(\gamma_n) = \lim\limits_{\NinN} \int\limits_{X \times Y} c~\D[\gamma_n] = \int\limits_{X \times Y} c~\D[\gamma] = K(\gamma). \] 
@@ -196,7 +196,7 @@ So far we have avoided the question, if (KP) even admits a solution. We will now
 \end{proof}
 
 \begin{remark}
-	Compactness and sequential compactness are the same on metric spaces. To be able to view the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \pi \Vert := |\pi|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\sigma + \tau)(A) \le 0, (\sigma + \tau)(B) \ge 0$ (cf.~\cite{Bog2007}, Volume 1, Theorem~3.1.1.~and Corollary~3.1.2), using
+	Compactness and sequential compactness are the same on metric spaces. To be able to view the set of transport plans as a compact set in a metric space, one may consider the linear space of all bounded and signed measures over $X \times Y$ with the norm $\Vert \pi \Vert := |\pi|(X)$. The triangle inequality follows from the Hahn decomposition $X \times Y = A \dot{\cup} B, (\sigma + \tau)(A) \le 0, (\sigma + \tau)(B) \ge 0$ (cf.\ \cite[Volume~1, Theorem~3.1.1 and Corollary~3.1.2]{Bog2007}), using
 	\[ \Vert \sigma + \tau \Vert = \vert \sigma + \tau \vert (X) = (\sigma + \tau)\big( (X \times Y) \cap A \big) - (\sigma + \tau)\big( (X \times Y) \cap B \big) \]
 	\[ = (\sigma + \tau)(A) - (\sigma + \tau)(B) \le \vert \sigma \vert (A) + \vert \sigma \vert (B) + \vert \tau \vert (A) + \vert \tau \vert (B) = \Vert \sigma \Vert + \Vert \tau \Vert. \]
 	As our transport plans are probability measures on $X \times Y$, they are bounded and countably additive. We can thus assume \TP{\mu}{\nu} to be a subset of the metric space of signed measures.
@@ -204,20 +204,20 @@ So far we have avoided the question, if (KP) even admits a solution. We will now
 
 In most cases, our cost functions will be sufficiently continuous in order to apply Lemma~\ref{KPAdmitCompCont} and guarantee the existence of a solution to (KP). However, it is still possible to generalize to l.s.c.\ cost functions on compact subspaces, and even l.s.c.\ cost functions on complete and separable metric spaces (i.e.\ \textit{Polish spaces}).
 
-\begin{lemma}[Taken from~\cite{San2015}, Theorem 1.5]\label{KPAdmitCompLSCBound}
+\begin{lemma}[Taken from\ {\cite[Theorem~1.5]{San2015}}]\label{KPAdmitCompLSCBound}
 	Let $X$ and $Y$ be compact metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$ be probability measures, and $\map[c]{X \times Y}{\R \cup \{ \infty \}}$ be an l.s.c.\ function bounded from below. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{lemma}
 
 \begin{proof}
-	Cf.~the proof of Theorem~1.5 in~\cite{San2015}.
+	Cf.~the proof of\ \cite[Theorem~1.5]{San2015}.
 \end{proof}
 
-\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.7]\label{KPAdmitPolishLSC}
+\begin{theorem}[Adapted from\ {\cite[Theorem~1.7]{San2015}}]\label{KPAdmitPolishLSC}
 	Let $X$ and $Y$ be complete and separable metric spaces, $\mu \in \PM{X}$, $\nu \in \PM{Y}$ be probability measures, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be l.s.c. Then$\text{\normalfont\ (KP)\,}$admits a solution.
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.7. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
+	This proof was adapted fromthe proof of\ \cite[Theorem~1.7]{San2015}. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
 
 	To this end, let $\varepsilon > 0$. As a sequence made up of a single transport plan $\gamma$ is necessarily tight, we can find two compact sets $K_X \subseteq X, K_Y \subseteq Y$, such that $\mu(X \setminus K_X) < \frac{\varepsilon}{2}$ and $\nu(Y \setminus K_Y) < \frac{\varepsilon}{2}$ hold true. Hence, the set $K_X \times K_Y \subseteq X \times Y$ is compact too, resulting in
 	\[ \forall \gamma_n \in \TP{\mu}{\nu}: \gamma_n\big( (X \times Y) \setminus (K_X \times K_Y) \big) \]
@@ -231,7 +231,7 @@ It is beneficial to investigate the dual problem of (KP), because this dual prob
 
 As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear optimization problem with convex constraints. Hence, it is plausible to investigate the \textit{dual problem}. Beforehand, we introduce the notion of the \textit{support} of a function.
 
-\begin{definition}[Support; adapted from~\cite{San2015}, Definition 1.14]\label{Supp}
+\begin{definition}[Support; adapted from\ {\cite[Definition~1.14]{San2015}}]\label{Supp}
 	Let $X$ be a separable metric space, and $\mu \in \M{X}$ be a measure on $X$. We define the \textbf{support} of $\mu$ as $\supp{\mu} := \bigcap \big\{ A \subseteq X : A \text{ closed and } \mu(X \setminus A) = 0 \big\}$.
 \end{definition}
 
@@ -249,7 +249,7 @@ This equation holds,\ \cite{San2015} argues, because if $\varphi \oplus \psi > c
 
 This argument allows us to state the dual problem to the Kantorovich relaxation of (MP). With this problem, we will then investigate the duality between (KP) and its dual.
 
-\begin{definition}[Kantorovich Dual Problem]\label{DualProb}
+\begin{definition}[Kantorovich Dual Problem; adapted from\ {\cite[Problem~1.9]{San2015}}]\label{DualProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting measures, and $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ be a cost function. Then we define the \textbf{Kantorovich Dual Problem} as
 	\[ \sup \left\{ \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] : \varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c \right\}. \]
 	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\sup \text{(DP)}$ to denominate its supremum.
@@ -262,7 +262,7 @@ As the left-hand side of this equality is constant, we can further consider the 
 
 So far, we do not know if the supremum on the left-hand side does exist. To handle this problem, we will be further transforming (DP) using so-called \textit{$c$-transforms}, or \textit{$c$-conjugate functions}. With these transformations it will then be possible to formulate (DP) as an optimization problem over just one dual variable.
 
-\begin{definition}[$c$-Transform, $\bar{c}$-Transform, $c$-Concavity, $\bar{c}$-Concavity; taken from~\cite{San2015}, Definition 1.10]\label{cTrafo}
+\begin{definition}[$c$-Transform, $\bar{c}$-Transform, $c$-Concavity, $\bar{c}$-Concavity; taken from\ {\cite[Definition~1.10]{San2015}}]\label{cTrafo}
 	Given \map[\chi]{X}{\Rbar} and \map[\zeta]{Y}{\Rbar} two functions, as well as $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ a cost function, we define the \textbf{$\text{\textbf{\textit{c}}}$-transform} of $\chi$ by
 	\[ \map[\chi^c]{Y}{\Rbar},~y \mapsto \inf\limits_{x \in X} c(x, y) - \chi(x) \]
 	and the \textbf{$\bar{\text{\textbf{\textit{c}}}}$-transform} of $\zeta$ by
@@ -270,17 +270,17 @@ So far, we do not know if the supremum on the left-hand side does exist. To hand
 	We further define the notion for a function \map[\psi]{Y}{\Rbar} to be \textbf{$\bar{\text{\textbf{\textit{c}}}}$-concave} if there exists a function \map[\chi]{Y}{\Rbar}, such that $\psi = \chi^c$. The set of all $\bar{c}$-concave functions over $Y$ will be denoted by \CBConc{Y}. Analogously, a function \map[\varphi]{X}{\Rbar} is said to be \textbf{$\text{\textbf{\textit{c}}}$-concave} if there exists a function \map[\zeta]{X}{\Rbar}, such that $\varphi = \zeta^{\bar{c}}$, and the set of all such $c$-concave functions over $X$ will accordingly be described by \CConc{X}.
 \end{definition}
 
-\begin{theorem}[Adapted from~\cite{San2015}, Proposition~1.11]\label{DPSolExist}
+\begin{theorem}[Adapted from\ {\cite[Proposition~1.11]{San2015}}]\label{DPSolExist}
 	Let $X, Y$ be compact metric spaces and \map[c]{X \times{} Y}{\RZero} be a continuous cost function. Then there exists a solution $(\varphi,\psi) \in \CF[b]{X} \times \CF[b]{Y}$ to\text{\normalfont\ (DP)\,}abiding to the form $\varphi \in \CConc{X}, \psi \in \CBConc{Y}$ with $\psi = \varphi^c$. In particular, we can restate
 	\[ \sup\!\text{\normalfont\,(DP)} = \max\limits_{\varphi \in \CConc{X}} \int\limits_X \varphi~\D + \int\limits_Y \varphi^c~\D[\nu]. \]
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Proposition~1.11.
+	This proof was adapted from the proof of\ \cite[Proposition~1.11]{San2015}.
 
 	We consider a maximizing sequence ${(\varphi_n, \psi_n)}_{\NinN}$, with $\varphi_n \oplus \psi_n \le c$ and $(\varphi_n, \psi_n) \in \CF[b]{X} \times \CF[b]{Y}$ for all \NinN{}, that is a pair of admissible functions for (DP). By this assumption we have $\forall x \in X, y \in Y: \psi_n(y) \le c(x, y) - \varphi_n(x)$, and note that $\int\limits_Y \psi_n~\D[\nu] \le \int\limits_Y \inf\limits_{x \in X} c(x, y) - \varphi_n(x)~\Dx[y]{\nu} = \int\limits_Y \varphi_n^c~\D[\nu]$. Thus it will suffice to consider a maximizing sequence ${(\varphi_n, \varphi_n^c)}_{\NinN}$. The same argument applied to $\varphi_n$ instead of $\psi_n$ results in a sequence ${(\psi^{\bar{c}}, \psi_n)}_{\NinN}$. This already means that for an arbitrary pair $(\varphi, \psi)$ to be a solution, it is necessary that $\varphi^c = \psi$ and $\psi^{\bar{c}} = \varphi$ hold, i.e.~that they must be $\bar{c}$-concave and $c$-concave respectively, since the integrals otherwise could be further enlarged by considering the $c$- and $\bar{c}$-transforms of said solution.
 
-	From~\cite{San2015}, Proof of Proposition~1.34, we have $\varphi^{c\bar{c}} = \varphi, \psi^{\bar{c}c} = \psi$, as
+	From the proof of\ \cite[Proposition~1.34]{San2015}, we have $\varphi^{c\bar{c}} = \varphi, \psi^{\bar{c}c} = \psi$, as
 	\[ \forall x \in X: \eta^{c\bar{c}}(x) = \inf\limits_{y \in Y} c(x, y) - \eta^c(y) = \inf\limits_{y \in Y} c(x, y) - \inf\limits_{z \in X} (c(z, y) - \eta(z)) \]
 	\[ \ge \inf\limits_{y \in Y} c(x, y) - c(x, y) + \eta(x) = \eta(x), \]
 	$\zeta^{\bar{c}c} \ge \zeta$ analogously. For $\eta$ $c$-concave we hence have
@@ -302,40 +302,40 @@ So far, we do not know if the supremum on the left-hand side does exist. To hand
 
 So far we have seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Going forward, we want to show $\inf \text{(KP)} \le \sup \text{(DP)}$. An important property that allows us to do so is the \textit{$c$-cyclical monotonicity} of the underlying set $\Omega \subseteq X \times Y$.
 
-\begin{definition}[$c$-Cyclical Monotonicity; adapted from~\cite{San2015}, Definition~1.36]\label{c-CM}
+\begin{definition}[$c$-Cyclical Monotonicity; adapted from\ {\cite[Definition~1.36]{San2015}}]\label{c-CM}
 	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-cyclically monotone ($c$-CM), if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in \Omega$ we have
 	\[ \sum\limits_{i = 1}^k c(x_i, y_i) \le \sum\limits_{i = 1}^k c(x_i, y_{\sigma(i)}). \]
 \end{definition}
 
 For $c$-cyclically monotone $\Omega \subseteq X \times Y$, we can acheive a relation between $c$-concave functions and $\Omega$.
 
-\begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.37]\label{c-CM-c-ConcExist}
+\begin{lemma}[Adapted from\ {\cite[Theorem~1.37]{San2015}}]\label{c-CM-c-ConcExist}
 	Let $\Omega \subseteq X \times Y$ be a $c$-CM set with $\Omega \neq \emptyset$, and \map[c]{X \times{} Y}{\R} be an arbitrary function. Then there exists a $c$-concave function $\map[\varphi]{X}{\R \cup \{ - \infty \}}$, $\varphi \not\equiv -\infty$, such that
 	\[ \Omega \subseteq \big\{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \big\}. \]
 \end{lemma}
 
 \begin{proof}
-	Cf.~the proof of Theorem~1.37 in~\cite{San2015}.
+	Cf.~the proof of\ \cite[Theorem~1.37]{San2015}.
 \end{proof}
 
 In particular, it can be shown that the support of all optimal transport plans for (KP) are $c$-cyclically monotone.
 
-\begin{lemma}[Adapted from~\cite{San2015}, Theorem~1.38]\label{OTPlanc-CM}
+\begin{lemma}[Adapted from\ {\cite[Theorem~1.38]{San2015}}]\label{OTPlanc-CM}
 	Let $\gamma$ be an optimal transport plan for$\text{\normalfont\ (KP)\,}$with $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ a continuous cost function. Then $\text{\normalfont{}supp}(\gamma)$ is a $c$-CM set.
 \end{lemma}
 
 \begin{proof}
-	Cf.~the proof of Theorem~1.38 in~\cite{San2015}.
+	Cf.~the proof of\ \cite[Theorem~1.38]{San2015}.
 \end{proof}
 
 In combination with the concepts of $c$- and $\bar{c}$-concavity, Lemma~\ref{OTPlanc-CM} then results in strong duality between (KP) and (DP) for complete and separable metric spaces, and uniformly continuous and bounded cost functions.
 
-\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.39]\label{BoundedPDRel}
+\begin{theorem}[Adapted from\ {\cite[Theorem~1.39]{San2015}}]\label{BoundedPDRel}
 	Let $X$ and $Y$ be complete and separable metric spaces, and \map[c]{X \times{} Y}{\R} be uniformly continuous and bounded. Then the problem$\text{\normalfont\ (DP)\,}$admits a solution $(\varphi, \varphi^c)$ and strong duality holds, i.e.\ $\sup \!\text{\normalfont\,(DP)} = \inf \!\text{\normalfont\,(KP)}$.
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.39.
+	This proof was adapted from the proof of\ \cite[Theorem~1.39]{San2015}.
 
 	We will first consider (KP) in order to find an admissible pair for (DP). As $c$ is continuous and especially l.s.c., we can apply Theorem~\ref{KPAdmitPolishLSC} to obtain a solution $\gamma$ of (KP). By Lemma~\ref{OTPlanc-CM} the set $\Omega := \text{supp}(\gamma)$ is $c$-CM\@. Applying Lemma~\ref{c-CM-c-ConcExist} we can find a $c$-concave and thus continuous function $\varphi$, such that $\Omega \subseteq \big\{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \big\}$. Both $\varphi$ and $\varphi^c$ must further be bounded: if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
 	
@@ -350,13 +350,13 @@ In combination with the concepts of $c$- and $\bar{c}$-concavity, Lemma~\ref{OTP
 
 At the end of Section~\ref{KantRelax} we have generalized the existence results for (KP) to l.s.c.\ cost functions. In a similar fashion, we would like to relax the constraint on $c$ in Theorem~\ref{BoundedPDRel}. We first make the following observation for all l.s.c.\ cost functions bounded from below. Boundedness from below is usually a practical assumption for cost functions, because negative costs can often be avoided by reformulating the problem to only assign non-negative costs. After the lemma we can acheive strong duality for much more general settings.
 
-\begin{lemma}[Adapted from~\cite{San2015}, Lemma~1.41]\label{ConvOfKanProb}
+\begin{lemma}[Adapted from\ {\cite[Lemma~1.41]{San2015}}]\label{ConvOfKanProb}
 	Let $c$ and $c_n$ be l.s.c.\ and bounded from below for all \NinN. If $c_n \nearrow c$ for \Ninf, i.e. ${(c_n)}_{\NinN}$ converges increasingly towards $c$, then
 	\[ \lim\limits_{\Ninf} \inf \left\{ \int c_n~\D[\gamma] : \gamma \in \TP{\mu}{\nu} \right\} = \inf \left\{ \int c~\D[\gamma] : \gamma \in \TP{\mu}{\nu} \right\}. \]
 \end{lemma}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Lemma~1.41.
+	This proof was adapted from the proof of\ \cite[Lemma~1.41]{San2015}.
 
 	As $c_n \le c, c_n \le c_{n + 1}$ for all \NinN{} we have for all $\gamma \in \TP{\mu}{\nu}$:
 	\[ \forall \NinN: \int\limits_{X \times Y} c_n~\D[\gamma] \le \int\limits_{X \times Y} c~\D[\gamma],\ \int\limits_{X \times Y} c_n~\D[\gamma] \le \int\limits_{X \times Y} c_{n + 1}~\D[\gamma] \]
@@ -372,14 +372,14 @@ At the end of Section~\ref{KantRelax} we have generalized the existence results 
 
 With Lemma~\ref{ConvOfKanProb} we can obtain a theorem about strong duality with preliminaries resembling those of Theorem~\ref{KPAdmitPolishLSC}. This result will conclude the first part, having laid out a foundation for the theory of optimal transport. The focus will then turn towards regularization in optimal transport, applying analogous duality results, and estimating optimal transport plans and maps in large-scale problem settings.
 
-\begin{theorem}[Adapted from~\cite{San2015}, Theorem~1.42]\label{GenPDRel}
+\begin{theorem}[Adapted from\ {\cite[Theorem~1.42]{San2015}}]\label{GenPDRel}
 	Let $X$ and $Y$ be complete and separable metric spaces, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be an l.s.c.\ cost function. Then, $\sup\!\text{\normalfont\,(DP)} = \inf\!\text{\normalfont\,(KP)}$ holds.
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from~\cite{San2015}, Proof of Theorem~1.42.
+	This proof was adapted from the proof of\ \cite[Theorem~1.42]{San2015}.
 
-	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: as~\cite{San2015} points out in Box~1.5, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
+	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: as\ \cite[Box~1.5]{San2015} points out, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
 
 	By Lipschitz continuity implying uniform continuity, and uniform continuity implying lower semi-continuity via regular continuity, this sequence is l.s.c. Using the uniform continuity and the bound obtained from $c$, we can apply Theorem~\ref{BoundedPDRel} and $\varphi \oplus \psi \le c_n \le c$ to get
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] = \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c_n} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu] \]
