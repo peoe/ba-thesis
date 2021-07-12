@@ -101,6 +101,8 @@ Firstly, if one of the two measures were to be discrete, for example of the form
 
 Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence. Consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. We get $(\push[T_n]{\mu})(y) = \mu\left( \frac{\arcsin(y)}{n} \right)$ and notice that for all $\varepsilon > 0$ there exists an \NinN{} such that the inner term on the right-hand side is less then $\varepsilon$ for all $y \in Y$. If \push[T_n]{\mu} is weakly convergent, it can thus only converge to $\nu \equiv 0$, i.e.\ for \NinN{} sufficiently large, $T_n$ no longer induces a probability measure via the push-forward.
 
+Both of these problems can be avoided by considering a different way of formulating the transport constraint. We will later see, that this relaxed description indeed includes (MP).
+
 \section{The Kantorovich Relaxation}\label{KantRelax}
 In 1942,\ \cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of formulating the transport via the push-forward under a transport map, Kantorovich used so-called \textit{transport plans}, where the original measures appeared as marginals of a joint measure. This, as~\cite{San2015} puts it,  allowed for a description of how many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
 
@@ -222,6 +224,8 @@ In most cases, our cost functions will be sufficiently continuous in order to ap
 	\[ \le \gamma_n\big( (X \setminus K_X) \times Y \big) + \gamma_n\big( X \times (Y \setminus K_Y) \big) = \mu(X \setminus K_X) + \nu(Y \setminus K_Y) < \varepsilon. \]
 	With Prokhorov (\ref{Prok}) we get \weak{\gamma_n}{\gamma} for \Ninf. As our transport plan $\gamma$ was chosen arbitrarily, this property holds for all transport plans and thus all sequences of transport plans. Finally, the claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures (cf.\ Definition~\ref{WeakConMeas}).
 \end{proof}
+
+It is beneficial to investigate the dual problem of (KP), because this dual problem will enable us to consider a regularized dual optimal problem in the second part of the thesis. This regularized dual will ultimately aid in the estimation of optimal transport plans and consequently in the estimation of maps as well.
 
 \section{Kantorovich Duality}\label{KanDual}
 
