@@ -99,7 +99,7 @@ In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw t
 	\[ \bar{\gamma}(x) := \argmin\limits_{z \in \Omega_2} \int\limits_{\Omega_2} d(z, y)~\Dx[x, y]{\gamma}. \]
 	If $d(x, y) = \Vert x - y \Vert_2^2$, where $\Vert \cdot \Vert_2$ is the Euclidean norm, the barycentric projection has the closed form
 	\[ \bar{\gamma}(x) = \int\limits_{\Omega_2} y~\Dx[x, y]{\gamma}. \]
-	If $c(x, y) = \Vert x - y \Vert_2^2$, according to\ \cite{Seg2018}, it can be further shown, that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
+	If $c(x, y) = \Vert x - y \Vert_2^2$, according to\ \cite{Seg2018}, it can be further shown that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
 \end{definition}
 
 Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ satisfying\ \cite[Corollary~9.3]{Vill2009}, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
@@ -128,7 +128,7 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 	Choosing $\varepsilon = \lambda_{c_n, \mu_n, \nu_n} \cdot {\ln\left( n^2 \Vert Y \Vert^{1/2}_{\R^{n \times d}, 2} M_{c_n, \mu_n, \nu_n} \right)}^{-1}$ suffices for the right-hand side of the previous equation to converge to $0$ for any Lipschitz continuous $g$ over $\Omega$, showing \weak{\bar{\gamma}_n^{\varepsilon_n}}{T} for \Ninf.
 \end{proof}
 
-As an immedtiate consequence, we can even avoid the notion of transport plans via the push-forward, and directly formulate the barycentric projection as a transport map.
+As an immediate consequence, we can even avoid the notion of transport plans via the push-forward, and directly formulate the barycentric projection as a transport map.
 
 \begin{corollary}[Taken from\ {\cite[Corollary~1]{Seg2018}}]\label{RelatRegOrigCor}
 	With the same assumptions as for Theorem~\ref{RelatRegSolOrigSolMap}, there exists a subsequence ${(n_k)}_{\NinN[k]}, \NinN[n_k]$ for all \NinN[k], such that \weak{\push[\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}]{\mu_{n_k}}}{\nu} for \Ninf.
@@ -190,10 +190,10 @@ In Theorem~\ref{RegProbAdmitLLL}, we had an existence result for (RP). An analog
 	We define the functional
 	\[ B(u_1, u_2) := \int\limits_{\Omega} \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)~\D[(x, y)] \]
 	\[ - \int\limits_{\Omega_1} \Psi(u_1)~\D - \int\limits_{\Omega_2} \Psi(u_2)~\D[\nu] \]
-	and show that it possesses a minimizer. The value taken by $B$ is finite for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite[Lemma~4.2]{Cla2021}, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. With\ \cite[Lemma~4.4]{Cla2021}, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying the Theoreom of Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite[Lemma~4.5]{Cla2021}, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
+	and show that it possesses a minimizer. The value taken by $B$ is finite for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite[Lemma~4.2]{Cla2021}, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. With\ \cite[Lemma~4.4]{Cla2021}, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying the Theorem of Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite[Lemma~4.5]{Cla2021}, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
 \end{proof}
 
-Continuing the previous argument, we can now resubstitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
+Continuing the previous argument, we can now substitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
 
 If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdmitLLL}, we obtain strong duality between (RP) and (RD).
 
@@ -258,7 +258,7 @@ The Sinkhorn algorithm expressed in this setting is given by:
 
 Stopping after $N - 1, N > 1$, iterations, we get
 \[ \gamma_N(x, y) = \Phi\big( u_1^N(x) \big) \Phi\big( u_2^N(y) \big) \exp\left( \frac{- c(x, y)}{\varepsilon} \right) \]
-as an approximate value of transport plan for (RP) at a predetermined value $(x, y)$. Resubstituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
+as an approximate value of transport plan for (RP) at a predetermined value $(x, y)$. Substituting once more with $\exp\left( \frac{\varphi_N(x)}{\varepsilon} \right) = \Phi\big( u_1^N(x) \big)$ as well as $\exp\left( \frac{\psi_N(y)}{\varepsilon} \right) = \Phi\big( u_2^N(y) \big)$, we obtain
 \begin{equation}\label{RegApprTransPlan}
 	\gamma_N(x, y) = \exp\left( \frac{\varphi_N(x) + \psi_N(y) - c(x, y)}{\varepsilon} \right).
 \end{equation}
@@ -267,9 +267,9 @@ This $\gamma_N$ now functions as the approximation of an optimal transport plan 
 
 %This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
-When considering complex problem settings however, the evergrowing dimensions of the underlying data become problematic. As\ \cite[Section~1, Large-scale OT]{Seg2018}, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the dimensions of the individual samples get too large.
+When considering complex problem settings however, the ever-growing dimensions of the underlying data become problematic. As\ \cite[Section~1, Large-scale OT]{Seg2018}, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the dimensions of the individual samples get too large.
 
-The procedure proposed by\ \cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated the dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
+The procedure proposed by\ \cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
 
 Before continuing, we first give a basic overview on \textit{neural networks}. This overview is based on\ \cite[Chapter~6]{Good2016}, and\ \cite[Section~6.2]{Brag2020}. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps with the algorithms given by\ \cite{Seg2018}.
 
@@ -323,7 +323,7 @@ To be able to recover the estimated optimal transport plan from the dual variabl
 
 The most apparent advantage of this approach according to\ \cite[Section~3, Convergence rates and computational cost comparison]{Seg2018}, is that, in the case of $\mu$ and $\nu$ being discrete, the stochastic gradient descent method converges at a rate of $\mathcal{O}\big( n^{-\frac{1}{2}} \big)$, where $n$ is the iteration number, but only requires a cost of $\mathcal{O}(p^2)$ per iteration. In the case of both measures being continuous, the cost per iteration remains $\mathcal{O}(p^2)$, but convergence can only be ensured up to a stationary point.
 
-Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimate optimal transport map. The computation of the desired barycentric projection is however unfeasible for a large-scale problem. To deal with this constraint,\ \cite{Seg2018} train a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be stated.
+Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and Corollary~\ref{RelatRegOrigCor} to obtain an estimated optimal transport map. The computation of the desired barycentric projection is however unfeasible for a large-scale problem. To deal with this constraint,\ \cite{Seg2018} train a neural network once more, since this allows for the target map to be defined on all of $\Omega_1$. Parameterizing the map $T_\theta$ as a deep neural network with the parameters $\theta$, the following algorithm can be stated.
 
 \begin{algorithm}\label{OTMapEstAlg}
 	\caption{Transport Map Estimation; adapted from\ {\cite[Algorithm~2]{Seg2018}}}
@@ -340,4 +340,4 @@ Lastly, we want to apply the results of Theorem~\ref{RelatRegSolOrigSolMap} and 
 
 This algorithm can also be used to compute the opposite barycentric projection $g$ with respect to a convex cost function $d$ on $\Omega_1 \times \Omega_1$. The last term in line~6 of Algorithm~\ref{OTMapEstAlg} should then state $d\big( g(y_j), x_i \big)$ instead. This is due to the symmetry of the optimal transport problem, as\ \cite{Seg2018} points out.
 
-This concludes the thesis, having stated two algorithms that produce an estimate optimal transport map for optimal transport problems.
+This concludes the thesis, having stated two algorithms that produce an estimated optimal transport plan and map for large-scale optimal transport problems.
