@@ -2,9 +2,9 @@
 
 In the following, $\Omega_1 \subseteq \R^{n_1}$, $\Omega_2 \subseteq \R^{n_2}$ and $\Omega_1 \times \Omega_2 =: \Omega \subseteq \R^{n_1 + n_2}$ will always be compact for some $\NinN[n_1, n_2]$.
 
-We will first introduce regularized optimal transport. Regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications.
+We will first introduce regularized optimal transport. The process of regularization imposes an additional penalty on the objective function of an optimization problem. This can serve multiple purposes: regularizing an ill-posed problem can allow for an approximate solution, result in uniqueness of the solution or, especially in the case covered in this thesis, allow for duality results which net themselves for further applications.
 
-The following duality result will then be used to obtain an optimal transport map via the barycentric projection. Due to the explicit computation of these transport solutions often being impractical for applications, it is necessary to estimate optimal transport plans and maps. This is traditionally done using the Sinkhorn algorithm, however this particular algorithm is not suited to handle large-scale problems. Hence, a different approach involving neural networks and stochastic mapping estimation is required.
+The barycentric projection will then be used to obtain a transport map from the optimal regularized transport plan. Due to the explicit computation of these transport solutions often being impractical for applications, it is necessary to estimate optimal transport plans and maps. This is traditionally done by formulating a regulariyed dual problem and applying the Sinkhorn algorithm, however this particular algorithm is not suited to handle large-scale problems. Hence, a different approach involving neural networks and stochastic mapping estimation is required.
 
 The first sections on regularization and the corresponding regularized dual problem follow\ \cite{Cla2021} closely, while the last section is adapted from\ \cite[Section~3 and Section~4]{Seg2018}.
 
@@ -34,12 +34,12 @@ Here, ${(\cdot)}'$ denotes the dual space in accordance with\ \cite[Definition~4
 We can now state the formulation of the regularized optimal transport problem, based on (KP). Furthermore, a predual problem will be given.
 
 \begin{definition}[Regularized Problem; adapted from\ {\cite[(P), (D), and Proposition~3.1]{Cla2021}}]\label{RegProbs}
-	We once again consider our starting measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, and a cost function $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
+	Consider $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$ to be our starting measures, and $\map[c]{\Omega}{\RZero \cup \{ \infty \}}$ to be a cost function. The \textbf{Regularized Problem} for some $\varepsilon > 0$ is defined as
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_\Omega c(x, y)~\Dx[x, y]{\gamma} + \varepsilon \int\limits_\Omega \gamma(x, y) \Big( \log\big( \gamma(x, y) \big) - 1 \Big)~\Dx[x, y]{}. \]
 	Its \textbf{Predual Problem} for the same $\varepsilon > 0$ is defined as
 	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
 	with $F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right)$.
-	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by\ \cite[Proposition~3.1]{Cla2021}, $\inf \text{(RP)} = \sup \text{(PD)}$, and if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
+	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by\ \cite[Proposition~3.1]{Cla2021}, we have that $\inf \text{(RP)} = \sup \text{(PD)}$, and, if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
 
 \begin{remark}
@@ -59,16 +59,18 @@ We can now state the formulation of the regularized optimal transport problem, b
 With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures. Most importantly, we involve the $L \log L$ spaces from above.
 
 \begin{theorem}[Taken from\ {\cite[Theorem~3.3]{Cla2021}}]\label{RegProbAdmitLLL}
-	The problem$\text{\normalfont\ (RP)}$ admits a minimizer $\gamma \in \TP{\mu}{\nu}$ if and only if $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$. In this case, $\gamma \in \LLL$ is unique.
+	The problem$\text{\normalfont\ (RP)}$ admits a minimizer $\gamma \in \TP{\mu}{\nu}$ if and only if we have $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$. In this case, $\gamma \in \LLL$ is unique.
 \end{theorem}
 
 \begin{proof}
 	Cf.~the proof of\ \cite[Theorem~3.3]{Cla2021}.
 \end{proof}
 
-With a solution to (RP), we can now achieve weak convergence in the sense of Definition~\ref{WeakConMeas} of the regularized optimal transport plans to a solution of (KP). For this we first consider $X$ and $Y$ as complete metric spaces, and $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ as compact subsets. Given two probability measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, we further require two discrete probability measures, weakly converging to $\mu$ and $\nu$ for \Ninf{} respectively, which are defined as
+With a solution to (RP), we can achieve weak convergence in the sense of Definition~\ref{WeakConMeas} of the regularized optimal transport plans to a solution of (KP). For this we first consider $X$ and $Y$ as complete metric spaces, and $\Omega_1 \subseteq X, \Omega_2 \subseteq Y, \Omega := \Omega_1 \times \Omega_2$ as compact subsets. Given two probability measures $\mu \in \PM{\Omega_1}$ and $\nu \in \PM{\Omega_2}$, we further require the following two discrete probability measures, weakly converging to $\mu$ and $\nu$ for \Ninf{} respectively, which are defined as
 \[ \mu_n := \sum_{i = 1}^n a_i \delta_{x_i}, \nu_n := \sum_{j = 1}^n b_j \delta_{y_j}, \]
-with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$. With these preliminaries, the following relation between the solutions of (RP) and (KP) can be shown.
+with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$.
+
+With these preliminaries, the following relation between the solutions of (RP) and (KP) can be shown.
 
 \begin{theorem}[Adapted from\ {\cite[Theorem~1]{Seg2018}}]\label{RelatRegSolOrigSolPlan}
 	Consider $X$, $Y$, $\Omega_1$, $\Omega_2$, $\Omega$, $\mu$, $\mu_n$, $\nu$ and $\nu_n$ as described above. Let \map[c]{\Omega}{\RZero} be a finite and continuous cost function, and ${(\varepsilon_n)}_{\NinN}$ be a sequence converging to $0$ sufficiently fast with $\varepsilon_n > 0$ for all \NinN. Then for ${(\gamma_n^{\varepsilon_n})}_{\NinN}$, the sequence of solutions of$\text{\normalfont\ (RP)}$ between $\mu_n$ and $\nu_n$ with $\varepsilon = \varepsilon_n$, there exists a subsequence ${(\gamma_{n_k}^{\varepsilon_{n_k}})}_{\NinN[k]}$ that weakly converges to a solution $\gamma$ of$\text{\normalfont\ (KP)}$ between $\mu$ and $\nu$ for \Ninf.
@@ -79,7 +81,7 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 
 	We consider $\gamma_n$ the solution of (KP) between $\mu_n$ and $\nu_n$ with maximum entropy. According to\ \cite[Theorem~5.20]{Vill2009}, there now exists a subsequence which weakly converges to a solution $\gamma$ of the same problem between $\mu$ and $\nu$. We continue to label this subsequence as $\gamma_n$, and further take the same indices to form a subsequence from the solutions of (RP) between $\mu_n$ and $\nu_n$, labelling it $\gamma_n^{\varepsilon_n}$. The solutions of (RP) exist due to the discrete measures $\mu_n, \nu_n$ reducing the integral over $\Omega_1$ and $\Omega_2$ respectively to a finite sum over their masses $x_i, y_j$, hence allowing for the application of Theorem~\ref{RegProbAdmitLLL}. By expanding the following integral for $g \in \CF[b]{\Omega}$
 	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert \le \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n^{\varepsilon_n}] - \int\limits_{\Omega} g~\D[\gamma_n] \Bigg\rvert + \Bigg\lvert \int\limits_{\Omega} g~\D[\gamma_n] - \int\limits_{\Omega} g~\D[\gamma] \Bigg\rvert, \]
-	we now only have to show that the left summand on the right-hand side converges to $0$, because the other summand converges by the previously mentioned statement of\ \cite{Vill2009}. As $\gamma_n^{\varepsilon_n}$ and $\gamma_n$ are solutions to optimal transport problems between discrete measures, we can replace the integral over $\Omega$ with sums over the masses of both measures and obtain
+	we have to show that the left summand on the right-hand side converges to $0$, because the other summand converges by the previously mentioned statement of\ \cite{Vill2009}. As $\gamma_n^{\varepsilon_n}$ and $\gamma_n$ are solutions to optimal transport problems between discrete measures, we can replace the integral over $\Omega$ with sums over the masses of both measures and obtain
 	\[ \Bigg\lvert \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n^{\varepsilon_n}(x_i, y_j) - \sum\limits_{i, j = 1}^n g(x_i, y_j) \gamma_n(x_i, y_j) \Bigg\rvert \le M_g \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n}, \]
 	where $\Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_{1}^{n \times n} := \sum\limits_{i, j = 1}^n \big\lvert \gamma_n^{\varepsilon_n}(x_i, y_j) - \gamma_n(x_i, y_j) \big\rvert$ and $M_g := \max g(x_i, y_j)$ over $1 \le i, j \le n$. Adapting a result from\ \cite[specifically Equation~2 in the proof of Proposition~3.1]{Comi1994}, there exist $M_{c_n, \mu_n, \nu_n}, \lambda_{c_n, \mu_n, \nu_n} > 0$ such that
 	\[ \Vert \gamma_n^{\varepsilon_n} - \gamma_n \Vert_1^{n \times n} \le M_{c_n, \mu_n, \nu_n} \exp\left( \frac{-\lambda_{c_n, \mu_n, \nu_n}}{\varepsilon_n} \right), \]
@@ -92,7 +94,7 @@ The results of the following two sections will then be combined in the last sect
 
 \section{The Barycentric Projection}\label{BaryProj}
 
-In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw that the set of transport plans induced by transport maps is dense in the set of all transport maps \TP{\mu}{\nu}. We are now interested in finding a transport map from our regularized optimal transport plan, i.e.~a solution to (RP) between $\mu$ and $\nu$, since the handling of a mapping instead of a joint measure is often advantageous in direct applications. We have already seen in Theorem~\ref{InfCoincide}, that when $\mu$ is atomless, such a transport map is directly related to the accompanying transport plan. This suggests that we start with a weakly convergent subsequence of regularized transport plans and apply a transformation which will then result in a sequence weakly converging to an optimal transport map. The transformation chosen by\ \cite{Seg2018}, is the so-called barycentric projection.
+In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw that the set of transport plans induced by transport maps is densely contained within the set of all transport maps \TP{\mu}{\nu}. We are now interested in finding a transport map from our regularized optimal transport plan, i.e.~a solution to (RP) between $\mu$ and $\nu$, since the handling of a mapping instead of a joint measure is often advantageous in direct applications. We have already seen in Theorem~\ref{InfCoincide}, that when $\mu$ is atomless, such a transport map is directly related to the accompanying transport plan. This suggests that we start with a weakly convergent subsequence of regularized transport plans and apply a transformation which will then result in a sequence weakly converging to an optimal transport map. The transformation chosen by\ \cite{Seg2018}, is the so-called barycentric projection.
 
 \begin{definition}[Barycentric Projection; adapted from\ {\cite[Definition~1]{Seg2018}}]\label{BarCentrProj}
 	We consider a transport plan $\gamma \in \TP{\mu}{\nu}$ and a convex cost function $\map[d]{\Omega_2 \times \Omega_2}{\RZero \cup \{ \infty \}}$. Then the \textbf{barycentric projection} of $\gamma$ at $x \in \Omega_1$ is defined as
@@ -102,7 +104,7 @@ In the first part, specifically in Theorem~\ref{IndPlansDense}, we already saw t
 	If $c(x, y) = \Vert x - y \Vert_2^2$, according to\ \cite{Seg2018}, it can be further shown that the barycentric projection of an optimal transport plan for (KP) is already an optimal transport map for (MP).
 \end{definition}
 
-Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will consider $X = Y = \R^d$, $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ satisfying\ \cite[Corollary~9.3]{Vill2009}, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
+Similarly to Theorem~\ref{RelatRegSolOrigSolPlan}, we will be considering $X = Y = \R^d$, with $\Omega_1, \Omega_2 \subseteq \R^d, \Omega := \Omega_1 \times \Omega_2$ compact, a continuous measure $\mu \in \PM{\Omega_1}$ that satisfies\ \cite[Corollary~9.3]{Vill2009}, an arbitrary measure $\nu \in \PM{\Omega_2}$, a continuous cost function $\map[c]{\R^d \times \R^d}{\RZero \cup \{ \infty \}}$, as well as the discrete measures
 \[ \mu_n := \frac{1}{n} \sum\limits_{i = 1}^n a_i \delta_{x_i}, \nu_n := \frac{1}{n} \sum\limits_{j = 1}^n b_j \delta_{y_j}, \]
 with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j \le n$, weakly converging to $\mu$ and $\nu$ respectively. This then allows us to show the following result, applying the barycentric projection on regularized optimal transport plans to obtain an optimal transport map for (MP).
 
@@ -113,7 +115,7 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 \begin{proof}
 	This proof was adapted from the proof of\ \cite[Theorem~2]{Seg2018}.
 
-	We know that $\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push{\mu} = \push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push[\bar{\gamma}_n]{\mu_n} + \push[\bar{\gamma}_n]{\mu_n} - \push{\mu}$. When considering the absolute value of the left-hand side and applying the triangle inequality to the right-hand side, we can prove the weak convergence (cf.\ Definition~\ref{WeakConMeas}) claimed in the theorem by proving it for both summands on the right-hand side.	By\ \cite[Corollary~9.3]{Vill2009}, there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. Following the proof of\ \cite[Theorem~2]{Seg2018}, we see that the summand involving $\push[\bar{\gamma}_n]{\mu_n} - \push[T]{\mu}$ converges.
+	We know that $\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push{\mu} = \push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n} - \push[\bar{\gamma}_n]{\mu_n} + \push[\bar{\gamma}_n]{\mu_n} - \push{\mu}$. When considering the absolute value of the left-hand side and applying the triangle inequality to the right-hand side, we can prove the weak convergence of our sequence (cf.\ Definition~\ref{WeakConMeas}) claimed in the theorem by proving it for both summands on the right-hand side.	By\ \cite[Corollary~9.3]{Vill2009}, there exists a Monge map between $\mu$ and $\nu$ due to $\mu$ being uniformly continuous on $\Omega_1$ and thus absolutely continuous with respect to the Lebesgue measure. When following the proof of\ \cite[Theorem~2]{Seg2018}, we see that the summand involving $\push[\bar{\gamma}_n]{\mu_n} - \push[T]{\mu}$ converges.
 	
 	We thus only have to show that for any Lipschitz continuous function $g$ over $\Omega$
 	\[ \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n)]{\mu_n}}] \Bigg\rvert \rightarrow 0 \]
@@ -131,7 +133,7 @@ with $x_i \in \Omega_1, a_i \ge 0, y_j \in \Omega_2, b_j \ge 0$ for $1 \le i, j 
 As an immediate consequence, we can even avoid the notion of transport plans via the push-forward, and directly formulate the barycentric projection as a transport map.
 
 \begin{corollary}[Taken from\ {\cite[Corollary~1]{Seg2018}}]\label{RelatRegOrigCor}
-	With the same assumptions as for Theorem~\ref{RelatRegSolOrigSolMap}, there exists a subsequence ${(n_k)}_{\NinN[k]}, \NinN[n_k]$ for all \NinN[k], such that \weak{\push[\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}]{\mu_{n_k}}}{\nu} for \Ninf.
+	With exactly the same assumptions as for Theorem~\ref{RelatRegSolOrigSolMap}, there exists a subsequence ${(n_k)}_{\NinN[k]}, \NinN[n_k]$ for all \NinN[k], such that \weak{\push[\bar{\gamma}^{\varepsilon_{n_k}}_{n_k}]{\mu_{n_k}}}{\nu} for \Ninf.
 \end{corollary}
 
 \begin{proof}
@@ -139,10 +141,10 @@ As an immediate consequence, we can even avoid the notion of transport plans via
 
 	We consider $h \in \CF[b]{\Omega_2}$ and further define \map[g]{\Omega}{\R} by $g(x, y) := h(y)$ for all $(x, y) \in \Omega$. As $h$ is bounded and continuous, $g$ is as well. With the same notation as in the proof of Theorem~\ref{RelatRegSolOrigSolMap}, we see that
 	\[ \Bigg\lvert \int\limits_{\Omega_2} h~\D[{\push[\bar{\gamma}_n^{\varepsilon_n}]{\mu_n}}] - \int\limits_{\Omega_2} h~\D[{\push{\mu}}] \Bigg\rvert = \Bigg\lvert \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, \bar{\gamma}_n^{\varepsilon_n})]{\mu_n}}] - \int\limits_{\Omega} g~\D[{\push[(id_{\Omega_1}, T)]{\mu}}] \Bigg\rvert. \]
-	Applying the theorem mentioned above we see that the left-hand side converges to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we use $\push{\mu} = \nu$ to prove the corollary.
+	Applying the theorem mentioned above, we see the left-hand side converging to $0$ for a subsequence if $\varepsilon_n$ converges sufficiently fast. Finally, we can make use of $\push{\mu} = \nu$ to prove the corollary.
 \end{proof}
 
-Before we are able to establish large-scale mapping estimation for optimal transport problems, we need to investigate the dual of the regularized problem. This will occur in a similar way, as was done in Section~\ref{KanDual} for the dual of (KP).
+Before we are able to establish large-scale mapping estimation for the optimal transport problem, we need to investigate the dual of the regularized problem. This will occur in a similar way, as was done in Section~\ref{KanDual} for the dual of (KP).
 
 \section{Regularized Duality}\label{RegDual}
 
@@ -178,7 +180,7 @@ This argumentation gives rise to the following regularized dual problem.
 	This problem will accordingly be labelled as (RD) and its supremum as $\sup \text{(RD)}$. The restriction on $\mathcal{F}$ ensures that all integrals are well-defined.
 \end{definition}
 
-In Theorem~\ref{RegProbAdmitLLL}, we had an existence result for (RP). An analogous statement for (RD) is given by the following theorem, however the class of functions is now $L_{\exp}$ instead of $L \log L$. Following this result, we will investigate the duality between (RP) and (RD), like we investigated the duality between (KP) and (DP) in Section~\ref{KanDual}. Finally, these duality results will provide a way to formulate dual optimality conditions, which will serve as a starting point for plan and mapping estimation for the regularized transport problem.
+Theorem~\ref{RegProbAdmitLLL} gave an existence result for (RP). An analogous statement for (RD) is given by the following theorem, however the class of functions is now $L_{\exp}$ instead of $L \log L$. Following this result, we will investigate the duality between (RP) and (RD), like we investigated the duality between (KP) and (DP) in Section~\ref{KanDual}. Finally, these duality results will provide a way to formulate dual optimality conditions, which will serve as a starting point for plan and mapping estimation for the regularized transport problem.
 
 \begin{theorem}[Adapted from\ {\cite[Theorem~4.6]{Cla2021}}]\label{RegDualAdmit}
 	The problem$\text{\normalfont\ (RD)}$ admits a solution $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
@@ -190,7 +192,7 @@ In Theorem~\ref{RegProbAdmitLLL}, we had an existence result for (RP). An analog
 	We define the functional
 	\[ B(u_1, u_2) := \int\limits_{\Omega} \Phi\big( u_1(x) \big) \Phi\big( u_2(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)~\D[(x, y)] \]
 	\[ - \int\limits_{\Omega_1} \Psi(u_1)~\D - \int\limits_{\Omega_2} \Psi(u_2)~\D[\nu] \]
-	and show that it possesses a minimizer. The value taken by $B$ is finite for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite[Lemma~4.2]{Cla2021}, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. With\ \cite[Lemma~4.4]{Cla2021}, we can observe that $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying the Theorem of Banach-Alaoglu (\ref{Ban-Alao}), we obtain a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. By\ \cite[Lemma~4.5]{Cla2021}, $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
+	and show that it possesses a minimizer. The value taken by $B$ is finite for e.g.\ $u_1 \equiv u_2 \equiv 1$, allowing us to consider a minimizing sequence ${(u_1^n, u_2^n)}_{\NinN}$ with $(u_1^n, u_2^n) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ for all \NinN. By\ \cite[Lemma~4.2]{Cla2021}, we can assume $\int \Phi_{\exp}(u_1^n)~\D[x] = 1$ without loss of generality. With\ \cite[Lemma~4.4]{Cla2021}, we observe that the norm $\Vert u_2^n \Vert_{\Phi_{\exp}}$ is bounded. By applying the Theorem of Banach-Alaoglu (\ref{Ban-Alao}), we can find a weakly-* convergent subsequence $(u_1^{n_k}, u_2^{n_k})$. Making use of\ \cite[Lemma~4.5]{Cla2021}, the functional $B$ is sequentially weakly-* lower semi-continuous on $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$, showing that the minimum is attained over $\Lexp[\Omega_1] \times \Lexp[\Omega_2]$.
 \end{proof}
 
 Continuing the previous argument, we can now substitute $\bar{\phi} = \varepsilon \Psi(\bar{u}_1)$ as well as $\bar{\psi} = \varepsilon \Psi(\bar{u}_2)$ from our dual solutions. We can further assume $\bar{u}_1 > 0$ $\mu$-a.e.\ and $\bar{u}_2 > 0$ $\nu$-a.e., as otherwise $\int \Psi(\bar{u}_1)~\D + \int \Psi(\bar{u}_2)~\D[\nu] = -\infty$, rendering the problem infeasible. The pair $(\bar{\phi}, \bar{\psi})$ however is not guaranteed to be admissible for (PD), i.e.~$\CF[b]{\Omega_1} \times \CF[b]{\Omega_2}$, as even for $\bar{u}_1, \bar{u}_2 > 0$ we do not necessarily get bounds on $\bar{\phi}$ and $\bar{\psi}$, since $\Psi(x) \rightarrow -\infty$ for $x \rightarrow 0$.
@@ -204,14 +206,14 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 \begin{proof}
 	This proof was taken from the proof\ \cite[Proposition~4.7]{Cla2021}. The existence of a solution follows from Theorem~\ref{RegProbAdmitLLL} and Theorem~\ref{RegDualAdmit}.
 
-	According to\ \cite[Proposition~3.1]{Cla2021}, it suffices to show $\sup \text{(PD)} = \sup \text{(RD)}$. For arbitrary $\alpha \in \CF{\Omega_1}, \beta \in \CF{\Omega_2}$ we set $u_1 := \Psi^{-1}(\alpha/\varepsilon), u_2 := \Psi(\beta/\varepsilon)$ and see that
+	According to\ \cite[Proposition~3.1]{Cla2021}, it suffices to show that strong duality holds between the predual problem and the regularized dual problem, i.e.\ $\sup \text{(PD)} = \sup \text{(RD)}$. For any arbitrary $\alpha \in \CF{\Omega_1}, \beta \in \CF{\Omega_2}$ we set $u_1 := \Psi^{-1}(\alpha/\varepsilon), u_2 := \Psi(\beta/\varepsilon)$ and see that
 	\[ \int\limits_{\Omega_1} \alpha~\D + \int\limits_{\Omega_2} \beta~\D[\nu] - \varepsilon \int\limits_\Omega \exp\left( \frac{-c + \alpha + \beta}{\varepsilon} \right)~\D[(x, y)] \le \max\limits_{u_1, u_2 \ge 0} -\varepsilon B(u_1, u_2), \]
 	with $B(\cdot, \cdot)$ being defined as in the proof of Theorem~\ref{RegDualAdmit}. By taking the supremum over all $\alpha$ and $\beta$, we get $\sup \text{(PD)} \le \sup \text{(RD)}$.
 
 	To see $\sup \text{(RD)} \le \sup \text{(PD)}$, one may follow the argument put forth by\ \cite{Cla2021} using the theorems of monotone convergence applied to $B$ and dominated convergence applied to a uniformly bounded, weakly-* convergent subsequence.
 \end{proof}
 
-As the final result of this section, the following corollary provides optimality conditions for solutions of (RD).
+As the final result of this section, the following corollary provides two optimality conditions for solutions of (RD), as well as a characterization of primal solutions to (RP) in terms of its optimal dual variables.
 
 \begin{corollary}[Conditions on Dual Optimality; adapted from\ {\cite[Theorem~4.8]{Cla2021}}]\label{RegOptCond}
 	Let $\mu \in \LLL[\Omega_1], \nu \in \LLL[\Omega_2]$ and $c \in \CF{\Omega}$, as in Theorem~\ref{RegStrongDualityLLL}. Then, for $\mu$-a.e.\ $x \in \Omega_1$ and $\nu$-a.e.\ $y \in \Omega_2$ all dual solutions $(\bar{u}_1, \bar{u}_2) \in \Lexp[\Omega_1] \times \Lexp[\Omega_2]$ of$\text{\normalfont\ (RD)}$ satisfy
@@ -229,13 +231,11 @@ As the final result of this section, the following corollary provides optimality
 	Cf.~the proof of\ \cite[Theorem~4.8]{Cla2021}.
 \end{proof}
 
-The final section of the second part will contain three algorithms used for mapping estimation. The first will make use of the preceding optimality conditions in Corollary~\ref{RegOptCond}. The second and the third algorithms will improve on the first to be applicable to large-scale problems. In particular, the dual solutions derived in this section will be estimated by the second algorithm, and a barycentric projection from Section~\ref{BaryProj} approximated for these estimates in the third algorithm.
+The final section of the second part will contain three algorithms used for mapping estimation. The first makes use of the preceding optimality conditions in Corollary~\ref{RegOptCond}, while the second and the third algorithms will improve on the first to be applicable to large-scale problems. In particular, the dual solutions derived in this section will be estimated by the second algorithm, and a barycentric projection from Section~\ref{BaryProj} approximated for these estimates in the third algorithm.
 
 \section{Stochastic Plan and Mapping Estimation}\label{StoPlanAndMapEst}
 
-In this final section, the focus will be on the estimation of optimal transport solutions, that is both plans and maps. The first step is the Sinkhorn algorithm, which is a well-known approach. We will then go on to describe a method involving stochastic gradient descent, as has been detailed by\ \cite{Seg2018}.
-
-We can use the optimality conditions from Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as\ \cite[Remark~4.9]{Cla2021}, points out. The idea of this algorithm is twofold: apply Equations~\ref{OptCond1} and\ \ref{OptCond2} to iteratively approach optimal dual variables, and then use the last equation to obtain an estimated optimal transport plan.
+We can use the optimality conditions from Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as\ \cite[Remark~4.9]{Cla2021}, points out. The idea of this algorithm is twofold: apply Equations~\ref{OptCond1} and\ \ref{OptCond2} to iteratively improve dual variables, and then use the last equation to obtain an estimated optimal transport plan.
 
 For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
 \[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
@@ -267,9 +267,9 @@ This $\gamma_N$ now functions as the approximation of an optimal transport plan 
 
 %This formulation will be used from now on, as it simplifies the following formulae, and by the proof of Theorem~\ref{RegStrongDualityLLL} $\sup\limits_{L_{\exp}} \text{(RD)}$ and $\sup\limits_{\mathcal{C}_b} \text{(PD)}$ coincide.
 
-When considering complex problem settings however, the ever-growing dimensions of the underlying data become problematic. As\ \cite[Section~1, Large-scale OT]{Seg2018}, points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples because each of its iterations has $\mathcal{O}(n^2)$ complexity. Therefore, another approach is required when the underlying measures are continuous or the dimensions of the individual samples get too large.
+When considering complex problem settings however, the ever-growing dimensions of the underlying data become problematic. As\ \cite[Section~1, Large-scale OT]{Seg2018} points out, the Sinkhorn algorithm is only useful when considering discrete measures over small samples, because of every single iteration requiring an $\mathcal{O}(n^2)$ cost complexity. Therefore, another approach is required when the underlying measures are continuous or the dimensions of the individual samples get too large.
 
-The procedure proposed by\ \cite{Seg2018} improves on this disadvantage: Instead of only computing the approximated dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
+The procedure proposed by\ \cite{Seg2018} improves on this disadvantage: instead of only computing the approximated dual variables at a specified location $(x, y)$, a neural network is trained to model the continuous case for all values from $\Omega$. In the discrete case, a finite vector representing $\varphi_i = \varphi(x_i)$, and $\psi_j = \psi(y_j)$ respectively, is iteratively improved.
 
 Before continuing, we first give a basic overview on \textit{neural networks}. This overview is based on\ \cite[Chapter~6]{Good2016}, and\ \cite[Section~6.2]{Brag2020}. We then go on to estimate optimal transport plans and finish with the approximation of optimal transport maps with the algorithms given by\ \cite{Seg2018}.
 
