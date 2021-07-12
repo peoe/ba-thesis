@@ -33,7 +33,7 @@ We can now state the Monge problem in its modern form:
 We can already provide a couple of results about the general existence of transport maps --- though these must not be optimal for (MP). The main restriction on our starting measures $\mu$ regards the existence of so-called \textit{atoms}.
 
 \begin{definition}[Atoms; adapted from\ {\cite[Volume~1, Definition~1.12.7]{Bog2007}}]\label{Atoms}
-	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if $\forall B \in \X, B \subseteq A \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A)$ holds. If $\mu$ has no atoms, we say it is \textbf{atomless}.
+	Let $\mu \in \M{X}$ be a measure and \X{} be a $\sigma$-algebra on $X$. A set $A \in \X$ is called an \textbf{atom} of $\mu$ if $\forall B \in \X, B \subseteq A: \text{either } \mu(B) = 0 \text{ or } \mu(B) = \mu(A)$ holds. If $\mu$ has no atoms, we say it is \textbf{atomless}.
 \end{definition}
 
 When there are no atoms for $\mu$ and the underlying measurable space is compact, we can first acheive existence of transport maps on the real line.
@@ -73,7 +73,7 @@ By applying the injective map \map[\sigma_d]{\R^d}{\R} from\ {\cite[Lemma~1.29]{
 %	It can be shown that for any atomless measure $\mu \in \PM{\R^d}$ (cf.\ \cite{Bog2007}, Volume 1, Definition 1.12.7) and any $\nu \in \PM{\R^d}$, there exists a transport map \map[T]{\R^d}{\R^d} with $\push{\mu} = \nu$. For a more detailed explanation, one may consider the argument made by~\cite{San2015} in Lemma~1.27 upto Corollary~1.29.
 %\end{remark}
 
-In general, (MP) is not easy to solve. In order to point out the difficulites we may face, we require the notion of \textit{weak convergence} of a measure.
+In general, (MP) is not easy to solve. In order to point out the difficulties we may face, we require the notion of \textit{weak convergence} of a measure.
 
 %\begin{definition}[Dual Space; adapted from~\cite{Ryn2008}, Definition 4.28]\label{DuaSpa}
 %	Let $(X, ||\cdot||)$ be a normed space over \K. We define the \textbf{dual space} of X as the set of all continuous linear functions \map{X}{\K}. Bestowed with the norm $||\varphi||_{X'} := \sup \{ |\varphi(x)| : ||x|| \le 1 \}$, the dual space is a normed space as well.
@@ -99,9 +99,9 @@ We can now consider the following two points to illustrate the difficulties in d
 
 Firstly, if one of the two measures were to be discrete, for example of the form $\mu = \delta_{x_0}, x_0 \in X$, and the other is not, (MP) would turn infeasible. In order for $T$ to be a transport map for (MP), no \textit{mass splitting} must occur. With a semi-discrete transport problem, this is not possible.
 
-Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence (cf.\ Definition~\ref{WeakConMeas}). Consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. We get $(\push[T_n]{\mu})(y) = \mu\left( \frac{\arcsin(y)}{n} \right)$ and notice that for all $\varepsilon > 0$ there exists an \NinN{} such that the inner term on the right-hand side is less then $\varepsilon$ for all $y \in Y$. If \push[T_n]{\mu} is weakly convergent, it can thus only converge to $\nu \equiv 0$, i.e.\ for \NinN{} sufficiently large, $T_n$ no longer induces a probability measure via the push-forward.
+Secondly, as~\cite{San2015} pointed out, the constraint on $T$ in (MP) is not closed under weak convergence (cf.\ Definition~\ref{WeakConMeas}). Consider the sequence $T_n(x) := \sin(nx)$ on $[0, 2 \pi]$ for \NinN. We get $(\push[T_n]{\mu})(y) = \mu\left( \frac{\arcsin(y)}{n} \right)$ and notice that for all $\varepsilon > 0$ there exists an \NinN{} such that the inner term on the right-hand side is less than $\varepsilon$ for all $y \in Y$. If \push[T_n]{\mu} is weakly convergent, it can thus only converge to $\nu \equiv 0$, i.e.\ for \NinN{} sufficiently large, $T_n$ no longer induces a probability measure via the push-forward.
 
-Both of these problems can be avoided by considering a different way of formulating the transport constraint. We will later see, that this relaxed description indeed includes (MP).
+Both of these problems can be avoided by considering a different way of formulating the transport constraint. We will later see that this relaxed description indeed includes (MP).
 
 \section{The Kantorovich Relaxation}\label{KantRelax}
 In 1942,\ \cite{Kan1942} gave a more general formulation for the optimal transport problem. Instead of formulating the transport via the push-forward under a transport map, Kantorovich used so-called \textit{transport plans}, where the original measures appeared as marginals of a joint measure. This, as~\cite{San2015} puts it,  allowed for a description of how many particles are moved from $x$ to $y$ instead of specifying the destination of $x$ under $T$.
@@ -217,7 +217,7 @@ In most cases, our cost functions will be sufficiently continuous in order to ap
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted fromthe proof of\ \cite[Theorem~1.7]{San2015}. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
+	This proof was adapted from the proof of\ \cite[Theorem~1.7]{San2015}. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
 
 	To this end, let $\varepsilon > 0$. As a sequence made up of a single transport plan $\gamma$ is necessarily tight, we can find two compact sets $K_X \subseteq X, K_Y \subseteq Y$, such that $\mu(X \setminus K_X) < \frac{\varepsilon}{2}$ and $\nu(Y \setminus K_Y) < \frac{\varepsilon}{2}$ hold true. Hence, the set $K_X \times K_Y \subseteq X \times Y$ is compact too, resulting in
 	\[ \forall \gamma_n \in \TP{\mu}{\nu}: \gamma_n\big( (X \times Y) \setminus (K_X \times K_Y) \big) \]
@@ -291,7 +291,7 @@ So far, we do not know if the supremum on the left-hand side does exist. To hand
 	
 	Let us assume that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equibounded. In this case we have $\forall C > 0~\exists (x, y) \in X \times Y, \NinN[N]: |(\varphi_N, \psi_N)(x, y)| > C$. Since $\varphi_n$ and $\psi_n$ are both bounded, we can assume that  for all \NinN{} $\exists C_n > 0~\forall (x, y) \in X \times Y: |(\varphi_n, \psi_n)(x, y)| < C_n$, and because ${(\varphi_n, \psi_n)}_{\NinN}$ is increasing, we can assume that ${(C_n)}_{\NinN}$ is increasing too. This means that for the \NinN[N] from the assumption we get $C_N > \max \{C_n : n < N \}$, thus ${(c_n)}_{\NinN}$ is strictly increasing. If ${(C_n)}_{\NinN}$ converges to a constant $\tilde{C} > 0$ for \Ninf{}, we contradicted our assumption for all $C > \tilde{C}$, as there could never exist a suitable \NinN. If ${(C_n)}_{\NinN}$ does not converge, there needs to exist a pair $(\hat{x}, \hat{y}) \in X \times Y$ with $|(\varphi_n, \psi_n)(\hat{x}, \hat{y})| > C_{n - 1}$. This too would lead to a contradiction, because $C_n \rightarrow \infty$ for \Ninf{}, and hence for a certain $\NinN[\tilde{N}] \forall n \ge \tilde{N}: \varphi_n \oplus \psi_n > c$, as $c$ is continuous on a compact space and must thus attain a finite maximum. In this case, our sequence would no longer be admissible to (DP).
 	
-	Let us moreover assume, that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equicontinuous, i.e.\ there exists an $\varepsilon > 0$, such that $\forall \delta > 0~\exists \NinN, (x, y), (\hat{x}, \hat{y}) \in X \times Y, \big\vert\big( d_X(x, \hat{x}), d_Y(y, \hat{y}) \big)\big\vert< \delta: |(\varphi_n, \psi_n)(x, y) - (\varphi_n, \psi_n)(\hat{x}, \hat{y})| \ge \varepsilon$. Due to this assumption however, we have already contradicted the unifom continuity of all $(\varphi_n, \psi_n)$ on the compact space $X \times Y$.
+	Let us moreover assume, that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equicontinuous, i.e.\ there exists an $\varepsilon > 0$, such that $\forall \delta > 0~\exists \NinN, (x, y), (\hat{x}, \hat{y}) \in X \times Y, \big\vert\big( d_X(x, \hat{x}), d_Y(y, \hat{y}) \big)\big\vert< \delta: |(\varphi_n, \psi_n)(x, y) - (\varphi_n, \psi_n)(\hat{x}, \hat{y})| \ge \varepsilon$. Due to this assumption however, we have already contradicted the uniform continuity of all $(\varphi_n, \psi_n)$ on the compact space $X \times Y$.
 	
 	We can now apply Arzela-Ascoli (\ref{Arz-Asc}) in order to obtain a subsequence ${(\varphi_{n_k}, \psi_{n_k})}_{\NinN[k]}$, which uniformly converges to a continuous and furthermore bounded function \map[(\varphi, \psi)]{X \times{} Y}{\R}. This subsequence is once again equibounded and convergent, such that we can further apply the Theorem of Lebesgue (\ref{Leb-DomCon}) to obtain
 	\[ \lim\limits_{\NinN[k]} \int\limits_X \varphi_{n_k}~\D + \lim\limits_{\NinN[k]} \int\limits_Y \psi_{n_k}~\D[\nu] = \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
@@ -300,14 +300,14 @@ So far, we do not know if the supremum on the left-hand side does exist. To hand
 	Thus, $(\varphi, \psi)$ is a solution to (DP) satisfying the desired properties.
 \end{proof}
 
-So far we have seen, that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Going forward, we want to show $\inf \text{(KP)} \le \sup \text{(DP)}$. An important property that allows us to do so is the \textit{$c$-cyclical monotonicity} of the underlying set $\Omega \subseteq X \times Y$.
+So far we have seen that both (KP) and (DP) admit solutions, but up to now the relation between these solutions has only been $\sup \text{(DP)} \le \inf \text{(KP)}$. Going forward, we want to show $\inf \text{(KP)} \le \sup \text{(DP)}$. An important property that allows us to do so is the \textit{$c$-cyclical monotonicity} of the underlying set $\Omega \subseteq X \times Y$.
 
 \begin{definition}[$c$-Cyclical Monotonicity; adapted from\ {\cite[Definition~1.36]{San2015}}]\label{c-CM}
 	For any given function $\map[c]{X \times{} Y}{\R \cup \{ \infty \}}$, we say that a set $\Omega \subseteq X \times Y$ is $c$-cyclically monotone ($c$-CM), if for every \NinN[k], every permutation $\sigma \in S_k$ and every finite set of points $(x_1, y_1), \dots, (x_k, y_k) \in \Omega$ we have
 	\[ \sum\limits_{i = 1}^k c(x_i, y_i) \le \sum\limits_{i = 1}^k c(x_i, y_{\sigma(i)}). \]
 \end{definition}
 
-For $c$-cyclically monotone $\Omega \subseteq X \times Y$, we can acheive a relation between $c$-concave functions and $\Omega$.
+For $c$-cyclically monotone $\Omega \subseteq X \times Y$, we can achieve a relation between $c$-concave functions and $\Omega$.
 
 \begin{lemma}[Adapted from\ {\cite[Theorem~1.37]{San2015}}]\label{c-CM-c-ConcExist}
 	Let $\Omega \subseteq X \times Y$ be a $c$-CM set with $\Omega \neq \emptyset$, and \map[c]{X \times{} Y}{\R} be an arbitrary function. Then there exists a $c$-concave function $\map[\varphi]{X}{\R \cup \{ - \infty \}}$, $\varphi \not\equiv -\infty$, such that
@@ -348,7 +348,7 @@ In combination with the concepts of $c$- and $\bar{c}$-concavity, Lemma~\ref{OTP
 
 %The problem we now face, is that our $c$ can not always be assumed to be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is however possible to avoid the constraints on uniform continuity and an upper bound and instead just require an l.s.c.\ cost function.
 
-At the end of Section~\ref{KantRelax} we have generalized the existence results for (KP) to l.s.c.\ cost functions. In a similar fashion, we would like to relax the constraint on $c$ in Theorem~\ref{BoundedPDRel}. We first make the following observation for all l.s.c.\ cost functions bounded from below. Boundedness from below is usually a practical assumption for cost functions, because negative costs can often be avoided by reformulating the problem to only assign non-negative costs. After the lemma we can acheive strong duality for much more general settings.
+At the end of Section~\ref{KantRelax} we have generalized the existence results for (KP) to l.s.c.\ cost functions. In a similar fashion, we would like to relax the constraint on $c$ in Theorem~\ref{BoundedPDRel}. We first make the following observation for all l.s.c.\ cost functions bounded from below. Boundedness from below is usually a practical assumption for cost functions, because negative costs can often be avoided by reformulating the problem to only assign non-negative costs. After the lemma we can achieve strong duality for much more general settings.
 
 \begin{lemma}[Adapted from\ {\cite[Lemma~1.41]{San2015}}]\label{ConvOfKanProb}
 	Let $c$ and $c_n$ be l.s.c.\ and bounded from below for all \NinN. If $c_n \nearrow c$ for \Ninf, i.e. ${(c_n)}_{\NinN}$ converges increasingly towards $c$, then
@@ -363,7 +363,7 @@ At the end of Section~\ref{KantRelax} we have generalized the existence results 
 	\[ \Rightarrow \forall \NinN: \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_{n + 1}~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c~\D[\gamma]. \]
 	With the convergence of $c_n$ we thus have $\lim\limits_{\Ninf} \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c~\D[\gamma]$.
 
-	In the proof of Theorem~\ref{KPAdmitPolishLSC} we have already seen, that every sequence from \TP{\mu}{\nu} is tight, and from the theorem itself we know that for every $c_n$ there exists an optimal transport map $\gamma_n$. Applying Prokhorov (\ref{Prok}) once more, we obtain a subsequence ${(\gamma_{n_k})}_{\NinN[k]}$ which weakly converges to a transport plan $\tilde{\gamma}$. Picking an arbitrary \NinN[j] we have $\forall n \ge j: c_n \ge c_j$ by induction from the monotonicity of our original sequence, and hence
+	In the proof of Theorem~\ref{KPAdmitPolishLSC} we have already seen that every sequence from \TP{\mu}{\nu} is tight, and from the theorem itself we know that for every $c_n$ there exists an optimal transport map $\gamma_n$. Applying Prokhorov (\ref{Prok}) once more, we obtain a subsequence ${(\gamma_{n_k})}_{\NinN[k]}$ which weakly converges to a transport plan $\tilde{\gamma}$. Picking an arbitrary \NinN[j] we have $\forall n \ge j: c_n \ge c_j$ by induction from the monotonicity of our original sequence, and hence
 	\[ \lim\limits_{\NinN}\,\inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] = \lim\limits_{\NinN} \int\limits_{X \times Y} c_n~\D[\gamma_n] \ge \liminf\limits_{\NinN} \int\limits_{X \times Y} c_j~\D[\gamma_n]. \]
 	As $\vert c_j \vert \le c$ we can now take the limit over $j$ and apply Lebesgue (\ref{Leb-DomCon}) to get
 	\[ \lim\limits_{\NinN}\,\inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \ge \liminf\limits_{\NinN}\,\lim\limits_{\NinN[j]} \int\limits_{X \times Y} c_j~\D[\gamma_n] = \liminf\limits_{\NinN} \int\limits_{X \times Y} c~\D[\gamma_n]. \]
@@ -379,7 +379,7 @@ With Lemma~\ref{ConvOfKanProb} we can obtain a theorem about strong duality with
 \begin{proof}
 	This proof was adapted from the proof of\ \cite[Theorem~1.42]{San2015}.
 
-	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out, that this is no problem: as\ \cite[Box~1.5]{San2015} points out, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
+	For this proof, we would like to apply Lemma~\ref{ConvOfKanProb}, however this requires the existence of an l.s.c.\ sequence ${(c_n)}_{\NinN}, \forall \NinN: \map[c_n]{X \times Y}{\RZero \cup \{ \infty \}}$ with $c_n \nearrow c$ for \Ninf. It turns out that this is no problem: as\ \cite[Box~1.5]{San2015} points out, $c$ is l.s.c.\ if and only if there exists a sequence of $K$-Lipschitz functions with $c_n \nearrow c$ for \Ninf. Here $K$-Lipschitz refers to $\forall \NinN{}, z, \hat{z} \in X \times Y: \vert c_n(z) - c_n(\hat{z}) \vert \le K \cdot d_{X \times Y}(z, \hat{z})$.
 
 	By Lipschitz continuity implying uniform continuity, and uniform continuity implying lower semi-continuity via regular continuity, this sequence is l.s.c. Using the uniform continuity and the bound obtained from $c$, we can apply Theorem~\ref{BoundedPDRel} and $\varphi \oplus \psi \le c_n \le c$ to get
 	\[ \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] = \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c_n} \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu] \]
