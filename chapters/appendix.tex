@@ -22,23 +22,23 @@ The following theorems and corollaries will not be explicitly proven. Direct sou
 %	\[ \lim\limits_{\Ninf[k]} \int\limits_a^b f(x)\sin(xk)~dx = 0. \]
 %\end{theorem}
 
-\begin{theorem}[Prokhorov; adapted from~\cite{San2015}, Box~1.4]\label{Prok}
+\begin{theorem}[Prokhorov; adapted from\ {\cite[Box~1.4]{San2015}}]\label{Prok}
 	Suppose that ${(\mu_n)}_{\NinN}$ is a tight sequence of probability measures over a complete and separable metric space $X$, that is for every $\varepsilon > 0$ there exists a compact subset $K \subseteq X$ such that $\mu_n(X \setminus K) < \varepsilon$ for every \NinN. Then there exists $\mu \in \PM{X}$ and a subsequence ${(\mu_{n_k})}_{\NinN[k]}$ such that \weak{\mu_{n_k}}{\mu} for \Ninf[k]. Conversely, every sequence \weak{\mu_n}{\mu} for \Ninf{} is necessarily tight.
 
 	Here, \weak{\mu_n}{\mu} is meant in the sense of Definition~\ref{WeakConMeas}.
 \end{theorem}
 
-\begin{theorem}[Arzela-Ascoli; adapted from~\cite{San2015}, Box 1.7]\label{Arz-Asc}
+\begin{theorem}[Arzela-Ascoli; adapted from\ {\cite[Box~1.7]{San2015}}]\label{Arz-Asc}
 	Let $X$ be a compact metric space and \map[f_n]{X}{\R} be equicontinuous and equibounded for all \NinN. Equicontinuous meaning that for every $\epsilon > 0$, there exists a common $\delta > 0$ such that $|f_n(x) - f_n(y)| < \epsilon$ for all pairs $x, y \in X$ with $d(x, y) < \delta$ and for all \NinN. Equibounded referring to the property that there is a common constant $C$ with $|f_n(x)| \le C$ for all $x \in X$ and all \NinN.
 
 	Then the sequence ${(f_n)}_{\NinN}$ admits a subsequence ${(f_{n_k})}_{\NinN[k]}$ which uniformly converges to a continuous function \map[f]{X}{\R}.
 \end{theorem}
 
-\begin{theorem}[Lebesgue, Dominated Convergence; adapted from~\cite{Bog2007}, Volume 1, Theorem 2.8.1]\label{Leb-DomCon}
+\begin{theorem}[Lebesgue, Dominated Convergence; adapted from\ {\cite[Volume~1, Theorem~2.8.1]{Bog2007}}]\label{Leb-DomCon}
 	Suppose that $\mu$-integrable functions $f_n$ converge almost everywhere to a function $f$. If there exists a $\mu$-integrable function $\phi$ such that $|f_n| \le \phi$ a.e.~for every $n$, then the function $f$ is integrable and
 	\[ \lim\limits_{\Ninf} \int\limits_X f_n~\D = \int\limits_X f~\D. \]
 \end{theorem}
 
-\begin{theorem}[Banach-Alaoglu; taken from\ \cite{Kes2009}, Theorem~5.2.1]\label{Ban-Alao}
+\begin{theorem}[Banach-Alaoglu; taken from\ {\cite[Theorem~5.2.1]{Kes2009}}]\label{Ban-Alao}
 	Let $X$ be a Banach space. Then, the closed unit ball in the dual space $X'$ is weakly-* compact.
 \end{theorem}
