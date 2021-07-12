@@ -235,7 +235,7 @@ The final section of the second part will contain three algorithms used for mapp
 
 In this final section, the focus will be on the estimation of optimal transport solutions, that is both plans and maps. The first step is the Sinkhorn algorithm, which is a well-known approach. We will then go on to describe a method involving stochastic gradient descent, as has been detailed by\ \cite{Seg2018}.
 
-We can use the optimality conditions from Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as\ \cite[Remark~4.9]{Cla2021}, points out. The idea of this algorithm is twofold: apply equations\ \ref{OptCond1} and\ \ref{OptCond2} to iteratively approach optimal dual variables, and then use the last equation to obtain an estimated optimal transport plan.
+We can use the optimality conditions from Corollary~\ref{RegOptCond} to derive the \textit{Sinkhorn algorithm}, as\ \cite[Remark~4.9]{Cla2021}, points out. The idea of this algorithm is twofold: apply Equations~\ref{OptCond1} and\ \ref{OptCond2} to iteratively approach optimal dual variables, and then use the last equation to obtain an estimated optimal transport plan.
 
 For a starting value $u_2^0 \in \Lexp[\Omega_2]$ we define
 \[ T_1^{n + 1}(x) := \Phi^{-1} \left( \frac{\mu(x)}{\int_{\Omega_2} \Phi\big( u_2^n(y) \big) \exp\left( \frac{-c(x, y)}{\varepsilon} \right)\D[y]} \right), \]
