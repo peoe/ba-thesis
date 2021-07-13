@@ -92,7 +92,7 @@ In general, (MP) is not easy to solve. In order to point out the difficulties we
 \end{definition}
 
 \begin{remark}
-	Technically, the space of radon measures is the dual of the space of continuous functions, see e.g.\ \cite[Section~4]{Kapl1957}. Following this duality, one can define weak-* convergence for locally finite non-negative measures in accordance with\ \cite[Definition~2.4]{Cami2008}. In Definition~\ref{WeakConMeas}, the observed measures are globally finite, meaning that it should instead refer to the \textit{weak-* convergence} of these measures. It is however not uncommon to see the usage of weak convergence in relevant literature. Due to this, we will continue to use this term, while at the same time acknowledging that it should not be used.
+	Technically, the space of radon measures is the dual of the space of continuous functions, see e.g.\ \cite[Section~4]{Kapl1957}. Following this duality, one can define weak-* convergence for locally finite non-negative measures in accordance with\ \cite[Definition~2.4]{Cami2008}. In Definition~\ref{WeakConMeas}, the observed measures are globally finite, meaning that it should instead refer to the \textit{weak-* convergence} of these measures. It is however not uncommon to see the usage of weak convergence in relevant literature, e.g.\ \cite[Volume~2, Definition~8.1.1]{Bog2007}. Due to this, we will continue to use this term, while at the same time acknowledging that it technically is not correct.
 \end{remark}
 
 We can now consider the following two points to illustrate the difficulties in dealing with (MP):
@@ -118,7 +118,7 @@ Using this terminology we can now describe the Kantorovich Problem as a more gen
 \begin{definition}[Kantorovich Problem; adapted from\ {\cite[Problem~1.2]{San2015}}]\label{KanProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting measures, and consider the function $\map[c]{X \times Y}{\RZero \cup \{\infty\}}$ to be a cost function. Then we call the following optimization problem the \textbf{Kantorovich Problem}:
 	\[ \inf \left\{ K(\gamma) := \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma} : \gamma \in \TP{\mu}{\nu} \right\}. \]
-	In analogy to Definition~\ref{MongeProb} we will be using the abbreviation (KP) to describe the problem itself and denominate the attained infimum as $\inf \text{(KP)}$. We shall further define \textbf{optimal transport plans} as those specific transport plans $\gamma \in \TP{\mu}{\nu}$ that satisfy
+	In analogy to Definition~\ref{MongeProb}, we will be using the abbreviation (KP) to describe the problem itself and denominate the attained infimum as $\inf \text{(KP)}$. We shall further define \textbf{optimal transport plans} as those specific transport plans $\gamma \in \TP{\mu}{\nu}$ that satisfy
 	\[ \int\limits_{X \times Y} c(x, y)~\Dx[x, y]{\gamma} = \inf \text{(KP)}. \]
 \end{definition}
 
@@ -222,7 +222,7 @@ In most cases, our cost functions will be sufficiently continuous in order to ap
 	To this end, let $\varepsilon > 0$. As a sequence made up of a single transport plan $\gamma$ is necessarily tight, we can find two compact sets $K_X \subseteq X, K_Y \subseteq Y$, such that $\mu(X \setminus K_X) < \frac{\varepsilon}{2}$ and $\nu(Y \setminus K_Y) < \frac{\varepsilon}{2}$ hold true. Hence, the set $K_X \times K_Y \subseteq X \times Y$ is compact too, resulting in
 	\[ \forall \gamma_n \in \TP{\mu}{\nu}: \gamma_n\big( (X \times Y) \setminus (K_X \times K_Y) \big) \]
 	\[ \le \gamma_n\big( (X \setminus K_X) \times Y \big) + \gamma_n\big( X \times (Y \setminus K_Y) \big) = \mu(X \setminus K_X) + \nu(Y \setminus K_Y) < \varepsilon. \]
-	With Prokhorov (\ref{Prok}) we get \weak{\gamma_n}{\gamma} for \Ninf. As our transport plan $\gamma$ was chosen arbitrarily, this property holds for all transport plans and thus all sequences of transport plans. Finally, the claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures (cf.\ Definition~\ref{WeakConMeas}).
+	With Prokhorov (\ref{Prok}), we get \weak{\gamma_n}{\gamma} for \Ninf. As our transport plan $\gamma$ was chosen arbitrarily, this property holds for all transport plans and thus all sequences of transport plans. Finally, the claim can be seen using the compactness of \TP{\mu}{\nu} and the continuity of $K$ with regard to the weak convergence of measures (cf.\ Definition~\ref{WeakConMeas}).
 \end{proof}
 
 It is beneficial to investigate the dual problem of (KP), because this dual problem will enable us to consider a regularized dual optimal problem in the second part of the thesis. This regularized dual will ultimately aid in the estimation of optimal transport plans and consequently in the estimation of maps as well.
@@ -252,7 +252,7 @@ This argument allows us to state the dual problem to the Kantorovich relaxation 
 \begin{definition}[Kantorovich Dual Problem; adapted from\ {\cite[Problem~1.9]{San2015}}]\label{DualProb}
 	Let $\mu \in \PM{X}, \nu \in \PM{Y}$ be our starting measures, and consider $\map[c]{X \times Y}{\RZero{} \cup{} \{ \infty \}}$ to be a cost function. Then we call the following optimization problem the \textbf{Kantorovich Dual Problem}:
 	\[ \sup \left\{ \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] : \varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}, \varphi \oplus \psi \le c \right\}. \]
-	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb} we will be using the abbreviation (DP) to describe the problem itself and $\sup \text{(DP)}$ to denominate its supremum.
+	In analogy to Definitions~\ref{MongeProb}~and~\ref{KanProb}, we will be using the abbreviation (DP) to describe the problem itself and $\sup \text{(DP)}$ to denominate its supremum.
 \end{definition}
 
 With the formulation of (DP) and the previous characterization of the constraint ``$\gamma \in \TP{\mu}{\nu}$'', it is now possible to reach a statement about strong duality. For all admissible $\gamma \in \TP{\mu}{\nu}$ (i.e.~the constraint from (KP)) and $\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}$ with $\varphi \oplus \psi \le c$ (i.e.~the constraint from (DP)) we have
@@ -299,7 +299,7 @@ So far, we do not know if the supremum on the left-hand side does exist. To hand
 	
 	Let us now assume, that the sequence ${(\varphi_n, \psi_n)}_{\NinN}$ is not equicontinuous, i.e.\ there exists an $\varepsilon > 0$, such that $\forall \delta > 0~\exists \NinN, (x, y), (\hat{x}, \hat{y}) \in X \times Y$, $\big\vert\big( d_X(x, \hat{x}), d_Y(y, \hat{y}) \big)\big\vert< \delta: |(\varphi_n, \psi_n)(x, y) - (\varphi_n, \psi_n)(\hat{x}, \hat{y})| \ge \varepsilon$. Because of this assumption however, we have already contradicted the uniform continuity of all $(\varphi_n, \psi_n)$ on the compact space $X \times Y$.
 	
-	We can now apply Arzela-Ascoli (\ref{Arz-Asc}) in order to obtain a subsequence ${(\varphi_{n_k}, \psi_{n_k})}_{\NinN[k]}$, which uniformly converges to a continuous and furthermore bounded function \map[(\varphi, \psi)]{X \times{} Y}{\R}. This subsequence is once again equibounded and convergent, such that we can further apply the Theorem of Lebesgue (\ref{Leb-DomCon}) to obtain
+	We can now apply Arzela-Ascoli (\ref{Arz-Asc}), in order to obtain a subsequence ${(\varphi_{n_k}, \psi_{n_k})}_{\NinN[k]}$, which uniformly converges to a continuous and furthermore bounded function \map[(\varphi, \psi)]{X \times{} Y}{\R}. This subsequence is once again equibounded and convergent, such that we can further apply the Theorem of Lebesgue (\ref{Leb-DomCon}) to obtain
 	\[ \lim\limits_{\NinN[k]} \int\limits_X \varphi_{n_k}~\D + \lim\limits_{\NinN[k]} \int\limits_Y \psi_{n_k}~\D[\nu] = \int\limits_X \varphi~\D + \int\limits_Y \psi~\D[\nu]. \]
 	To show the admissibility of $(\varphi, \psi)$, we note that
 	\[ \varphi_{n_k} \oplus \psi_{n_k} \le c \Rightarrow \varphi \oplus \psi \le c. \]
@@ -343,7 +343,7 @@ In combination with the concepts of $c$- and $\bar{c}$-concavity, Lemma~\ref{OTP
 \begin{proof}
 	This proof was adapted from the proof of\ \cite[Theorem~1.39]{San2015}.
 
-	We will first consider (KP) in order to find an admissible pair for (DP). As $c$ is continuous and especially l.s.c., we can apply Theorem~\ref{KPAdmitPolishLSC} to obtain a solution $\gamma$ of (KP). By Lemma~\ref{OTPlanc-CM} the set $\Omega := \text{supp}(\gamma)$ is $c$-CM\@. Applying Lemma~\ref{c-CM-c-ConcExist} we can find a $c$-concave and thus continuous function $\varphi$, such that $\Omega \subseteq \big\{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \big\}$. Both $\varphi$ and $\varphi^c$ must further be bounded: if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
+	We will first consider (KP) in order to find an admissible pair for (DP). As $c$ is continuous and especially l.s.c., we can apply Theorem~\ref{KPAdmitPolishLSC} to obtain a solution $\gamma$ of (KP). By Lemma~\ref{OTPlanc-CM}, the set $\Omega := \text{supp}(\gamma)$ is $c$-CM\@. Applying Lemma~\ref{c-CM-c-ConcExist}, we can find a $c$-concave and thus continuous function $\varphi$, such that $\Omega \subseteq \big\{ (x, y) \in X \times Y : \varphi(x) + \varphi^c(y) = c(x, y) \big\}$. Both $\varphi$ and $\varphi^c$ must further be bounded: if we assume $\varphi$ and $\varphi^c$ to be unbounded, i.e.~for all $C \in \R: \sup \vert \varphi \oplus \varphi^c \vert > C$, our $c$ would also be unbounded.
 	
 	Because $(\varphi, \varphi^c)$ is an admissible pair for (DP), we have
 	\[ \int\limits_X \varphi~\D + \int\limits_Y \varphi^c~\D[\nu] \overset{(*)}{=} \int\limits_{\Omega} \varphi \oplus \varphi^c~\D[\gamma]  = \int\limits_{\Omega} c~\D[\gamma] = \int\limits_{X \times Y} c~\D[\gamma]. \]
@@ -354,7 +354,7 @@ In combination with the concepts of $c$- and $\bar{c}$-concavity, Lemma~\ref{OTP
 
 %The problem we now face, is that our $c$ can not always be assumed to be uniformly continuous or bound from above (the bound from below is always satisfied, when we consider ``practical'' cost functions mapping to $\RZero \cup \{ \infty \}$). It is however possible to avoid the constraints on uniform continuity and an upper bound and instead just require an l.s.c.\ cost function.
 
-At the end of Section~\ref{KantRelax} we have generalized the existence results for (KP) to l.s.c.\ cost functions. In a similar fashion, we would like to relax the constraint on $c$ in Theorem~\ref{BoundedPDRel}. We first make the following observation for all l.s.c.\ cost functions bounded from below. Boundedness from below is usually a practical assumption for cost functions, because negative costs can often be avoided by reformulating the problem to only assign non-negative costs. After the lemma we can achieve strong duality for much more general settings.
+At the end of Section~\ref{KantRelax}, we have generalized the existence results for (KP) to l.s.c.\ cost functions. In a similar fashion, we would like to relax the constraint on $c$ in Theorem~\ref{BoundedPDRel}. We first make the following observation for all l.s.c.\ cost functions bounded from below. Boundedness from below is usually a practical assumption for cost functions, because negative costs can often be avoided by reformulating the problem to only assign non-negative costs. After the lemma we can achieve strong duality for much more general settings.
 
 \begin{lemma}[Adapted from\ {\cite[Lemma~1.41]{San2015}}]\label{ConvOfKanProb}
 	Let $c$ and $c_n$ be l.s.c.\ and bounded from below for all \NinN. If $c_n \nearrow c$ for \Ninf, i.e. ${(c_n)}_{\NinN}$ converges increasingly towards $c$, then
@@ -369,14 +369,14 @@ At the end of Section~\ref{KantRelax} we have generalized the existence results 
 	\[ \Rightarrow \forall \NinN: \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_{n + 1}~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c~\D[\gamma]. \]
 	With the convergence of $c_n$ we thus have $\lim\limits_{\Ninf} \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c_n~\D[\gamma] \le \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c~\D[\gamma]$.
 
-	In the proof of Theorem~\ref{KPAdmitPolishLSC} we have already seen that every sequence from \TP{\mu}{\nu} is tight, and from the theorem itself we know that for every $c_n$ there exists an optimal transport map $\gamma_n$. Applying Prokhorov (\ref{Prok}) once more, we obtain a subsequence ${(\gamma_{n_k})}_{\NinN[k]}$ which weakly converges to a transport plan $\tilde{\gamma}$. Picking an arbitrary \NinN[j] we have $\forall n \ge j: c_n \ge c_j$ by induction from the monotonicity of our original sequence, and hence
+	In the proof of Theorem~\ref{KPAdmitPolishLSC}, we have already seen that every sequence from \TP{\mu}{\nu} is tight, and from the theorem itself we know that for every $c_n$ there exists an optimal transport map $\gamma_n$. Applying Prokhorov (\ref{Prok}) once more, we obtain a subsequence ${(\gamma_{n_k})}_{\NinN[k]}$ which weakly converges to a transport plan $\tilde{\gamma}$. Picking an arbitrary \NinN[j] we have $\forall n \ge j: c_n \ge c_j$ by induction from the monotonicity of our original sequence, and hence
 	\[ \lim\limits_{\NinN}\,\inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] = \lim\limits_{\NinN} \int\limits_{X \times Y} c_n~\D[\gamma_n] \ge \liminf\limits_{\NinN} \int\limits_{X \times Y} c_j~\D[\gamma_n]. \]
 	As $\vert c_j \vert \le c$ we can now take the limit over $j$ and apply Lebesgue (\ref{Leb-DomCon}) to get
 	\[ \lim\limits_{\NinN}\,\inf\limits_{\gamma \in \TP{\mu}{\nu}} \int\limits_{X \times Y} c_n~\D[\gamma] \ge \liminf\limits_{\NinN}\,\lim\limits_{\NinN[j]} \int\limits_{X \times Y} c_j~\D[\gamma_n] = \liminf\limits_{\NinN} \int\limits_{X \times Y} c~\D[\gamma_n]. \]
 	We finally see that $\liminf\limits_{\NinN} \int c~\D[\gamma_n] \ge \inf\limits_{\gamma \in \TP{\mu}{\nu}} \int c~\D[\gamma]$, and thus our claim.
 \end{proof}
 
-With Lemma~\ref{ConvOfKanProb} we can obtain a theorem about strong duality with preliminaries resembling those of Theorem~\ref{KPAdmitPolishLSC}. This result will conclude the first part, having laid out a foundation of optimal transport theory. The focus will then turn towards regularization in optimal transport, applying analogous duality results, and estimating optimal transport plans and maps in large-scale problem settings.
+With Lemma~\ref{ConvOfKanProb}, we can obtain a theorem about strong duality with preliminaries resembling those of Theorem~\ref{KPAdmitPolishLSC}. This result will conclude the first part, having laid out a foundation of optimal transport theory. The focus will then turn towards regularization in optimal transport, applying analogous duality results, and estimating optimal transport plans and maps in large-scale problem settings.
 
 \begin{theorem}[Adapted from\ {\cite[Theorem~1.42]{San2015}}]\label{GenPDRel}
 	Let $X$ and $Y$ be complete and separable metric spaces, and $\map[c]{X \times Y}{\RZero \cup \{ \infty \}}$ be an l.s.c.\ cost function. Then, $\sup\!\text{\normalfont\,(DP)} = \inf\!\text{\normalfont\,(KP)}$ holds.

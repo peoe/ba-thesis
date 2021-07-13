@@ -39,7 +39,7 @@ We can now state the formulation of the regularized optimal transport problem, b
 	Its \textbf{Predual Problem} for the same $\varepsilon > 0$ is defined as
 	\[ \sup\limits_{\varphi \in \CF[b]{\Omega_1}, \psi \in \CF[b]{\Omega_2}} \int\limits_{\Omega_1} \varphi(x)~\Dx{\mu} + \int\limits_{\Omega_2} \psi(y)~\Dx[y]{\nu} - \varepsilon \int\limits_\Omega F_{\varepsilon}(x, y)~\Dx[x, y]{}, \]
 	with $F_{\varepsilon}(x, y) := \exp\left( \frac{1}{\varepsilon} \big( \varphi(x) + \psi(y) - c(x, y) \big) \right)$.
-	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by\ \cite[Proposition~3.1]{Cla2021}, we have that $\inf \text{(RP)} = \sup \text{(PD)}$, and, if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
+	Just as in the definitions of the previous problems, we will use the abbreviations (RP), $\inf \text{(RP)}$, (PD) and $\sup \text{(PD)}$ for the problems and their respective solutions. To distinguish from transport plans for (KP), we denote $\gamma^{\varepsilon}$ as the optimal transport plan for (RP) and a specific $\varepsilon$. Further, by\ \cite[Proposition~3.1]{Cla2021} we have that $\inf \text{(RP)} = \sup \text{(PD)}$, and, if $\sup \text{(PD)}$ is finite, (RP) admits a minimizer.
 \end{definition}
 
 \begin{remark}
@@ -56,7 +56,7 @@ We can now state the formulation of the regularized optimal transport problem, b
 	\end{figure}
 \end{remark}
 
-With Theorem~\ref{KPAdmitPolishLSC} we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures. Most importantly, we involve the $L \log L$ spaces from above.
+With Theorem~\ref{KPAdmitPolishLSC}, we already saw that an optimal transport plan exists for (KP). For (RP) however, we require more constraints on our marginal measures. Most importantly, we involve the $L \log L$ spaces from above.
 
 \begin{theorem}[Taken from\ {\cite[Theorem~3.3]{Cla2021}}]\label{RegProbAdmitLLL}
 	The problem$\text{\normalfont\ (RP)}$ admits a minimizer $\gamma \in \TP{\mu}{\nu}$ if and only if we have $\mu \in \LLL[\Omega_1]$ and $\nu \in \LLL[\Omega_2]$. In this case, $\gamma \in \LLL$ is unique.
@@ -210,7 +210,7 @@ If we instead restrict ourselves to the assumptions from Theorem~\ref{RegProbAdm
 	\[ \int\limits_{\Omega_1} \alpha~\D + \int\limits_{\Omega_2} \beta~\D[\nu] - \varepsilon \int\limits_\Omega \exp\left( \frac{-c + \alpha + \beta}{\varepsilon} \right)~\D[(x, y)] \le \max\limits_{u_1, u_2 \ge 0} -\varepsilon B(u_1, u_2), \]
 	with $B(\cdot, \cdot)$ being defined as in the proof of Theorem~\ref{RegDualAdmit}. By taking the supremum over all $\alpha$ and $\beta$, we get $\sup \text{(PD)} \le \sup \text{(RD)}$.
 
-	To see $\sup \text{(RD)} \le \sup \text{(PD)}$, one may follow the argument put forth by\ \cite{Cla2021} using the theorems of monotone convergence applied to $B$ and dominated convergence applied to a uniformly bounded, weakly-* convergent subsequence.
+	To see $\sup \text{(RD)} \le \sup \text{(PD)}$, one may follow the argument put forth by\ \cite{Cla2021}, using the theorems of monotone convergence applied to $B$ and dominated convergence applied to a uniformly bounded, weakly-* convergent subsequence.
 \end{proof}
 
 As the final result of this section, the following corollary provides two optimality conditions for solutions of (RD), as well as a characterization of primal solutions to (RP) in terms of its optimal dual variables.
@@ -300,7 +300,7 @@ Before continuing, we first give a basic overview on \textit{neural networks}. T
 
 The entries of the matrices $M_n$ and the vectors $b_n$ are considered as \textit{parameters} $\theta$, and the gradient of the neural network can then be computed with regard to these parameters. From here, we can define the notions of $\nabla \mathcal{H}$ and for $f$ a sufficiently differentiable function $\partial_{\mathcal{H}} f$ (or $\partial_\theta f$). 
 
-We need to adapt the previous definition of $F_\varepsilon$ in Definition~\ref{RegProbs} slightly to include the dual variables:
+We need to adapt the previous definition of $F_\varepsilon$ from Definition~\ref{RegProbs} slightly to include the dual variables:
 \[ F_\varepsilon\big( \varphi(x), \psi(y) \big) := \exp\left( \frac{\varphi(x) + \psi(y) - c(x, y)}{\varepsilon} \right). \]
 This allows us to state the algorithm estimating optimal dual variables.
 
