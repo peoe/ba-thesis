@@ -11,7 +11,7 @@ For this purpose, we consider a non-negative \textit{cost function} $c(x, y)$, w
 To attain the Monge formulation, the transport is modelled via the \textit{push-forward measure}, or \textit{image measure}, of our original measure on $X$.
 
 \begin{definition}[Push-Forward; adapted from\ {\cite[Section~9.1]{Bog2007}}]\label{PushForward}
-	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ as
+	Given a measure $\mu \in \M{X}$ and a measurable map \map[T]{X}{Y}, we define the \textbf{push-forward measure} of $\mu$ under $T$ as a measure on $Y$ by
 	\[ (\push{\mu})(y) := \mu\big( T^{-1} (y) \big). \]
 \end{definition}
 
@@ -172,8 +172,8 @@ Before we can prove strong duality for continuous cost functions and atomless $\
 	This proof was adapted from\ \cite[the proof of Theorem~1.33 and the memo on relaxations, Box~1.10]{San2015}.
 
 	We consider the relaxation $\overline{J}$ of $J$ defined by
-	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma) : \weak{\gamma_n}{\gamma}, \Ninf \right\}. \]
-	Since $J \ge \overline{J}$ per definition implies $\inf J \ge \inf \overline{J}$, and as $J \ge \inf J$ results in $\overline{J} \ge \inf J$ because $\inf J$ is constant and thus l.s.c., we get that $\inf J = \inf \overline{J}$. As $K$ is also l.s.c.\ with $K \le J$ we obtain $\inf K \le \inf J$.
+	\[ \forall \gamma \in \TP{\mu}{\nu}: \overline{J}(\gamma) := \inf \left\{ \liminf\limits_{\Ninf} J(\gamma_n) : \weak{\gamma_n}{\gamma}, \Ninf \right\}. \]
+	Since $J \ge \overline{J}$ per definition implies $\inf J \ge \inf \overline{J}$, and as $J \ge \inf J$ results in $\overline{J} \ge \inf J$, because $\inf J$ is constant and thus l.s.c., we get that $\inf J = \inf \overline{J}$. As $K$ is also l.s.c.\ with $K \le J$ we obtain $\inf K \le \inf J$.
 
 	To show $\inf K = \inf J$ we need to find a sequence of transport maps ${(T_n)}_{\NinN}, T_n \in \MF{\R^d}{\R^d}$ with $\push[(T_n)]{\mu} = \nu$ for every $\gamma \in \TP{\mu}{\nu}$, such that $\gamma_{T_n} \rightharpoonup \gamma$ and $J(\gamma_{T_n}) \rightarrow K(\gamma)$ for \Ninf. Because $K$ is continuous and for $\gamma = \gamma_{T_n}$ it holds that $K(\gamma) = J(\gamma)$, it is already sufficient for a sequence ${(T_n)}_{\NinN}$ to exist with \weak{\gamma_{T_n}}{\gamma} for \Ninf.
 
@@ -217,7 +217,7 @@ In most cases, our cost functions will be sufficiently continuous in order to ap
 \end{theorem}
 
 \begin{proof}
-	This proof was adapted from the proof of\ \cite[Theorem~1.7]{San2015}. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
+	This proof was adapted from the proof of\ \cite[Theorem~1.7]{San2015}. Our objective is to show that any sequence in \TP{\mu}{\nu} is tight (cf.\ \ref{Prok}) and apply the Theorem of Prokhorov (\ref{Prok}), as we can no longer rely on the finite maximum of continuous functions over our (in Lemma~\ref{KPAdmitCompLSCBound} still compact) space $X \times Y$.
 
 	To this end, let $\varepsilon > 0$. As a sequence made up of a single transport plan $\gamma$ is necessarily tight, we can find two compact sets $K_X \subseteq X, K_Y \subseteq Y$, such that $\mu(X \setminus K_X) < \frac{\varepsilon}{2}$ and $\nu(Y \setminus K_Y) < \frac{\varepsilon}{2}$ hold true. Hence, the set $K_X \times K_Y \subseteq X \times Y$ is compact too, resulting in
 	\[ \forall \gamma_n \in \TP{\mu}{\nu}: \gamma_n\big( (X \times Y) \setminus (K_X \times K_Y) \big) \]
@@ -238,9 +238,9 @@ As~\cite{San2015}, Section~1.2, points out, the problem (KP) is a linear optimiz
 To get a dual problem, it is useful to restate the constraint ``$\gamma \in \TP{\mu}{\nu}$'' in terms of continuous bounded functions. We notice that for a general measure $\gamma \in \M{X \times Y}$ the term
 \[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_X \varphi(x)~\Dx{\mu} + \int\limits_Y \psi(y)~\Dx[y]{\nu} - \int\limits_{X \times Y} \varphi(x) + \psi(y)~\Dx[x, y]{\gamma} \]
 equals $0$ if $\gamma \in \TP{\mu}{\nu}$, and $\infty$ if otherwise. This effectively constitutes a restatement of our constraint if we add it to the original formulation of (KP): when the constraint is fulfilled, nothing has changed, and when $\gamma$ is not a transport plan, (KP) stays infeasible. For ease of notation, we will be using $(\varphi \oplus \psi)(x, y) := \varphi(x) + \psi(y)$. Exchanging the $\inf$ and the $\sup$ in the modified (KP), we obtain
-\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] + \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma]. \]
+\[ \sup\limits_{\varphi \in \CF[b]{X}, \psi \in \CF[b]{Y}} \int\limits_{X} \varphi~\D + \int\limits_{Y} \psi~\D[\nu] + \inf\limits_{\gamma \in \M{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma]. \]
 We moreover want to restate the above infimum in $\gamma$ as a constraint on $\varphi$ and $\psi$. We get
-\[ \inf\limits_{\gamma \in \M[+]{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma] = 
+\[ \inf\limits_{\gamma \in \M{X \times Y}} \int\limits_{X \times Y} c - \varphi \oplus \psi~\D[\gamma] = 
 \begin{cases}
 	0, & \varphi \oplus \psi \le c \text{ on } X \times Y \\
 	- \infty, & \text{else}
